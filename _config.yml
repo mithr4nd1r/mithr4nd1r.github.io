@@ -27,7 +27,7 @@ description: >-                        # used by seo meta and the atom feed
   Conhecimento é tudo.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: 'mithr4nd1r.github.io'
+url: 'https://mithr4nd1r.github.io'
 
 github:
   username: osvaldotenorio             # change to your github username
@@ -71,14 +71,14 @@ google_analytics:
 #     light  - Use the light color scheme
 #     dark   - Use the dark color scheme
 #
-theme_mode:   # [light|dark]
+theme_mode: dark  # [light|dark]
 
 # The CDN endpoint for images.
 # Notice that once it is assigned, the CDN url
 # will be added to all image (site avatar & posts' images) paths starting with '/'
 #
 # e.g. 'https://cdn.com'
-img_cdn: 'https://chirpy-img.netlify.app'
+img_cdn: 'https://tryhackme-images.s3.amazonaws.com/user-avatars/4d55583b50c1b7360d0a4fe83d8d905d.jpeg'
 
 # the avatar on sidebar, support local or CORS resources
 avatar: '/commons/avatar.jpg'
