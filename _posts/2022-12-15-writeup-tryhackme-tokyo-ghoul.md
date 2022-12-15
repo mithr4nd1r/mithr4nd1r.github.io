@@ -9,7 +9,7 @@ pin: true
 
 Dificuldade | Opinião | 📅 Início | 📅 Concluída
 :--:|:--:|:--:|:--:
-Médio | Médio | 29 de Novembro de 2022 | 29 de Novembro de 2022
+![](/assets/img/nivel/button_medio.png) | ![](/assets/img/nivel/button_dificil.png) | 29 de Novembro de 2022 | 29 de Novembro de 2022
 
 
 ## Escaneamento
@@ -55,7 +55,7 @@ No exact OS matches for host (If you know what OS is running on it, see https://
 
 - Comando: `ftp 10.10.208.57`
 
-```bash
+```console
 Connected to 10.10.208.57.
 220 (vsFTPd 3.0.3)
 Name (10.10.208.57:mithrandir): ftp
@@ -233,7 +233,7 @@ kamishiro:$6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84OWAIye5VITLLtVlaXvRDJXET
 </html>
 ```
 
-# Creds: `kamishiro`:`$6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84OWAIye5VITLLtVlaXvRDJXET..it8r.jbrlpfZeMdwD3B0fGxJI0`:`password123`
+- Credenciais encontradas: `kamishiro`:`$6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84OWAIye5VITLLtVlaXvRDJXET..it8r.jbrlpfZeMdwD3B0fGxJI0`:`password123`
 
 ![Untitled](TryHackMe%20-%20Tokyo%20Ghoul%20f3445adefbf44ffda5af426f0caa1101/Untitled%208.png)
 
