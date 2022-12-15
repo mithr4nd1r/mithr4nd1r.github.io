@@ -81,7 +81,7 @@ theme_mode: dark  # [light|dark]
 img_cdn: '/assets/img/gandalf.png'
 
 # the avatar on sidebar, support local or CORS resources
-avatar: '/commons/avatar.jpg'
+avatar: '/assets/img/gandalf.png'
 
 # boolean type, the global switch for ToC in posts.
 toc: true
