@@ -10,27 +10,27 @@ baseurl: ''
 # The language of the webpage › http://www.lingoes.net/en/translator/langcode.htm
 # If it has the same name as one of the files in folder `_data/locales`, the layout language will also be changed,
 # otherwise, the layout language will use the default value of 'en'.
-lang: pt-BR
+lang: en
 
 
 # Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
-timezone: America/Campo_Grande
+timezone: Asia/Shanghai
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Mithr4ndir                          # the main title
+title: Chirpy                          # the main title
 
-tagline: Conhecimento é poder.   # it will display as the sub-title
+tagline: A text-focused Jekyll theme   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  Concentrando todo conhecimento adquirido neste singelo lugar.
+  A minimal, responsive, and powerful Jekyll theme for presenting professional writing.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: 'mithr4nd1r.github.io'
+url: ''
 
 github:
-  username: osvaldotenorio             # change to your github username
+  username: github_username             # change to your github username
 
 twitter:
   username: twitter_username            # change to your twitter username
@@ -38,12 +38,12 @@ twitter:
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: Osvaldo Tenorio
-  email: osvaldo.tenorio91@gmail.com             # change to your email address
+  name: your_full_name
+  email: example@domain.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
     - https://twitter.com/username      # change to your twitter homepage
-    - https://github.com/osvaldotenorio       # change to your github homepage
+    - https://github.com/username       # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
