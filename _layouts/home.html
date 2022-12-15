@@ -42,50 +42,59 @@ layout: page
 
 {% for post in posts %}
 
-  <div class="post-preview">
-    <h1>
-      <a href="{{ post.url | relative_url }}"> <img src="{{ post.image }}" alt="{{post.title}} thumbnail" class="post-img"></a>{{ post.title }}</a>
-    </h1>
-
-    <div class="post-content">
-      <p>
-        {% include no-linenos.html content=post.content %}
-        {{ content | markdownify | strip_html | truncate: 200 | escape }}
-      </p>
+<div class="post-preview">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="post-img-cnt">
+            <a href="{{ post.url | relative_url }}">
+              <img src="{{ post.image }}" alt="{{post.title}} thumbnail" class="post-img">
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="post-details">
+            <div class="d-flex justify-content-between pr-xl-2">
+              <h1><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h1>
+              {% if post.pin == true %}
+              <i class="fas fa-thumbtack fa-fw text-muted mt-1 ml-2 mt-xl-2" data-toggle="tooltip" data-placement="left"
+              title="Pinned"></i>
+              {% endif %}
+            </div>
+  
+  
+  
+            <div class="post-content">
+              <p>
+                {% include no-linenos.html content=post.content %}
+                {{ content | markdownify | strip_html | truncate: 200 | escape}}
+              </p>
+            </div>
+            
+            <div class="post-meta text-muted">
+    
+              <!-- posted date -->
+              <i class="far fa-calendar fa-fw"></i>
+              {% include datetime.html date=post.date %}
+              
+              <!-- page views -->
+              {% if site.google_analytics.pv.enabled %}
+              <i class="far fa-eye fa-fw"></i>
+              <span id="pv_{{-post.title-}}" class="pageviews">
+                <i class="fas fa-spinner fa-spin fa-fw"></i>
+              </span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="post-meta text-muted d-flex">
-      <div class="mr-auto">
-
-        <!-- posted date -->
-        <i class="far fa-calendar fa-fw"></i>
-        {% include datetime.html date=post.date %}
-
-        <!-- categories -->
-        {% if post.categories.size > 0 %}
-          <i class="far fa-folder-open fa-fw"></i>
-          <span>
-          {% for category in post.categories %}
-            {{ category }}
-            {%- unless forloop.last -%},{%- endunless -%}
-          {% endfor %}
-          </span>
-        {% endif %}
-
-      </div>
-
-      {% if post.pin %}
-      <div class="pin">
-        <i class="fas fa-thumbtack fa-fw"></i>
-        <span>{{ site.data.locales[site.lang].post.pin_prompt }}</span>
-      </div>
-      {% endif %}
-
-    </div> <!-- .post-meta -->
-
-  </div> <!-- .post-review -->
+  </div>
+</div> <!-- .post-review -->
 
 {% endfor %}
+
 
 </div> <!-- #post-list -->
 

