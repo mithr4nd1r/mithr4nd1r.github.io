@@ -5,7 +5,7 @@ date: 2022-11-29 00:00:00 -0300
 categories: [Walkthrough, TryHackMe, Médio, Linux, Tokyo Ghoul]
 tags: [writeup, walkthrough, tryhackme, thm, tutorial, hacking, pentest, ctf, capture, flag, linux, medium, médio]
 mermaid: true
-image: https://tryhackme-images.s3.amazonaws.com/room-icons/f8cc5f48d1b4cf162c24c6964dfe0718.jpeg
+image: https://tryhackme-images.s3.amazonaws.com/room-icons/796659bf2a5ae9a15bb6c948291fef4a.jpeg
 pin: true
 ---
 
