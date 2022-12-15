@@ -2,8 +2,8 @@
 title: TryHackMe - Tokyo Ghoul
 author: mithr4nd1r
 date: 2022-11-29 00:00:00 -0300
-categories: [Walkthrough, TryHackMe, Tokyo Ghoul]
-tags: [writeup, walkthrough, tryhackme, thm, tutorial, hacking, pentest, ctf, capture, flag]
+categories: [Walkthrough, TryHackMe, Linux, Tokyo Ghoul]
+tags: [writeup, walkthrough, tryhackme, thm, tutorial, hacking, pentest, ctf, capture, flag, linux]
 pin: true
 ---
 
