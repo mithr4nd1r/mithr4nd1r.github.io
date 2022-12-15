@@ -1,8 +1,8 @@
 ---
 title: TryHackMe - Tokyo Ghoul
 author: Mithr4nd1r
-date: 2022-08-18 00:00:00 -0300
-categories: [TryHackMe, Agent Sudo]
+date: 2022-11-29 00:00:00 -0300
+categories: [TryHackMe, Tokyo Ghoul]
 tags: [writeup, walkthrough, tryhackme, thm, tutorial, hacking, pentest, ctf, capture, flag]
 pin: true
 ---
