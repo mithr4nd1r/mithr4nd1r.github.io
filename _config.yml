@@ -78,7 +78,7 @@ theme_mode: dark  # [light|dark]
 # will be added to all image (site avatar & posts' images) paths starting with '/'
 #
 # e.g. 'https://cdn.com'
-img_cdn: 'https://tryhackme-images.s3.amazonaws.com/user-avatars/4d55583b50c1b7360d0a4fe83d8d905d.jpeg'
+img_cdn: '/assets/img/gandalf.png'
 
 # the avatar on sidebar, support local or CORS resources
 avatar: '/commons/avatar.jpg'
