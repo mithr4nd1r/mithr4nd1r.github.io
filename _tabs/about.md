@@ -5,8 +5,7 @@ order: 4
 ---
 
 
-> **About**: 0x4rt3mis
-
-> **Contact**: 0x4rt3mis@tutanota.com
-
-**Hope you enjoy!**
+> **About**: Mithr4nd1r
+{: .prompt-info }
+> **Contact**: osvaldo.tenorio91@gmail.com
+{: .prompt-info }
