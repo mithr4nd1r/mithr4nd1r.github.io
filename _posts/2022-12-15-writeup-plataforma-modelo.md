@@ -62,16 +62,17 @@ uid=1001(kamishiro) gid=1001(kamishiro) groups=1001(kamishiro)
 Com o acesso interno realiza-se uma enumeração interna utilizando ...
 - Comando: `sudo -l`
 ```console
-[sudo] password for kamishiro: 
-Matching Defaults entries for kamishiro on vagrant.vm:
-    env_reset, exempt_group=sudo, mail_badpass,
-    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+    [sudo] password for kamishiro: 
+    Matching Defaults entries for kamishiro on vagrant.vm:
+        env_reset, exempt_group=sudo, mail_badpass,
+        secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
-User kamishiro may run the following commands on vagrant.vm:
-    (ALL) /usr/bin/python3 /home/kamishiro/jail.py
+    User kamishiro may run the following commands on vagrant.vm:
+        (ALL) /usr/bin/python3 /home/kamishiro/jail.py
 ```
+.
 
-```python3
+```python
 #! /usr/bin/python3
 #-*- coding:utf-8 -*-
 def main():
