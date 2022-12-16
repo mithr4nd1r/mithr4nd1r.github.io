@@ -6,6 +6,9 @@
   type: github
   icon: 'fa-brands fa-github'
 -
+  type: tryhackme
+  icon: 'fa-duotone fa-book-skull'
+-
   type: email
   icon: 'fas fa-envelope'
   noblank: true            # open link in current tab
