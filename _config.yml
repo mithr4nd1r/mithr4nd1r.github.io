@@ -21,7 +21,7 @@ timezone: America/Campo_Grande
 
 title: Mithr4and1r                          # the main title
 
-tagline:    # it will display as the sub-title
+tagline: My shell should pass!    # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   Conhecimento é tudo.
