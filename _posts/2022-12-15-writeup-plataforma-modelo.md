@@ -6,6 +6,8 @@ categories: [Walkthrough, Plataforma]
 tags: [writeup, walkthrough, tryhackme, thm, tutorial, hacking, pentest, ctf, capture, flag, linux, medium, médio]
 mermaid: true
 image: https://pm1.narvii.com/6423/6ceaa4749eeb98d7ac41c7b1eead16646c7857be_00.jpg
+  weight: 155
+  hight: 126
 pin: true
 ---
 
