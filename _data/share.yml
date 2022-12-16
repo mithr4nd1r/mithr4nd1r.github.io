@@ -4,15 +4,15 @@
 platforms:
   -
     type: Linkedin
-    icon: "fab fa-linkedin"
+    icon: "fa-brands fa-linkedin"
     link: "https://www.linkedin.com/sharing/share-offsite/?url=URL"
   -
     type: Facebook
-    icon: "fab fa-facebook-square"
+    icon: "fa-brands fa-facebook-square"
     link: "https://www.facebook.com/sharer/sharer.php?title=TITLE&u=URL"
   -
     type: Telegram
-    icon: "fab fa-telegram"
+    icon: "fa-brands fa-telegram"
     link: "https://t.me/share/url?url=URL&text=TITLE"
 
   # Uncomment below if you need to.

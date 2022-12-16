@@ -24,7 +24,7 @@ title: Mithr4and1r                          # the main title
 tagline: My shell should pass!    # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  Conhecimento é tudo.
+  Conhecimento é uma virtude.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: 'https://mithr4nd1r.github.io'
@@ -43,6 +43,7 @@ social:
   links:
     # The first element serves as the copyright owner's link
     # - https://twitter.com/username      # change to your twitter homepage
+    - https://tryhackme.com/p/mithr4ad1r
     - https://github.com/osvaldotenorio       # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
