@@ -14,6 +14,10 @@ platforms:
     type: Telegram
     icon: "fa-brands fa-telegram"
     link: "https://t.me/share/url?url=URL&text=TITLE"
+-
+    type: Whatsapp
+    icon: "fa-brands fa-whatsapp"
+    link: "https://web.whatsapp.com:/send?text=URL%0ATITLE"
 
   # Uncomment below if you need to.
   # -
