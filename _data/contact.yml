@@ -7,7 +7,7 @@
   icon: 'fa-brands fa-github'
 -
   type: tryhackme
-  icon: 'fa-duotone fa-book-skull'
+  icon: 'fa-solid fa-skull-crossbones'
 -
   type: email
   icon: 'fas fa-envelope'
