@@ -5,7 +5,7 @@ order: 4
 ---
 
 
-> **About**: Mithr4nd1r
+> **Autor**: Mithr4nd1r
 {: .prompt-info }
-> **Contact**: osvaldo.tenorio91@gmail.com
+> **Contato**: osvaldo.tenorio91@gmail.com
 {: .prompt-info }
