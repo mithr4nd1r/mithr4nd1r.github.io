@@ -1,5 +1,5 @@
 ---
-title: About
+title: Sobre
 icon: fas fa-info-circle
 order: 4
 ---
