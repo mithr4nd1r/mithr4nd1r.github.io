@@ -29,6 +29,9 @@
 img.preview-img {
   margin: 0;
   border-radius: 6px;
+  max-height: 200px;
+  height: 70%;
+  width: auto;
 
   &.bg[data-loaded="true"] {
     background: var(--preview-img-bg);
