@@ -72,7 +72,7 @@ Com o acesso interno realiza-se uma enumeração interna utilizando ...
     User kamishiro may run the following commands on vagrant.vm:
         (ALL) /usr/bin/python3 /home/kamishiro/jail.py
 ```
-.
+
 
 ```python
 #! /usr/bin/python3
