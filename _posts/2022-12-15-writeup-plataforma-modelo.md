@@ -5,7 +5,8 @@ date: 2022-11-29 00:00:00 -0300
 categories: [Walkthrough, Plataforma]
 tags: [writeup, walkthrough, tryhackme, thm, tutorial, hacking, pentest, ctf, capture, flag, linux, medium, médio]
 mermaid: true
-image: https://pm1.narvii.com/6423/6ceaa4749eeb98d7ac41c7b1eead16646c7857be_00.jpg
+image: 
+  path: https://pm1.narvii.com/6423/6ceaa4749eeb98d7ac41c7b1eead16646c7857be_00.jpg
   w: 155
   h: 126
 pin: true
