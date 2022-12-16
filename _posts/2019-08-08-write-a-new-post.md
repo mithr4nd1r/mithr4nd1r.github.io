@@ -244,8 +244,8 @@ If you want to add an image to the top of the post contents, specify the attribu
 ---
 image:
   path: /path/to/image
-  width: 1000   # in pixels
-  height: 400   # in pixels
+  width: 255   # in pixels
+  height: 216   # in pixels
   alt: image alternative text
 ---
 ```

