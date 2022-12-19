@@ -145,7 +145,7 @@ E o shell veio:
 
 ## 4. Pós Exploração
 
-Como de praxe, upei o [`linpeas.sh`](http://linpeas.sh) e fiz a varredura interna de vulnerabilidades.
+Como de praxe, upei o [`linpeas.sh`](https://github.com/carlospolop/PEASS-ng) e fiz a varredura interna de vulnerabilidades.
 
 ![Untitled](https://mithr4nd1r.github.io/assets/img/pg/2022-12-19-writup-xposedapi/exposed13.png)
 
@@ -155,10 +155,7 @@ A enumeração nos retornou o binário `wget` com execução de `SUID`.
 
 ## 5. Escalação de Privilégio
 
-Então é só seguir os comandos descritos no GTFOBins
-
-> [wget | GTFOBins](https://gtfobins.github.io/gtfobins/wget/#suid)
-{: .prompt-info }
+Então é só seguir os comandos descritos no [GTFOBins - Wget SUID](https://gtfobins.github.io/gtfobins/wget/#suid)
 
 ```
 TF=$(mktemp)
