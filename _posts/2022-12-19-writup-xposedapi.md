@@ -1,9 +1,9 @@
 ---
-title: Proving Grounds - Tokyo Ghoul
+title: Proving Grounds - XposedAPI
 author: mithr4nd1r
 date: 2022-11-29 00:00:00 -0300
 categories: [Walkthrough, Proving Grounds]
-tags: [writeup, walkthrough, proving, grounds, PG, tutorial, hacking, pentest, ctf, capture, flag, proof, linux, medium, médio]
+tags: [writeup, walkthrough, xposedapi, proving, grounds, PG, tutorial, hacking, pentest, ctf, capture, flag, proof, linux, medium, médio]
 mermaid: true
 image: "https://mithr4nd1r.github.io/assets/img/pg/2022-12-19-writup-xposedapi/api.jpg"
 pin: true
