@@ -6,7 +6,7 @@ categories: [Walkthrough, Proving Grounds]
 tags: [writeup, walkthrough, xposedapi, proving, grounds, PG, tutorial, hacking, pentest, ctf, capture, flag, proof, linux, medium, médio]
 mermaid: true
 image: "https://mithr4nd1r.github.io/assets/img/pg/2022-12-19-writup-xposedapi/api.jpg"
-pin: true
+pin: false
 ---
 
 Dificuldade | Opinião | 📅 Início | 📅 Conclusão

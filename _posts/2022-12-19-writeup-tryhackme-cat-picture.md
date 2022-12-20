@@ -6,7 +6,7 @@ categories: [Walkthrough, TryHackMe]
 tags: [writeup, walkthrough, tryhackme, thm, tutorial, hacking, pentest, ctf, capture, flag, linux, medium, médio, cat, picture]
 mermaid: true
 image: https://tryhackme-images.s3.amazonaws.com/room-icons/0d75a543c66201b4aa996172b6043eb5.jpeg
-pin: true
+pin: false
 ---
 
 Dificuldade | Opinião | 📅 Início | 📅 Conclusão
