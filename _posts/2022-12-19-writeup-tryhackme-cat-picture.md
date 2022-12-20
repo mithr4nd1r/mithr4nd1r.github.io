@@ -1,9 +1,9 @@
 ---
-title: TryHackMe - Tokyo Ghoul
+title: TryHackMe - Cat Picture
 author: mithr4nd1r
 date: 2022-12-19 22:00:00 -0300
 categories: [Walkthrough, TryHackMe]
-tags: [writeup, walkthrough, tryhackme, thm, tutorial, hacking, pentest, ctf, capture, flag, linux, medium, médio]
+tags: [writeup, walkthrough, tryhackme, thm, tutorial, hacking, pentest, ctf, capture, flag, linux, medium, médio, cat, picture]
 mermaid: true
 image: https://tryhackme-images.s3.amazonaws.com/room-icons/0d75a543c66201b4aa996172b6043eb5.jpeg
 pin: true
