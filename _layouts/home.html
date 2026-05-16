@@ -1,14 +1,15 @@
 ---
 layout: page
-# The Home page layout — terminal hacker redesign
+# The Home page layout
 ---
 
-{% assign pinned  = site.posts | where: "pin", "true" %}
+{% assign pinned = site.posts | where: "pin", "true" %}
 {% assign default = site.posts | where_exp: "item", "item.pin != true and item.hidden != true" %}
 
 {% assign posts = "" | split: "" %}
 
 <!-- Get pinned posts -->
+
 {% assign offset = paginator.page | minus: 1 | times: paginator.per_page %}
 {% assign pinned_num = pinned.size | minus: offset %}
 
@@ -21,7 +22,9 @@ layout: page
 {% endif %}
 
 <!-- Get default posts -->
+
 {% assign default_beg = offset | minus: pinned.size %}
+
 {% if default_beg < 0 %}
   {% assign default_beg = 0 %}
 {% endif %}
@@ -35,54 +38,6 @@ layout: page
   {% endfor %}
 {% endif %}
 
-<!-- ============================================================
-     Terminal Hacker Hero — only on first paginator page
-     ============================================================ -->
-{% if paginator.page == 1 or paginator.page == nil %}
-<section class="terminal-hero" aria-label="Terminal hero banner">
-
-  <pre class="ascii-banner" aria-hidden="true">
-
-   ███╗   ███╗██╗████████╗██╗  ██╗██████╗  █████╗ ███╗   ██╗██████╗  ██╗██████╗
-   ████╗ ████║██║╚══██╔══╝██║  ██║██╔══██╗██╔══██╗████╗  ██║██╔══██╗███║██╔══██╗
-   ██╔████╔██║██║   ██║   ███████║██████╔╝███████║██╔██╗ ██║██║  ██║╚██║██████╔╝
-   ██║╚██╔╝██║██║   ██║   ██╔══██║██╔══██╗██╔══██║██║╚██╗██║██║  ██║ ██║██╔══██╗
-   ██║ ╚═╝ ██║██║   ██║   ██║  ██║██║  ██║██║  ██║██║ ╚████║██████╔╝ ██║██║  ██║
-   ╚═╝     ╚═╝╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═╝╚═╝  ╚═╝
-
-                   > offensive security · red team · ctf writeups <
-
-  </pre>
-
-  <div class="terminal-window">
-    <div class="terminal-titlebar" aria-hidden="true">
-      <span class="dot red"></span>
-      <span class="dot yellow"></span>
-      <span class="dot green"></span>
-      <span class="terminal-title">guest@mithr4nd1r.io: ~</span>
-    </div>
-
-    <div class="terminal-body" id="terminal-output"
-         data-recent="[{%- assign recent = site.posts | slice: 0, 4 -%}{%- for p in recent -%}{&quot;title&quot;: {{ p.title | jsonify }}, &quot;url&quot;: {{ p.url | relative_url | jsonify }}, &quot;date&quot;: &quot;{{ p.date | date: '%Y-%m-%d' }}&quot;}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]"
-         aria-live="polite">
-      <noscript>
-        <span class="line"><span class="prompt"><span class="user">guest</span><span class="at">@</span><span class="host">mithr4nd1r</span><span class="at">:</span><span class="path">~</span><span class="sigil">$</span></span><span class="cmd">whoami</span></span>
-        <span class="line output">osvaldo "mithr4nd1r" tenorio — offensive security / red team</span>
-        <span class="line"><span class="prompt"><span class="user">guest</span><span class="at">@</span><span class="host">mithr4nd1r</span><span class="at">:</span><span class="path">~</span><span class="sigil">$</span></span><span class="cmd">ls writeups/</span></span>
-        {% for p in site.posts limit:4 %}
-          <span class="line output"><a href="{{ p.url | relative_url }}">{{ p.title }}</a></span>
-        {% endfor %}
-      </noscript>
-    </div>
-  </div>
-</section>
-
-<h2 class="section-heading">recent_writeups</h2>
-{% endif %}
-
-<!-- ============================================================
-     Post list (preserved structure, restyled via SCSS)
-     ============================================================ -->
 <div id="post-list">
 
 {% for post in posts %}
@@ -91,7 +46,6 @@ layout: page
   <div class="row">
     <div class="col-sm-12">
       <div class="row">
-        {% if post.image %}
         <div class="col-sm-4">
           <div class="post-img-cnt">
             <a href="{{ post.url | relative_url }}">
@@ -100,36 +54,31 @@ layout: page
           </div>
         </div>
         <div class="col-sm-8">
-        {% else %}
-        <div class="col-sm-12">
-        {% endif %}
           <div class="post-details">
             <div class="d-flex justify-content-between pr-xl-2">
               <h1><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h1>
               {% if post.pin == true %}
-              <span class="pin ml-2">
-                <i class="fas fa-thumbtack fa-fw"></i>
-                <span>pinned</span>
-              </span>
+              <i class="fas fa-thumbtack fa-fw text-muted mt-1 ml-2 mt-xl-2" data-toggle="tooltip" data-placement="left"
+              title="Pinned"></i>
               {% endif %}
             </div>
-
+  
+  
+  
             <div class="post-content">
               <p>
                 {% include no-linenos.html content=post.content %}
                 {{ content | markdownify | strip_html | truncate: 200 | escape}}
               </p>
             </div>
-
+            
             <div class="post-meta text-muted">
+    
+              <!-- posted date -->
               <i class="far fa-calendar fa-fw"></i>
               {% include datetime.html date=post.date %}
-
-              {% if post.categories.size > 0 %}
-              <i class="far fa-folder-open fa-fw ml-2"></i>
-              {% for category in post.categories %}{{ category }}{% unless forloop.last %}, {% endunless %}{% endfor %}
-              {% endif %}
-
+              
+              <!-- page views -->
               {% if site.google_analytics.pv.enabled %}
               <i class="far fa-eye fa-fw"></i>
               <span id="pv_{{-post.title-}}" class="pageviews">
@@ -142,175 +91,13 @@ layout: page
       </div>
     </div>
   </div>
-</div> <!-- .post-preview -->
+</div> <!-- .post-review -->
 
 {% endfor %}
+
 
 </div> <!-- #post-list -->
 
 {% if paginator.total_pages > 0 %}
   {% include post-paginator.html %}
-{% endif %}
-
-<!-- ============================================================
-     Terminal Hero Typewriter — vanilla JS, no deps
-     All injected content is either escaped via escapeHTML() or
-     comes from Jekyll site.posts (build-time trusted authoring).
-     ============================================================ -->
-{% if paginator.page == 1 or paginator.page == nil %}
-<script>
-(function() {
-  'use strict';
-
-  var el = document.getElementById('terminal-output');
-  if (!el) return;
-
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var smallScreen  = window.matchMedia('(max-width: 640px)').matches;
-  var alreadySeen  = false;
-  try { alreadySeen = sessionStorage.getItem('mithr-hero-seen') === '1'; } catch (e) {}
-
-  var recent = [];
-  try { recent = JSON.parse(el.dataset.recent || '[]'); } catch (e) { recent = []; }
-
-  function escapeHTML(s) {
-    return String(s).replace(/[&<>"\']/g, function(c) {
-      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "\'":'&#39;' }[c];
-    });
-  }
-
-  function buildPrompt() {
-    var p = document.createElement('span');
-    p.className = 'prompt';
-    p.innerHTML =
-      '<span class="user">guest</span>' +
-      '<span class="at">@</span>' +
-      '<span class="host">mithr4nd1r</span>' +
-      '<span class="at">:</span>' +
-      '<span class="path">~</span>' +
-      '<span class="sigil">$</span> ';
-    return p;
-  }
-
-  function lineEl(cls) {
-    var l = document.createElement('span');
-    l.className = 'line' + (cls ? ' ' + cls : '');
-    return l;
-  }
-
-  function addCmdLine(text, instant) {
-    var line = lineEl();
-    line.appendChild(buildPrompt());
-    var cmd = document.createElement('span');
-    cmd.className = 'cmd';
-    line.appendChild(cmd);
-    el.appendChild(line);
-    if (instant) {
-      cmd.textContent = text;
-      return Promise.resolve();
-    }
-    return new Promise(function(resolve) {
-      var i = 0;
-      (function step() {
-        cmd.textContent = text.substring(0, i);
-        if (i <= text.length) {
-          i++;
-          setTimeout(step, 30 + (Math.random() * 20 - 10));
-        } else {
-          resolve();
-        }
-      })();
-    });
-  }
-
-  function addOutputLine(html) {
-    var line = lineEl('output');
-    line.innerHTML = html; // html built from constants only
-    el.appendChild(line);
-  }
-
-  function addMutedLine(text) {
-    var line = lineEl('output muted');
-    line.textContent = text;
-    el.appendChild(line);
-  }
-
-  function addFileEntry(post) {
-    var line = lineEl('file-entry');
-    var perms = document.createElement('span'); perms.className = 'perms'; perms.textContent = '-rw-r--r--';
-    var owner = document.createElement('span'); owner.className = 'owner'; owner.textContent = 'mithr4nd1r ctf';
-    var size  = document.createElement('span'); size.className  = 'size';  size.textContent  = (4 + Math.floor(Math.random() * 18)) + 'K';
-    var date  = document.createElement('span'); date.className  = 'date';  date.textContent  = post.date || '';
-    var name  = document.createElement('span'); name.className  = 'name';
-    var a     = document.createElement('a');
-    a.href        = post.url || '#';
-    a.textContent = post.title || 'untitled';
-    name.appendChild(a);
-    line.appendChild(perms);
-    line.appendChild(owner);
-    line.appendChild(size);
-    line.appendChild(date);
-    line.appendChild(name);
-    el.appendChild(line);
-  }
-
-  function addSpacer() {
-    var s = document.createElement('span');
-    s.className = 'spacer';
-    el.appendChild(s);
-  }
-
-  function addFinalPrompt() {
-    var line = lineEl('final-prompt');
-    line.appendChild(buildPrompt());
-    var cur = document.createElement('span');
-    cur.className = 'cursor-blink';
-    line.appendChild(cur);
-    el.appendChild(line);
-  }
-
-  function delay(ms) { return new Promise(function(r){ setTimeout(r, ms); }); }
-
-  function renderSequence(instant) {
-    el.innerHTML = '';
-    var seq = Promise.resolve();
-
-    seq = seq.then(function() { return addCmdLine('whoami', instant); });
-    seq = seq.then(function() {
-      addOutputLine('osvaldo "<span class="accent">mithr4nd1r</span>" tenorio &mdash; <span class="amber">offensive security</span> / red team operator');
-      addSpacer();
-      return delay(instant ? 0 : 380);
-    });
-
-    seq = seq.then(function() { return addCmdLine('cat skills.txt', instant); });
-    seq = seq.then(function() {
-      addOutputLine('&rarr; <span class="accent">pentest</span>, <span class="accent">red team</span>, <span class="accent">AD attacks</span>, <span class="accent">web app pentest</span>');
-      addOutputLine('&rarr; <span class="amber">tooling</span>: burp, metasploit, bloodhound, impacket, cobalt strike');
-      addOutputLine('&rarr; <span class="cyan">langs</span>: python, bash, powershell, c/c++');
-      addSpacer();
-      return delay(instant ? 0 : 380);
-    });
-
-    seq = seq.then(function() { return addCmdLine('ls -la writeups/ | head', instant); });
-    seq = seq.then(function() {
-      if (recent.length === 0) {
-        addMutedLine('(no writeups yet)');
-      } else {
-        for (var i = 0; i < recent.length; i++) addFileEntry(recent[i]);
-      }
-      addSpacer();
-      addFinalPrompt();
-    });
-
-    return seq;
-  }
-
-  if (reduceMotion || smallScreen || alreadySeen) {
-    renderSequence(true);
-  } else {
-    renderSequence(false);
-    try { sessionStorage.setItem('mithr-hero-seen', '1'); } catch (e) {}
-  }
-})();
-</script>
 {% endif %}
