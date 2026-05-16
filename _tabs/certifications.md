@@ -4,59 +4,110 @@ icon: fas fa-certificate
 order: 3
 ---
 
-## Conquistadas
+<section class="bio-hero">
+  <div>
+    <div class="bio-mark">SIG/MTND · CREDENTIALS</div>
+    <h1 class="bio-name">Cer<em>tifications</em></h1>
+    <p class="bio-role">
+      Six certifications across <strong>OffSec</strong> and <strong>SANS GIAC</strong> tracks.
+    </p>
+  </div>
+</section>
 
-### OSCE³ — Offensive Security Certified Expert (Trifecta)
+<section class="bio-section">
+  <div class="bio-section-label">
+    <span class="num">01</span>
+    <span>osce³ trifecta</span>
+  </div>
+  <div class="bio-rows">
+    <div class="bio-row">
+      <div>
+        <div class="bio-row-title">OSEP — Experienced Penetration Tester</div>
+        <span class="bio-row-org">AD attacks, evasion, lateral movement, AV/EDR bypass</span>
+      </div>
+      <span class="bio-row-meta">offsec</span>
+    </div>
+    <div class="bio-row">
+      <div>
+        <div class="bio-row-title">OSED — Exploit Developer</div>
+        <span class="bio-row-org">Windows exploit dev, shellcode, ROP, fuzzing, custom bypasses</span>
+      </div>
+      <span class="bio-row-meta">offsec</span>
+    </div>
+    <div class="bio-row">
+      <div>
+        <div class="bio-row-title">OSWE — Web Expert</div>
+        <span class="bio-row-org">White-box web app exploitation, source code review, custom exploits</span>
+      </div>
+      <span class="bio-row-meta">offsec</span>
+    </div>
+  </div>
+</section>
 
-A OSCE³ é a designação atribuída por completar as três certificações expert da OffSec. Cobre todo o espectro ofensivo moderno.
+<section class="bio-section">
+  <div class="bio-section-label">
+    <span class="num">02</span>
+    <span>foundation</span>
+  </div>
+  <div class="bio-rows">
+    <div class="bio-row">
+      <div>
+        <div class="bio-row-title">OSCP — Certified Professional</div>
+        <span class="bio-row-org">Hands-on 24h practical — network pentest + Active Directory</span>
+      </div>
+      <span class="bio-row-meta">offsec</span>
+    </div>
+  </div>
+</section>
 
-| Cert | Nome Completo | Vendor | Foco |
-|------|---------------|--------|------|
-| **OSEP** | Offensive Security Experienced Penetration Tester | OffSec | AD attacks, evasion, lateral movement, AV/EDR bypass |
-| **OSED** | Offensive Security Exploit Developer | OffSec | Windows exploit dev, shellcode, ROP, fuzzing, custom bypasses |
-| **OSWE** | Offensive Security Web Expert | OffSec | White-box web app exploitation, source-code review, custom exploits |
+<section class="bio-section">
+  <div class="bio-section-label">
+    <span class="num">03</span>
+    <span>advanced</span>
+  </div>
+  <div class="bio-rows">
+    <div class="bio-row">
+      <div>
+        <div class="bio-row-title">GXPN — Advanced Penetration Tester</div>
+        <span class="bio-row-org">SANS SEC660 / GIAC — Exploit Writing & Advanced Pentest</span>
+      </div>
+      <span class="bio-row-meta">sans giac</span>
+    </div>
+  </div>
+</section>
 
-### OSCP — Offensive Security Certified Professional
+<section class="bio-section">
+  <div class="bio-section-label">
+    <span class="num">04</span>
+    <span>research</span>
+  </div>
+  <div>
+    <span class="bio-cert">CVE × 4</span>
+    <p class="bio-role" style="margin-top:18px">
+      4 CVE credits publicados — vulnerability research em produtos COTS.
+    </p>
+  </div>
+</section>
 
-A "porta de entrada" séria para o offensive security. Exame prático de 24h focado em network pentest + Active Directory.
-
-| Vendor | Validação | Tipo |
-|--------|-----------|------|
-| OffSec | Hands-on practical exam | Foundation cert para a área |
-
-### SANS SEC660 / GXPN — GIAC Exploit Researcher and Advanced Penetration Tester
-
-Curso avançado SANS focado em exploitation, evasion, e técnicas de pentest avançadas que vão além da abordagem padrão.
-
-| Vendor | Foco | Skills |
-|--------|------|--------|
-| SANS / GIAC | Advanced Penetration Testing, Exploit Writing | Network attacks, escape from restricted environments, exploit dev, Python tooling |
-
----
-
-## CVE Credits
-
-**4x CVE** publicados — pesquisa de vulnerabilidades em produtos de mercado.
-
-> Lista detalhada de CVEs com IDs e impacto a ser adicionada futuramente.
-{: .prompt-tip }
-
----
-
-## Trilha & Próximos Passos
-
-Stack atual já cobre offensive security em profundidade (web, network, AD, exploit dev). Possíveis próximos passos no roadmap:
-
-- **OSEE** — Offensive Security Exploitation Expert (o pinnacle do exploit dev — Windows kernel exploitation)
-- **CRTO / CRTL** — Certified Red Team Operator / Lead (Zero-Point Security, mais focado em ops/C2 que em pentest)
-- **OSDA** — Offensive Security Defense Analyst (purple team perspective)
-
----
-
-## Reconhecimentos Profissionais
-
-- **Red Team Operator** — Sicoob (cooperativa financeira Brasileira)
-- **Ex-Comando de Defesa Cibernética** — Exército Brasileiro
-
-> Certificações são uma medida de dedicação e estudo estruturado, não substitutas de experiência prática.
-{: .prompt-info }
+<section class="bio-section">
+  <div class="bio-section-label">
+    <span class="num">05</span>
+    <span>roadmap</span>
+  </div>
+  <div class="bio-rows">
+    <div class="bio-row">
+      <div>
+        <div class="bio-row-title">OSEE — Exploitation Expert</div>
+        <span class="bio-row-org">Windows kernel exploitation (the holy grail)</span>
+      </div>
+      <span class="bio-row-meta">planned</span>
+    </div>
+    <div class="bio-row">
+      <div>
+        <div class="bio-row-title">CRTL — Red Team Lead</div>
+        <span class="bio-row-org">Zero-Point Security — RT ops/C2 focus</span>
+      </div>
+      <span class="bio-row-meta">planned</span>
+    </div>
+  </div>
+</section>
