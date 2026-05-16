@@ -1,0 +1,112 @@
+/* CRT Effects Layer
+   ============================================================
+   Adds:
+   - Subtle scanline overlay across viewport
+   - Vignette darkening on viewport edges
+   - Text glow on headings
+   - Cursor blink animation
+   - Honors prefers-reduced-motion
+*/
+
+/* ---- Scanlines: fixed full-viewport overlay ---- */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.18) 3px,
+    rgba(0, 0, 0, 0) 4px
+  );
+  mix-blend-mode: multiply;
+  animation: scanline-flicker 8s linear infinite;
+}
+
+/* ---- Vignette: subtle edge darkening ---- */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 9997;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+}
+
+/* ---- Flicker keyframes ---- */
+@keyframes scanline-flicker {
+  0%   { opacity: 0.85; }
+  47%  { opacity: 0.92; }
+  50%  { opacity: 0.72; }
+  53%  { opacity: 0.92; }
+  100% { opacity: 0.85; }
+}
+
+/* ---- Heading text glow ---- */
+h1, h2, h3,
+.post-title,
+#site-title a {
+  text-shadow:
+    0 0 4px rgba(0, 255, 65, 0.45),
+    0 0 12px rgba(0, 255, 65, 0.18);
+}
+
+/* Subtle glow on links */
+a:not(.btn):not(.post-tag) {
+  text-shadow: 0 0 1px rgba(95, 255, 135, 0.2);
+}
+
+/* ---- Phosphor cursor (blink) — reusable ---- */
+.cursor-blink::after {
+  content: '▊';
+  display: inline-block;
+  margin-left: 0.15em;
+  color: #00ff41;
+  animation: cursor-blink 1.1s steps(2, start) infinite;
+  text-shadow: 0 0 6px rgba(0, 255, 65, 0.6);
+}
+
+@keyframes cursor-blink {
+  to { visibility: hidden; }
+}
+
+/* ---- Reduced motion respect ---- */
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+  .cursor-blink::after { animation: none; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---- Mobile: thinner scanlines, no flicker ---- */
+@media (max-width: 768px) {
+  body::before {
+    animation: none;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0) 0,
+      rgba(0, 0, 0, 0) 2px,
+      rgba(0, 0, 0, 0.1) 3px,
+      rgba(0, 0, 0, 0) 4px
+    );
+  }
+  body::after {
+    background: radial-gradient(
+      ellipse at center,
+      transparent 60%,
+      rgba(0, 0, 0, 0.25) 100%
+    );
+  }
+}

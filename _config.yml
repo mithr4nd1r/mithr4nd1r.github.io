@@ -24,7 +24,7 @@ title: Mithr4nd1r                          # the main title
 tagline: My shell should pass!    # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  Conhecimento é uma virtude.
+  Offensive security, red team operations & CTF writeups. Conhecimento é uma virtude.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: 'https://mithr4nd1r.github.io'
@@ -36,10 +36,13 @@ linkedin:
   username: osvaldo-tenorio             # change to your linkedin username
 
 tryhackme:
-  username: mithr4ad1r             # change to your linkedin username
+  username: mithr4nd1r             # TryHackMe profile
+
+hackthebox:
+  username: mithr4nd1r             # HackTheBox profile (placeholder — update if different)
 
 #twitter:
-#  username: twitter_username            # change to your twitter username
+#  username: twitter_username            # change to your twitter homepage
 
 social:
   # Change to your full name.
@@ -48,12 +51,11 @@ social:
   email: osvaldo.tenorio91@gmail.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    # - https://twitter.com/username      # change to your twitter homepage
+    - https://github.com/mithr4nd1r
     - https://www.linkedin.com/in/osvaldo-tenorio
-    - https://tryhackme.com/p/mithr4ad1r
-    - https://github.com/osvaldotenorio       # change to your github homepage
-    # Uncomment below to add more social links
-    # - https://www.facebook.com/username
+    - https://tryhackme.com/p/mithr4nd1r
+    - https://app.hackthebox.com/profile/mithr4nd1r
+    - https://github.com/osvaldotenorio
 
 google_site_verification:               # fill in to your verification string
 

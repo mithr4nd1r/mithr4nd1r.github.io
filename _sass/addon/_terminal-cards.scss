@@ -1,0 +1,119 @@
+/* Terminal-window styled post cards
+   ============================================================
+   Restyles Chirpy's .card.post-preview as a small terminal window.
+*/
+
+#post-list .post-preview {
+  position: relative !important;
+  background: var(--card-bg) !important;
+  border: 1px solid var(--card-border-color) !important;
+  border-radius: 4px !important;
+  padding-top: 38px !important;
+  margin-bottom: 1.4rem !important;
+  overflow: hidden;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+}
+
+/* Titlebar via ::before */
+#post-list .post-preview::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 28px;
+  background: linear-gradient(180deg, #161e16 0%, #0a120a 100%);
+  border-bottom: 1px solid rgba(0, 255, 65, 0.15);
+  z-index: 1;
+}
+
+/* Three dots via ::after */
+#post-list .post-preview::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ff5f56;
+  box-shadow:
+    14px 0 0 #ffbd2e,
+    28px 0 0 #27c93f,
+    0 0 4px rgba(255, 95, 86, 0.4),
+    14px 0 4px rgba(255, 189, 46, 0.4),
+    28px 0 4px rgba(39, 201, 63, 0.4);
+  z-index: 2;
+}
+
+#post-list .post-preview:hover {
+  border-color: rgba(0, 255, 65, 0.4) !important;
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 65, 0.1),
+    0 4px 24px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(0, 255, 65, 0.12) !important;
+  transform: translateY(-1px);
+}
+
+/* Post title within card */
+#post-list .post-preview h1 {
+  color: #00ff41 !important;
+  font-family: 'VT323', 'JetBrains Mono', monospace !important;
+  font-size: 1.7rem !important;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Preview text */
+#post-list .post-preview .post-content {
+  color: var(--text-color) !important;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* Card meta info (date/categories) */
+#post-list .post-preview .post-meta {
+  color: var(--text-muted-color) !important;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.02em;
+}
+#post-list .post-preview .post-meta i {
+  color: #00ff41;
+}
+
+/* Prefix path before date */
+#post-list .post-preview .post-meta::before {
+  content: '$ stat ';
+  color: #5fff87;
+  opacity: 0.7;
+  margin-right: 0.3em;
+}
+
+/* Pinned post marker */
+#post-list .pin {
+  background: rgba(255, 176, 0, 0.12) !important;
+  color: #ffb000 !important;
+  border: 1px solid rgba(255, 176, 0, 0.4) !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  border-radius: 0 !important;
+}
+.pin i { color: #ffb000 !important; }
+
+/* Paginator */
+.pagination .page-item .page-link {
+  background: transparent !important;
+  border-color: rgba(0, 255, 65, 0.2) !important;
+  color: #5fff87 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  border-radius: 0 !important;
+}
+.pagination .page-item.active .page-link {
+  background: #00ff41 !important;
+  color: #0a0e0a !important;
+  border-color: #00ff41 !important;
+  box-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
+}
+.pagination .page-item .page-link:hover {
+  background: rgba(0, 255, 65, 0.1) !important;
+  color: #ffb000 !important;
+  border-color: #ffb000 !important;
+}
