@@ -24,7 +24,7 @@ title: Mithr4nd1r                          # the main title
 tagline: My shell should pass!    # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  Offensive security, red team operations & CTF writeups. Conhecimento é uma virtude.
+  Red Team Operator @ Sicoob. OSCE³ (OSEP/OSED/OSWE) · OSCP · SANS SEC660. Writeups e research em offensive security.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: 'https://mithr4nd1r.github.io'

@@ -8,24 +8,30 @@ order: 1
 
 ```
 osvaldo "mithr4nd1r" tenorio
-└─ offensive security · red team operations · ctf player
+└─ red team operator @ sicoob
+   ├─ osce³ (osep + osed + oswe) · oscp · sans sec660 / gxpn
+   ├─ 4× cve credits
+   └─ ex-comando de defesa cibernética / exército brasileiro
 ```
 
-Atuo na área de **segurança ofensiva** com foco em red team operations, ataques a Active Directory, web application pentesting e desenvolvimento de payloads para evasão. Quando não estou em engagements, estou resolvendo máquinas em plataformas de CTF e documentando os processos em writeups.
+**Red Team Operator** atuando no Sicoob com foco em operações ofensivas, simulação de ameaças, ataques a Active Directory, exploit development e exploração de aplicações web. Histórico em defesa cibernética militar antes de migrar para o setor privado.
 
 ---
 
 ## `$ cat ~/.journey`
 
-Comecei na área puxado pela curiosidade sobre como sistemas funcionam — e como podem ser quebrados. A transição para offensive security veio naturalmente após anos consumindo conteúdo sobre exploit dev, pentest e CTFs.
+Iniciei a carreira no **Comando de Defesa Cibernética do Exército Brasileiro**, onde construí a base em operações cibernéticas. A transição para o setor privado veio com o foco em red team operations — primeiro como pentester, depois evoluindo para operações adversariais mais sofisticadas.
+
+Hoje conduzo simulações de adversário no Sicoob, contribuo com pesquisa de vulnerabilidades (4 CVEs publicados até o momento) e mantenho prática constante via CTFs e research.
 
 **Foco atual:**
 
-- Active Directory / Kerberos abuse
-- Red Team Operations (C2, persistência, lateral movement, evasion)
-- Web App Pentest (OWASP Top 10, lógica de negócio, race conditions)
-- Malware development para evasão EDR/AV
-- Sleep mask obfuscation, BOF development, beacon tradecraft
+- Red Team Operations & adversary emulation
+- Active Directory / Kerberos abuse (Kerberoasting, AS-REP, RBCD, ADCS abuse)
+- Web App Pentest white-box (OSWE methodology) — source code review + exploit dev
+- Exploit Development Windows (OSED foundation) — shellcode, ROP, custom bypasses
+- Evasion techniques — AV/EDR bypass, malware dev, sleep masking, BOF dev
+- Vulnerability research (CVE hunting em produtos COTS)
 
 ---
 

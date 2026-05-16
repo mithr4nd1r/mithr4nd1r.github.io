@@ -4,75 +4,59 @@ icon: fas fa-certificate
 order: 3
 ---
 
-## `$ ls -la ~/.certs/`
+## Conquistadas
 
-```
-total: ████ KB
-drwxr-xr-x  3 mithr4nd1r ctf  achieved/
-drwxr-xr-x  3 mithr4nd1r ctf  in-progress/
-drwxr-xr-x  3 mithr4nd1r ctf  planned/
-```
+### OSCE³ — Offensive Security Certified Expert (Trifecta)
 
----
+A OSCE³ é a designação atribuída por completar as três certificações expert da OffSec. Cobre todo o espectro ofensivo moderno.
 
-## `$ tree achieved/`
+| Cert | Nome Completo | Vendor | Foco |
+|------|---------------|--------|------|
+| **OSEP** | Offensive Security Experienced Penetration Tester | OffSec | AD attacks, evasion, lateral movement, AV/EDR bypass |
+| **OSED** | Offensive Security Exploit Developer | OffSec | Windows exploit dev, shellcode, ROP, fuzzing, custom bypasses |
+| **OSWE** | Offensive Security Web Expert | OffSec | White-box web app exploitation, source-code review, custom exploits |
 
-> Certificações conquistadas — placeholder, atualizar quando obtidas.
-{: .prompt-info }
+### OSCP — Offensive Security Certified Professional
 
-| Cert              | Vendor              | Year | Cred ID |
-|-------------------|---------------------|------|---------|
-| eJPT v2           | INE / eLearnSecurity| TBD  | TBD     |
-| CompTIA Security+ | CompTIA             | TBD  | TBD     |
-| THM Jr Penetration Tester | TryHackMe   | TBD  | TBD     |
-| CEH               | EC-Council          | TBD  | TBD     |
+A "porta de entrada" séria para o offensive security. Exame prático de 24h focado em network pentest + Active Directory.
 
----
+| Vendor | Validação | Tipo |
+|--------|-----------|------|
+| OffSec | Hands-on practical exam | Foundation cert para a área |
 
-## `$ tree in-progress/`
+### SANS SEC660 / GXPN — GIAC Exploit Researcher and Advanced Penetration Tester
 
-> Em andamento.
-{: .prompt-warning }
+Curso avançado SANS focado em exploitation, evasion, e técnicas de pentest avançadas que vão além da abordagem padrão.
 
-| Cert                              | Vendor                | Target  |
-|----------------------------------|------------------------|---------|
-| **OSCP** — Offensive Security Certified Professional | Offensive Security | TBD |
-| **CRTO** — Certified Red Team Operator              | Zero-Point Security | TBD |
-| **PNPT** — Practical Network Penetration Tester     | TCM Security         | TBD |
+| Vendor | Foco | Skills |
+|--------|------|--------|
+| SANS / GIAC | Advanced Penetration Testing, Exploit Writing | Network attacks, escape from restricted environments, exploit dev, Python tooling |
 
 ---
 
-## `$ tree planned/`
+## CVE Credits
 
-> Roadmap.
+**4x CVE** publicados — pesquisa de vulnerabilidades em produtos de mercado.
+
+> Lista detalhada de CVEs com IDs e impacto a ser adicionada futuramente.
 {: .prompt-tip }
 
-### Short term
-- **OSWA** — Web Assessor (OffSec)
-- **CRTL** — Red Team Lead (Zero-Point)
-- **eCPPTv3** — Certified Professional Penetration Tester
+---
 
-### Mid term
-- **OSEP** — Experienced Penetration Tester (OffSec)
-- **OSWE** — Web Expert (OffSec)
-- **CRTM** — Red Team Master (Zero-Point)
+## Trilha & Próximos Passos
 
-### Long term
-- **OSEE** — Exploitation Expert (OffSec) — *the holy grail*
-- **SANS GIAC** trilogy: GPEN, GWAPT, GXPN
-- **OSCE3** trifecta (OSWE + OSEP + OSED)
+Stack atual já cobre offensive security em profundidade (web, network, AD, exploit dev). Possíveis próximos passos no roadmap:
+
+- **OSEE** — Offensive Security Exploitation Expert (o pinnacle do exploit dev — Windows kernel exploitation)
+- **CRTO / CRTL** — Certified Red Team Operator / Lead (Zero-Point Security, mais focado em ops/C2 que em pentest)
+- **OSDA** — Offensive Security Defense Analyst (purple team perspective)
 
 ---
 
-## `$ cat ~/.certs/philosophy`
+## Reconhecimentos Profissionais
 
-```
-> certs measure dedication and structured study,
-  not skill. but they open doors.
-  collect signals; don't collect badges.
-```
+- **Red Team Operator** — Sicoob (cooperativa financeira Brasileira)
+- **Ex-Comando de Defesa Cibernética** — Exército Brasileiro
 
----
-
-> Esta página é placeholder. Estrutura pronta para edição via markdown conforme certificações forem sendo obtidas/iniciadas.
+> Certificações são uma medida de dedicação e estudo estruturado, não substitutas de experiência prática.
 {: .prompt-info }
