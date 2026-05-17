@@ -386,6 +386,7 @@ curl -s "http://TARGET/?q=%3Cscript%3Ealert%281%29%3C%2Fscript%3E" | grep -i "al
 
 ## Content Security Policy (CSP) Bypass
 
+{% raw %}
 ```javascript
 // Quando CSP permite 'unsafe-inline'
 // Qualquer payload normal funciona
@@ -406,3 +407,4 @@ curl -s "http://TARGET/?q=%3Cscript%3Ealert%281%29%3C%2Fscript%3E" | grep -i "al
 // Verificar CSP de um site
 curl -s -I http://TARGET | grep -i content-security
 ```
+{% endraw %}

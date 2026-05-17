@@ -553,6 +553,7 @@ print(r.elapsed.total_seconds(), 'segundos')
 
 ### 7. Batch Query Attack (Brute Force via GraphQL)
 
+{% raw %}
 ```bash
 # GraphQL permite múltiplas queries em uma única requisição (batch)
 # Isso bypassar rate limiting que conta por requisição HTTP
@@ -588,6 +589,7 @@ for i in range(0, len(PASSWORDS), BATCH_SIZE):
             print(f"[+] Senha encontrada: {batch[j].strip()}")
 EOF
 ```
+{% endraw %}
 
 ### 8. Mutations Sensíveis sem Autenticação
 

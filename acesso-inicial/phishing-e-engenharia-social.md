@@ -279,6 +279,7 @@ for r in data['results']:
 
 ### Template HTML de Email de Phishing Convincente
 
+{% raw %}
 ```html
 <!-- Template: Notificação de MFA - imita Microsoft -->
 <!DOCTYPE html>
@@ -322,6 +323,7 @@ for r in data['results']:
 </body>
 </html>
 ```
+{% endraw %}
 
 ### Evilginx3 - Setup Completo e Phishlet Microsoft 365
 

