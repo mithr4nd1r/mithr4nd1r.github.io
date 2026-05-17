@@ -47,9 +47,23 @@ description: "Especialista em Segurança Ofensiva @ Sicoob. OSCE³ (OSEP/OSED/OS
     <div class="bio-row">
       <div>
         <div class="bio-row-title">UNIX Lead (Blue Team) — Army Cyber Spartan</div>
-        <span class="bio-row-org">The Royal Corps of Signals — UK multinational cyber exercise</span>
+        <span class="bio-row-org">The Royal Corps of Signals — exercício cibernético multinacional, UK</span>
       </div>
       <span class="bio-row-meta">nov–dez/2024</span>
+    </div>
+    <div class="bio-row">
+      <div>
+        <div class="bio-row-title">Network Analyst (Blue Team) — Cyber Flag 24</div>
+        <span class="bio-row-org">U.S. Cyber Command — exercício multinacional BR/IT/US, Virginia</span>
+      </div>
+      <span class="bio-row-meta">mai/2024</span>
+    </div>
+    <div class="bio-row">
+      <div>
+        <div class="bio-row-title">DFIR Analyst — Cyber Kongo</div>
+        <span class="bio-row-org">Japan Ground Self-Defense Force — exercício cibernético multinacional, Japão</span>
+      </div>
+      <span class="bio-row-meta">fev/2024</span>
     </div>
     <div class="bio-row">
       <div>
@@ -105,9 +119,9 @@ description: "Especialista em Segurança Ofensiva @ Sicoob. OSCE³ (OSEP/OSED/OS
     <div class="bio-row">
       <div>
         <div class="bio-row-title">Vulnerability Research</div>
-        <span class="bio-row-org">4× CVE credits publicados</span>
+        <span class="bio-row-org">CVE-2024-48325 · CVE-2024-34470 · CVE-2024-34471 · CVE-2024-34472</span>
       </div>
-      <span class="bio-row-meta">research</span>
+      <span class="bio-row-meta">4× CVE</span>
     </div>
   </div>
 </section>
@@ -124,9 +138,12 @@ description: "Especialista em Segurança Ofensiva @ Sicoob. OSCE³ (OSEP/OSED/OS
     <span class="bio-cert">OSWE</span>
     <span class="bio-cert">OSCP</span>
     <span class="bio-cert">SEC660</span>
+    <span class="bio-cert">Security+</span>
+    <span class="bio-cert">DCPT</span>
+    <span class="bio-cert">ICS/SCADA</span>
     <p class="bio-role" style="margin-top:18px">
       OffSec Certified Expert 3 (OSEP/OSED/OSWE) · OffSec Certified Professional<br>
-      SANS SEC660 — Advanced Penetration Testing, Exploit Writing &amp; Ethical Hacking
+      SANS SEC660 · CompTIA Security+ · Desec DCPT · ICS/SCADA (IME)
     </p>
   </div>
 </section>
