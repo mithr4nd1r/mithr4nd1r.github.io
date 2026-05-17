@@ -216,6 +216,7 @@ int main(void) {
 ```
 
 **Script Python para gerar shellcode encriptado:**
+{% raw %}
 ```python
 #!/usr/bin/env python3
 # xor_encrypt_shellcode.py
@@ -244,6 +245,7 @@ if __name__ == '__main__':
     print(f'// Tamanho: {len(encrypted)} bytes')
     print(f'// Chave: {sys.argv[2]}')
 ```
+{% endraw %}
 
 ### RC4 (C)
 
@@ -495,6 +497,7 @@ namespace StealthLoader {
 ```
 
 **Script Python para encriptar shellcode com AES:**
+{% raw %}
 ```python
 #!/usr/bin/env python3
 # aes_encrypt.py
@@ -526,6 +529,7 @@ if __name__ == '__main__':
     encrypted = encrypt_shellcode(sys.argv[1], key, iv)
     print(to_csharp_array(encrypted))
 ```
+{% endraw %}
 
 ---
 
