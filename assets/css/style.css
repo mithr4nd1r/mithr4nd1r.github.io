@@ -197,6 +197,12 @@ body::before {
   padding: 72px 60px 96px;
 }
 
+.page-container:has(.wu-layout) {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
 /* ── SIDEBAR ── */
 .wu-sidebar {
   position: fixed;
