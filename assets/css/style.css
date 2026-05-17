@@ -692,6 +692,15 @@ code {
   text-transform: uppercase;
 }
 
+.bio-row-desc {
+  font-family: var(--serif);
+  font-size: 0.88rem;
+  color: var(--dim);
+  margin-top: 4px;
+  display: block;
+  line-height: 1.55;
+}
+
 .bio-cert {
   display: inline-block;
   font-family: var(--mono);
