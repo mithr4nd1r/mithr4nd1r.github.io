@@ -548,6 +548,11 @@ code {
   margin-bottom: 56px;
 }
 
+.bio-linkedin-badge {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+}
+
 .bio-mark {
   font-family: var(--display);
   font-size: 0.78rem;

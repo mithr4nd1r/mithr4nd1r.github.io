@@ -20,6 +20,9 @@ description: "Especialista em Segurança Ofensiva @ Sicoob. OSCE³ (OSEP/OSED/OS
     <a href="https://tryhackme.com/p/mithr4nd1r" target="_blank" rel="noopener noreferrer">tryhackme</a>
     <a href="https://app.hackthebox.com/profile/124040" target="_blank" rel="noopener noreferrer">hackthebox</a>
   </nav>
+  <div class="bio-linkedin-badge">
+    <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="large" data-theme="dark" data-type="HORIZONTAL" data-vanity="osvaldo-tenorio" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://br.linkedin.com/in/osvaldo-tenorio?trk=profile-badge">Osvaldo Tenorio</a></div>
+  </div>
 </header>
 
 <section class="bio-section">
