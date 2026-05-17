@@ -44,7 +44,7 @@ jobs:
         env:
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
           JEKYLL_ENV: production
-        run: bundle exec jekyll build -d "_site$BASE_PATH"
+        run: bundle exec jekyll build -d "_site$BASE_PATH" --trace
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
