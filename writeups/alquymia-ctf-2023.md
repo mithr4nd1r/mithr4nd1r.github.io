@@ -181,3 +181,214 @@ john hash.txt --wordlist=/usr/share/wordlists/rockyou.txt
 4. **Arquivo de áudio** — análise de espectrograma no Audacity ou Sonic Visualiser revela a flag visualmente.
 
 **Flag:** `ALQ{ME-ESCUTE}`
+
+---
+
+## Desafios de Reverse
+
+### APK — 10pts
+
+APK fornecido. Descompilado com `apktool`, depois `strings` para localizar a flag.
+
+```bash
+apktool d chall.apk -o out/
+strings -r out/ | grep ALQ
+```
+
+**Flag:** `ALQ{R3verse_@PK}`
+
+---
+
+### Hexdump — 50pts
+
+Arquivo com hexdump de programa assembly. Conteúdo colado no CyberChef para limpeza. Análise do código assembly via ChatGPT revela que o programa imprime os dados da seção `.data` — valor `ALQ{Reverse_in_hex}`.
+
+**Flag:** `ALQ{Reverse_in_hex}`
+
+---
+
+### Sequência Matemática — 100pts
+
+Binário que exige entrada numérica. Nome do desafio sugere sequência matemática. Testando Fibonacci sequencialmente (1, 1, 2, 3, 5…) até o valor 82 libera a flag.
+
+**Flag:** `ALQ{FIBONACCI}`
+
+---
+
+### Malware — 200pts
+
+Binário `malware_c2` fornecido. `strings` revela a flag diretamente.
+
+```bash
+strings malware_c2
+```
+
+**Flag:** `ALQ{Foorense_investiga_porta}`
+
+---
+
+## Desafios de Forense
+
+### Uma carta de amor — 10pts
+
+Arquivo de imagem fornecido. `exiftool` revela string em base32 nos metadados:
+
+```
+IFGFC63BNVXXEX3QMVZGMZLJORXX2CQ=
+```
+
+Decodificado via CyberChef (From Base32).
+
+**Flag:** `ALQ{amor_perfeito}`
+
+---
+
+### Convite para Evento — 50pts
+
+Arquivo de convite fornecido. Texto da flag estava presente mas com cor idêntica ao fundo. Bastou alterar a cor da fonte para revelar.
+
+**Flag:** `ALQ{KAZAM-EMAIL}`
+
+---
+
+### Uma investigação delicada — 100pts
+
+Dump de pendrive fornecido. Análise com Autopsy extrai arquivo `.7z` oculto. Senha `123456` descomprime o arquivo com a flag.
+
+```bash
+# Autopsy → File Analysis → export .7z
+7z x arquivo.7z  # senha: 123456
+```
+
+**Flag:** `ALQ{foorense_the_best}`
+
+---
+
+### Um Dump de Memória — 200pts
+
+Dump de memória fornecido. `strings` com `less` para navegação revela string em base64. Decodificada via CyberChef.
+
+```bash
+strings memory_dump.271 | less
+# Base64 → decode → flag
+```
+
+**Flag:** `ALQ{REVERSE_memory}`
+
+---
+
+## Desafios de OSINT
+
+### Um lugar romântico — 10pts
+
+Foto fornecida. Busca reversa via Google Imagens identifica o local: Rothenburg ob der Tauber, Alemanha.
+
+**Flag:** `ALQ{ROTHENBURG OB DER TAUBER}`
+
+---
+
+### Uma vaga lembrança — 50pts
+
+Site `carros.pt` extinto. Busca no Wayback Machine com data de maio de 2010 → post encontrado exibe o usuário das publicações.
+
+**Flag:** `ALQ{ADMIN}`
+
+---
+
+### Carro Suspeito — 100pts
+
+Placa Mercosul fornecida em imagem. Consulta no site "Olho no Carro" retorna modelo, ano e marca.
+
+**Flag:** `ALQ{VOYAGE-2016-VOLKSWAGEN}`
+
+---
+
+## Desafios de Criptografia
+
+### Simple Cripto — 10pts
+
+Texto cifrado por substituição por deslocamento (ROT). CyberChef para ROT inicial, mas caracteres especiais exigiram brute force completo via `dcode.fr` com tabela ASCII.
+
+**Flag:** `ALQ{roda_roda_roda}`
+
+---
+
+### Medium Cripto — 50pts
+
+Cifra Caesar implementada em C fornecida. Texto cifrado: `XIN{ZOFMQLZOFMQL}`. Script Python de brute force sobre todas as 26 chaves revela o plaintext na chave 23.
+
+```python
+ciphertext = "XIN{ZOFMQLZOFMQL}"
+for key in range(26):
+    plaintext = ""
+    for c in ciphertext:
+        if c.isalpha():
+            base = 65 if c.isupper() else 97
+            plaintext += chr((ord(c) - key - base) % 26 + base)
+        else:
+            plaintext += c
+    print(f"Key {key}: {plaintext}")
+# Key 23: ALQ{CRIPTOCRIPTO}
+```
+
+**Flag:** `ALQ{CRIPTOCRIPTO}`
+
+---
+
+### Vazamento de API — 100pts
+
+JSON com parâmetros AES-256-CBC vazados (`key`, `iv`, `ciphertext`). Primeiro conjunto de parâmetros descriptografado via ferramenta online de AES.
+
+**Flag:** `ALQ{Cripto_is_cripto}`
+
+---
+
+### Nem sempre o que parece é! — 200pts
+
+Arquivo `cripto.txt`: `U2FsdGVkX19t3DveqApSjK8H/qOPL4o1S0hhJ4Y7x/ATxj4=`. Dica do CTF: ano 1987, cifra com duas letras e um número → RC4. Ferramenta online de RC4 decriptografa.
+
+**Flag:** `ALQ{RC4_Encriptado}`
+
+---
+
+## Desafios de Esteganografia
+
+### Um pinguim solitário — 10pts
+
+Imagem PNG fornecida. AperiSolve analisa as camadas de cor e revela a flag visualmente nas camadas de bits.
+
+**Flag:** `ALQ{stego_easy}`
+
+---
+
+### Café da manhã — 50pts
+
+Imagem PNG. `zsteg` revela a flag no canal `b1,rgb,lsb,xy`.
+
+```bash
+zsteg stego_2.png
+# b1,rgb,lsb,xy .. text: "ALQ{UM_Lug4r}"
+```
+
+**Flag:** `ALQ{UM_Lug4r}`
+
+---
+
+### Uma sequência de cores — 100pts
+
+Imagem com dado escondido no MSB. StegSolve analisa o bit mais significativo e extrai texto que, montado, forma a flag.
+
+```bash
+java -jar StegSolve-1.4.jar
+# Bit Plane → MSB → salvar texto → montar flag
+```
+
+**Flag:** `ALQ{TextPRAImaG3m}`
+
+---
+
+### Joia do Tempo — 200pts
+
+Imagem PNG. Enunciado menciona "diamante, esmeralda e turmalinas" — três senhas. OpenPuff exige exatamente 3 senhas para extrair dado oculto.
+
+**Flag:** `ALQ{Stego_Puff1}`
