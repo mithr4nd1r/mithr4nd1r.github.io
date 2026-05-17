@@ -64,4 +64,7 @@
     # HTB
     - { slug: mailroom,        name: Mailroom,         os: linux,   platform: htb }
     # THM
-    - { slug: enterprise,      name: Enterprise,       os: linux,   platform: thm }
+    - { slug: enterprise,         name: Enterprise,         os: linux,   platform: thm }
+    - { slug: year-of-the-dog,    name: Year of the Dog,    os: linux,   platform: thm }
+    - { slug: year-of-the-pig,    name: Year of the Pig,    os: linux,   platform: thm }
+    - { slug: year-of-the-owl,    name: Year of the Owl,    os: windows, platform: thm }
