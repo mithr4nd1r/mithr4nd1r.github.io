@@ -1,0 +1,18 @@
+- difficulty: easy
+  machines:
+    - { slug: shoppy,         name: Shoppy,        os: linux,   platform: htb }
+    - { slug: stocker,        name: Stocker,        os: linux,   platform: htb }
+    - { slug: editorial,      name: Editorial,      os: linux,   platform: htb }
+    - { slug: underpass,      name: Underpass,      os: linux,   platform: htb }
+    - { slug: twiggy,         name: Twiggy,         os: linux,   platform: pg  }
+    - { slug: xposedapi,      name: XposedAPI,      os: linux,   platform: pg  }
+    - { slug: steel-mountain, name: Steel Mountain, os: windows, platform: thm }
+    - { slug: alfred,         name: Alfred,         os: windows, platform: thm }
+    - { slug: source,         name: Source,         os: linux,   platform: thm }
+    - { slug: tokyo-ghoul,    name: Tokyo Ghoul,    os: linux,   platform: thm }
+    - { slug: cat-picture,    name: Cat Picture,    os: linux,   platform: thm }
+
+- difficulty: intermediate
+  machines:
+    - { slug: resourced, name: Resourced, os: windows, platform: pg }
+    - { slug: sorcerer,  name: Sorcerer,  os: linux,   platform: pg }

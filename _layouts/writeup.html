@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<div class="wu-layout">
+  <aside class="wu-sidebar" id="sidebar">
+    {% include writeups-sidebar.html %}
+  </aside>
+  <main class="wu-main">
+    <nav class="wu-breadcrumb" aria-label="breadcrumb">
+      <a href="{{ '/' | relative_url }}">mt</a>
+      <span class="sep">/</span>
+      <a href="{{ '/writeups/' | relative_url }}">writeups</a>
+      <span class="sep">/</span>
+      <span class="current">{{ page.title }}</span>
+      {% if page.difficulty %}
+        <span class="diff-badge diff-label {{ page.difficulty }}">{{ page.difficulty }}</span>
+      {% endif %}
+      {% if page.os %}
+        <span class="os-badge">{{ page.os }}</span>
+      {% endif %}
+    </nav>
+    <article class="wu-content">
+      {{ content }}
+    </article>
+  </main>
+</div>

@@ -1,0 +1,20 @@
+---
+layout: default
+---
+<div class="wu-layout">
+  <aside class="wu-sidebar" id="sidebar">
+    {% include cyber-sidebar.html %}
+  </aside>
+  <main class="wu-main">
+    <nav class="wu-breadcrumb" aria-label="breadcrumb">
+      <a href="{{ '/' | relative_url }}">mt</a>
+      <span class="sep">/</span>
+      <a href="{{ '/' | append: page.section | append: '/' | relative_url }}">{{ page.section }}</a>
+      <span class="sep">/</span>
+      <span class="current">{{ page.title | truncate: 60 }}</span>
+    </nav>
+    <article class="wu-content">
+      {{ content }}
+    </article>
+  </main>
+</div>

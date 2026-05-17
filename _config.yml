@@ -1,209 +1,82 @@
-# The Site Configuration
+title: Osvaldo Tenorio
+description: "Red Team Operator · Exploit Dev · Adversary Emulation — writeups, evasion, and research by Osvaldo Tenorio."
+url: "https://mithr4nd1r.github.io"
+baseurl: ""
+lang: en
+author: Osvaldo Tenorio
 
-# Import the theme
-theme: jekyll-theme-chirpy
-
-# Change the following value to '/PROJECT_NAME' ONLY IF your site type is GitHub Pages Project sites
-# and doesn't have a custom domain.
-baseurl: ''
-
-# The language of the webpage › http://www.lingoes.net/en/translator/langcode.htm
-# If it has the same name as one of the files in folder `_data/locales`, the layout language will also be changed,
-# otherwise, the layout language will use the default value of 'en'.
-lang: pt-BR
-
-
-# Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
-timezone: America/Campo_Grande
-
-# jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
-# ↓ --------------------------
-
-title: Mithr4nd1r                          # the main title
-
-tagline: My shell should pass!    # it will display as the sub-title
-
-description: >-                        # used by seo meta and the atom feed
-  Red Team Operator @ Sicoob. OSCE³ (OSEP/OSED/OSWE) · OSCP · SANS SEC660. Writeups e research em offensive security.
-
-# fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: 'https://mithr4nd1r.github.io'
-
-github:
-  username: osvaldotenorio             # change to your github username
-
-linkedin:
-  username: osvaldo-tenorio             # change to your linkedin username
-
-tryhackme:
-  username: mithr4nd1r             # TryHackMe profile
-
-hackthebox:
-  username: mithr4nd1r             # HackTheBox profile (placeholder — update if different)
-
-#twitter:
-#  username: twitter_username            # change to your twitter homepage
-
-social:
-  # Change to your full name.
-  # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: Osvaldo Tenorio
-  email: osvaldo.tenorio91@gmail.com             # change to your email address
-  links:
-    # The first element serves as the copyright owner's link
-    - https://github.com/mithr4nd1r
-    - https://www.linkedin.com/in/osvaldo-tenorio
-    - https://tryhackme.com/p/mithr4nd1r
-    - https://app.hackthebox.com/profile/mithr4nd1r
-    - https://github.com/osvaldotenorio
-
-google_site_verification:               # fill in to your verification string
-
-# ↑ --------------------------
-# The end of `jekyll-seo-tag` settings
-
-google_analytics:
-  id:                 # fill in your Google Analytics ID
-  # Google Analytics pageviews report settings
-  pv:
-    proxy_endpoint:   # fill in the Google Analytics superProxy endpoint of Google App Engine
-    cache_path:       # the local PV cache data, friendly to visitors from GFW region
-
-# Prefer color scheme setting.
-#
-# Note: Keep empty will follow the system prefer color by default,
-# and there will be a toggle to switch the theme between dark and light
-# on the bottom left of the sidebar.
-#
-# Available options:
-#
-#     light  - Use the light color scheme
-#     dark   - Use the dark color scheme
-#
-theme_mode: dark  # [light|dark]
-
-# The CDN endpoint for images.
-# Notice that once it is assigned, the CDN url
-# will be added to all image (site avatar & posts' images) paths starting with '/'
-#
-# e.g. 'https://cdn.com'
-img_cdn: ''
-
-# the avatar on sidebar, support local or CORS resources
-avatar: '/assets/img/gandalf.png'
-
-# boolean type, the global switch for ToC in posts.
-toc: true
-
-comments:
-  active: disqus        # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
-  # The active options are as follows:
-  disqus:
-    shortname: mithr4nd1r    # fill with the Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
-  # utterances settings › https://utteranc.es/
-  utterances:
-    repo:         # <gh-username>/<repo>
-    issue_term:   # < url | pathname | title | ...>
-  # Giscus options › https://giscus.app
-  giscus:
-    repo:              # <gh-username>/<repo>
-    repo_id:
-    category:
-    category_id:
-    mapping:           # optional, default to 'pathname'
-    input_position:    # optional, default to 'bottom'
-    lang:              # optional, default to the value of `site.lang`
-    reactions_enabled: # optional, default to the value of `1`
-
-# Self-hosted static assets, optional › https://github.com/cotes2020/chirpy-static-assets
-assets:
-  self_host:
-    enabled:      # boolean, keep empty means false
-    # specify the Jekyll environment, empty means both
-    # only works if `assets.self_host.enabled` is 'true'
-    env:          # [development|production]
-
-pwa:
-  enabled: true   # the option for PWA feature
-
-paginate: 10
-
-# ------------ The following options are not recommended to be modified ------------------
+markdown: kramdown
+highlighter: rouge
 
 kramdown:
+  input: GFM
   syntax_highlighter: rouge
-  syntax_highlighter_opts:   # Rouge Options › https://github.com/jneen/rouge#full-options
-    css_class: highlight
-    # default_lang: console
-    span:
-      line_numbers: false
+  syntax_highlighter_opts:
     block:
-      line_numbers: true
-      start_line: 1
+      line_numbers: false
 
-collections:
-  tabs:
-    output: true
-    sort_by: order
+permalink: pretty
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - "*.sh"
+  - "*.py"
 
 defaults:
   - scope:
-      path: ''          # An empty string here means all files in the project
-      type: posts
-    values:
-      layout: post
-      comments: true    # Enable comments in posts.
-      toc: true         # Display TOC column in posts.
-      # DO NOT modify the following parameter unless you are confident enough
-      # to update the code of all other post links in this project.
-      permalink: /posts/:title/
-  - scope:
-      path: _drafts
-    values:
-      comments: false
-  - scope:
-      path: ''
-      type: tabs             # see `site.collections`
+      path: ""
     values:
       layout: page
-      permalink: /:title/
+
   - scope:
-      path: assets/img/favicons
+      path: "evasion"
+      type: pages
     values:
-      swcache: true
+      layout: cyber
+      section: evasion
   - scope:
-      path: assets/js/dist
+      path: "exploit-dev"
+      type: pages
     values:
-      swcache: true
+      layout: cyber
+      section: exploit-dev
+  - scope:
+      path: "methodology"
+      type: pages
+    values:
+      layout: cyber
+      section: methodology
+  - scope:
+      path: "toolkit"
+      type: pages
+    values:
+      layout: cyber
+      section: toolkit
+  - scope:
+      path: "writeups"
+      type: pages
+    values:
+      layout: writeup
 
-sass:
-  style: compressed
-
-compress_html:
-  clippings: all
-  comments: all
-  endings: all
-  profile: false
-  blanklines: false
-  ignore:
-    envs: [development]
-
-exclude:
-  - '*.gem'
-  - '*.gemspec'
-  - tools
-  - README.md
-  - CHANGELOG.md
-  - LICENSE
-  - gulpfile.js
-  - node_modules
-  - package*.json
-
-jekyll-archives:
-  enabled: [categories, tags]
-  layouts:
-    category: category
-    tag: tag
-  permalinks:
-    tag: /tags/:name/
-    category: /categories/:name/
+  - scope:
+      path: "evasion/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "exploit-dev/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "methodology/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "toolkit/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "writeups/index.md"
+    values:
+      layout: page

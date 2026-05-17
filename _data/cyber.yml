@@ -1,0 +1,82 @@
+- section: evasion
+  pages:
+    - { slug: av-evasion-basics,        title: "AV Evasion Basics" }
+    - { slug: crypters,                 title: "Crypters" }
+    - { slug: obfuscators,              title: "Obfuscators" }
+    - { slug: process-injection,        title: "Process Injection" }
+    - { slug: process-hollowing,        title: "Process Hollowing" }
+    - { slug: reflective-dll-injection, title: "Reflective DLL Injection" }
+    - { slug: unhooking,                title: "Unhooking" }
+    - { slug: direct-syscalls,          title: "Direct Syscalls" }
+    - { slug: etw-bypass,               title: "ETW Bypass" }
+    - { slug: amsi-internals,           title: "AMSI Internals" }
+    - { slug: amsi-bypass,              title: "AMSI Bypass" }
+    - { slug: amsi-drx-bypass,          title: "AMSI Bypass via DR" }
+    - { slug: kernel-callbacks,         title: "Kernel Callbacks" }
+    - { slug: byovd,                    title: "BYOVD" }
+    - { slug: ppl-bypass,               title: "PPL Bypass" }
+    - { slug: full-chain,               title: "Full EDR Chain" }
+
+- section: exploit-dev
+  pages:
+    - { slug: windbg-crash-course,       title: "WinDbg Crash Course" }
+    - { slug: x86-assembly-essentials,   title: "x86 Assembly Essentials" }
+    - { slug: shellcode-basics,          title: "Shellcode Basics" }
+    - { slug: eip-control,               title: "EIP Control" }
+    - { slug: bad-characters,            title: "Bad Characters" }
+    - { slug: seh-overflows,             title: "SEH Overflows" }
+    - { slug: egghunters,                title: "Egghunters" }
+    - { slug: dep-rop-bypass,            title: "DEP + ROP Bypass" }
+    - { slug: aslr-bypass,               title: "ASLR Bypass" }
+    - { slug: format-string-exploits,    title: "Format String" }
+    - { slug: heap-overflows,            title: "Heap Overflows" }
+    - { slug: use-after-free,            title: "Use-After-Free" }
+    - { slug: custom-shellcode,          title: "Custom Shellcode" }
+
+- section: methodology
+  pages:
+    - { slug: reconnaissance,            title: "Reconnaissance" }
+    - { slug: vulnerability-scanning,    title: "Vulnerability Scanning" }
+    - { slug: web-attacks,               title: "Web Attacks" }
+    - { slug: client-side-attacks,       title: "Client-Side Attacks" }
+    - { slug: public-exploits,           title: "Public Exploits" }
+    - { slug: password-attacks,          title: "Password Attacks" }
+    - { slug: windows-privesc,           title: "Windows PrivEsc" }
+    - { slug: linux-privesc,             title: "Linux PrivEsc" }
+    - { slug: windows-credentials,       title: "Windows Credentials" }
+    - { slug: mssql-attacks,             title: "MSSQL Attacks" }
+    - { slug: tunneling,                 title: "Tunneling" }
+    - { slug: windows-lateral-movement,  title: "Win Lateral Movement" }
+    - { slug: linux-lateral-movement,    title: "Linux Lateral Movement" }
+    - { slug: ad-enumeration,            title: "AD Enumeration" }
+    - { slug: ad-authentication,         title: "AD Authentication" }
+    - { slug: ad-lateral-movement,       title: "AD Lateral Movement" }
+    - { slug: ad-object-permissions,     title: "AD Object Permissions" }
+    - { slug: kerberos-delegation,       title: "Kerberos Delegation" }
+    - { slug: ad-forest-trust,           title: "AD Forest & Trust" }
+
+- section: toolkit
+  pages:
+    - { slug: rev-bash,       title: "Reverse Shell (bash)" }
+    - { slug: rev-mkfifo,     title: "Reverse Shell (mkfifo)" }
+    - { slug: rev-php,        title: "Reverse Shell (PHP)" }
+    - { slug: powercat,       title: "Powercat + NTLM Relay" }
+    - { slug: nishang,        title: "Nishang" }
+    - { slug: tty-upgrade,    title: "TTY Upgrade" }
+    - { slug: ligolo-tunnel,  title: "Ligolo Tunnel" }
+    - { slug: sshuttle,       title: "sshuttle" }
+    - { slug: enum-network,   title: "Network Enumeration" }
+    - { slug: enum-windows,   title: "Windows File Enum" }
+    - { slug: add-rdp,        title: "Add RDP" }
+    - { slug: uac-bypass,     title: "UAC Bypass" }
+    - { slug: wmi-exec,       title: "WMI Exec" }
+    - { slug: word-macro,     title: "Word Macro" }
+    - { slug: pshellb64,      title: "pshellb64.py" }
+    - { slug: persistence,    title: "Persistence" }
+    - { slug: mimikatz,       title: "Mimikatz" }
+    - { slug: ticketer,       title: "Ticketer" }
+    - { slug: freeze,         title: "Freeze" }
+    - { slug: amsi-bypass,    title: "AMSI Bypass" }
+    - { slug: mssql-shell,    title: "MSSQL to Shell" }
+    - { slug: upload-server,  title: "Upload Server" }
+    - { slug: history,        title: "History Cleanup" }

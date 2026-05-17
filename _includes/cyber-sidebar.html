@@ -1,0 +1,18 @@
+<div class="sidebar-header">cyber · index</div>
+{% for group in site.data.cyber %}
+  {% assign is_open = false %}
+  {% if page.section == group.section %}{% assign is_open = true %}{% endif %}
+  <div class="sidebar-group {% if is_open %}open{% endif %}" id="group-{{ group.section }}">
+    <button class="sidebar-group-label" type="button" onclick="toggleGroup('{{ group.section }}')" aria-expanded="{{ is_open }}">
+      <span class="sidebar-caret">▶</span>
+      <span class="diff-label">{{ group.section }}</span>
+      <span class="sidebar-count">{{ group.pages | size }}</span>
+    </button>
+    <div class="sidebar-items">
+      {% for p in group.pages %}
+        {% assign expected = '/' | append: group.section | append: '/' | append: p.slug | append: '/' %}
+        <a href="{{ expected | relative_url }}" {% if page.url == expected %}class="active"{% endif %}>{{ p.title }}</a>
+      {% endfor %}
+    </div>
+  </div>
+{% endfor %}

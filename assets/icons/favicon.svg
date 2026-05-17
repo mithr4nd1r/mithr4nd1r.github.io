@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="10" fill="#0d0e10"/>
+  <rect x="3" y="3" width="58" height="58" rx="8" fill="none" stroke="#c69b46" stroke-width="1.5"/>
+  <path d="M6 6 L12 6 M6 6 L6 12" stroke="#c69b46" stroke-width="1.5" fill="none"/>
+  <path d="M58 6 L52 6 M58 6 L58 12" stroke="#c69b46" stroke-width="1.5" fill="none"/>
+  <path d="M6 58 L12 58 M6 58 L6 52" stroke="#c69b46" stroke-width="1.5" fill="none"/>
+  <path d="M58 58 L52 58 M58 58 L58 52" stroke="#c69b46" stroke-width="1.5" fill="none"/>
+  <text x="32" y="44"
+        text-anchor="middle"
+        font-family="'Fraunces','Georgia',serif"
+        font-weight="500"
+        font-style="italic"
+        font-size="38"
+        fill="#e8eaef">H</text>
+  <line x1="14" y1="50" x2="50" y2="50" stroke="#c69b46" stroke-width="0.8" opacity="0.7"/>
+</svg>

@@ -1,0 +1,21 @@
+<div class="sidebar-header">writeups · pg</div>
+{% for group in site.data.writeups %}
+  {% assign is_open = false %}
+  {% if page.difficulty == group.difficulty %}{% assign is_open = true %}{% endif %}
+  <div class="sidebar-group {% if is_open %}open{% endif %}" id="group-{{ group.difficulty }}">
+    <button class="sidebar-group-label" type="button" onclick="toggleGroup('{{ group.difficulty }}')" aria-expanded="{{ is_open }}">
+      <span class="sidebar-caret">▶</span>
+      <span class="diff-label {{ group.difficulty }}">{{ group.difficulty }}</span>
+      <span class="sidebar-count">{{ group.machines | size }}</span>
+    </button>
+    <div class="sidebar-items">
+      {% for machine in group.machines %}
+        {% assign expected = '/writeups/' | append: machine.slug | append: '/' %}
+        <a href="{{ expected | relative_url }}" {% if page.url == expected %}class="active"{% endif %}>
+          <img src="{{ '/assets/icons/' | append: machine.os | append: '.svg' | relative_url }}" class="os-icon" alt="{{ machine.os }}">
+          {{ machine.name }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endfor %}

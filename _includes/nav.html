@@ -1,0 +1,13 @@
+<nav class="site-nav" aria-label="primary">
+  <a href="{{ '/' | relative_url }}" class="nav-logo" aria-label="Osvaldo Tenorio — home">mt</a>
+  <button class="nav-mobile-btn" id="nav-toggle" aria-controls="nav-links" aria-expanded="false">menu</button>
+  <div class="nav-links" id="nav-links">
+    {%- assign sections = "bio,/|evasion,/evasion/|exploit-dev,/exploit-dev/|methodology,/methodology/|toolkit,/toolkit/|writeups,/writeups/" | split: "|" -%}
+    {%- for entry in sections -%}
+      {%- assign parts = entry | split: "," -%}
+      {%- assign label = parts[0] -%}
+      {%- assign url = parts[1] -%}
+      <a href="{{ url | relative_url }}" {% if page.url == url or page.url == url | append: 'index.html' %}aria-current="page"{% endif %}>{{ label }}</a>
+    {%- endfor -%}
+  </div>
+</nav>
