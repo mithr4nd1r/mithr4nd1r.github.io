@@ -1,0 +1,608 @@
+---
+layout: cyber
+section: fundamentos
+title: "Engajamento, ROE e Relatórios para Red Team"
+---
+
+# Engajamento, ROE e Relatórios para Red Team
+
+## O ROE Define a Linha Entre Engagement e Crime
+
+Red team operando sem ROE (Rules of Engagement) formal não é red team — é invasão criminosa. A diferença entre teste autorizado e crime está integralmente na documentação e no escopo definido por escrito. Acordo verbal não cobre o operador quando vira investigação policial; e-mail genérico também não. ROE é contrato bilateral assinado, com escopo enumerado, ações proibidas listadas, contatos de emergência e janela temporal explícita.
+
+O ROE também protege o operador em incidente real. Servidor crítico derrubado durante exercício: se estava fora de escopo, você (ou a empresa) responde; se estava em escopo e o trusted agent do cliente foi notificado, não responde. Pra CRTO I/II as provas exigem documentação das ações; pra OSEP você entrega relatórios técnicos detalhados. Cliente paga por relatório, não por shell — entregar shell sem relatório formaliza nada e não vende próximo engagement.
+
+---
+
+## O Contrato: ROE — Rules of Engagement
+
+O ROE é um documento legal e operacional assinado por ambas as partes antes do início do engagement. Sem ele, não há engagement.
+
+#### Elementos Essenciais do ROE
+
+**1. Escopo de IPs, Domínios e Subnets**
+
+Lista exaustiva do que pode ser atacado:
+
+```
+IN SCOPE:
+- 203.0.113.0/24 (bloco IP externo)
+- *.acmecorp.com (todos subdomínios)
+- 10.0.0.0/8 (rede interna — após acesso inicial)
+- acmecorp.com, mail.acmecorp.com, vpn.acmecorp.com
+- Active Directory: domain.acmecorp.local
+
+OUT OF SCOPE:
+- 203.0.113.50 (sistema de produção crítico — pacemakers)
+- Filiais internacionais (ACME GmbH, ACME Inc. US)
+- Ambientes de parceiros/fornecedores
+- Sistemas de terceiros hospedados na mesma infra
+```
+
+Questões comuns de escopo que precisam de resposta explícita:
+- Cloud assets (AWS, Azure) são in-scope? Até qual limite?
+- Subsidiárias ou empresas do grupo são in-scope?
+- Sistemas críticos (SCADA, médicos, financeiros) podem ser testados?
+- Usuários/funcionários podem ser alvos de phishing?
+- Ataques físicos são permitidos?
+
+**2. Janela de Tempo do Engagement**
+
+```
+Período de testes: 2025-03-01 00:00 UTC a 2025-03-28 23:59 UTC
+Horário de operações:
+  - Fase de reconhecimento: 24/7
+  - Fase de acesso inicial: 24/7
+  - Testes ativos em produção: apenas seg-sex 09h-17h (horário local)
+  - Emergências fora do horário: contato via número de plantão
+```
+
+**3. Lista de Ações Proibidas**
+
+Explicitamente proibido, independente de ser tecnicamente possível:
+
+```
+AÇÕES PROIBIDAS:
+- Ataques de DoS/DDoS contra qualquer sistema
+- Exfiltração de dados reais de clientes/funcionários para fora da rede
+- Destruição ou modificação permanente de dados
+- Acesso a sistemas de terceiros fora do escopo
+- Instalação de backdoors persistentes após término do engagement
+- Exploração de sistemas que hospedem dados de saúde (HIPAA)
+- Phishing de executivos C-level sem aprovação adicional por escrito
+- Pivoting para redes de parceiros via trust relationships
+```
+
+**4. Ponto de Contato de Emergência (Get-Out-of-Jail Card)**
+
+O "get-out-of-jail card" é literal: um documento físico ou digital que o operador carrega, provando que a atividade é autorizada.
+
+```
+CONTATOS DE EMERGÊNCIA:
+- CISO: John Smith | +1 (555) 000-0001 | john.smith@acmecorp.com
+- Legal: Sarah Johnson | +1 (555) 000-0002
+- IT Security Lead: Maria Garcia | +1 (555) 000-0003
+- Deconfliction Line: +1 (555) 000-0099 (24/7, para Blue Team)
+
+PROCEDIMENTO:
+1. Se capturado/questionado: apresentar este documento
+2. Ligar imediatamente para o CISO
+3. NÃO revelar TTPs utilizados para SOC/Blue Team sem autorização do CISO
+4. Documentar o incidente no operator log
+```
+
+**5. Critérios de Parada (Pause/Stop Conditions)**
+
+```
+PARAR IMEDIATAMENTE SE:
+- Encontrar evidência de breach ativo por terceiros
+- Acidentalmente acessar dados de clientes reais
+- Causar downtime em sistemas de produção
+- SOC detectar e escalar para incidente real (não simulado)
+- Encontrar vulnerabilidade crítica de segurança não relacionada ao escopo
+
+PAUSAR E NOTIFICAR SE:
+- Atingir Domain Admin antes do período de testes ativos
+- Encontrar credenciais que pareçam ser de produção real
+- Qualquer sistema fora do escopo aparecer como acessível via pivot
+```
+
+**6. Autorização por Escrito**
+
+```
+Este documento autoriza [Red Team Company/Operator] a executar
+testes de penetração e simulação de adversário nos sistemas
+identificados no Escopo acima, durante o período especificado,
+de acordo com as limitações definidas.
+
+Assinado:
+[CISO / CTO / Representante autorizado da empresa]
+Data e hora: _______________
+Função: _______________
+```
+
+---
+
+### Operator Log — O Que Registrar
+
+O operator log é sua proteção legal e a base para o relatório final. Deve ser mantido em tempo real durante o engagement.
+
+#### Estrutura de Cada Entrada
+
+```
+[YYYY-MM-DD HH:MM:SS UTC] | ACTION | TARGET | RESULT | EVIDENCE_REF
+```
+
+Campos obrigatórios:
+
+| Campo | Descrição | Exemplo |
+|---|---|---|
+| Timestamp UTC | Sempre UTC, nunca hora local | 2025-03-05 14:23:47 UTC |
+| Ação realizada | Verbo + objeto específico | Executou Kerberoasting via Rubeus |
+| Host/IP alvo | Hostname e IP se possível | DC01.domain.local (10.0.1.5) |
+| Resultado | Sucesso/falha, o que foi obtido | 3 TGS tickets obtidos |
+| Hash de evidência | MD5/SHA1 do arquivo de evidência | sha1:a3f2b1... |
+| Screenshot ref | Nome do arquivo de screenshot | SS_2025-03-05_14-23-47.png |
+
+#### Exemplo de Operator Log Real
+
+```
+2025-03-05 14:15:00 UTC | RECON | mail.acmecorp.com (203.0.113.20) | OWA identificado, versão Exchange 2019 | SS_001.png
+2025-03-05 14:32:11 UTC | ENUM | mail.acmecorp.com | MailSniper: 847 usuários válidos confirmados via timing attack | users_valid.txt [sha1:3a4b5c...]
+2025-03-05 15:01:45 UTC | SPRAY | mail.acmecorp.com | Password spray "Winter2025!" — 3 hits: jsmith, mgarcia, bwilson | SS_002.png
+2025-03-05 15:03:20 UTC | ACCESS | mail.acmecorp.com | Login bem-sucedido como jsmith@acmecorp.com | SS_003.png
+2025-03-05 15:15:00 UTC | ENUM | Domain | BloodHound coleta iniciada como jsmith — domínio: ACMECORP | bloodhound_data/ [sha1:7f8e9d...]
+2025-03-05 16:45:32 UTC | PIVOT | WEB01.domain.local (10.0.5.12) | SharpHound identifica path para Domain Admin via LAPS misconfiguration | SS_004.png
+2025-03-05 17:02:15 UTC | EXPLOIT | DC01.domain.local (10.0.1.5) | ESC1 (ADCS) explorado — certificado de DA obtido | cert_da.pfx [sha1:1a2b3c...]
+2025-03-05 17:05:00 UTC | IMPACT | DC01.domain.local | DCSync executado — hash NTLM de krbtgt obtido | PAUSE: notificado CISO
+```
+
+#### Ferramentas para Operator Log
+
+```bash
+# Script bash simples para logging
+LOG_FILE="/ops/engagement_log_$(date +%Y%m%d).txt"
+log_action() {
+    local action="$1" target="$2" result="$3" evidence="$4"
+    echo "$(date -u '+%Y-%m-%d %H:%M:%S UTC') | ${action} | ${target} | ${result} | ${evidence}" >> "$LOG_FILE"
+}
+
+# Uso:
+log_action "SPRAY" "mail.acmecorp.com" "3 valid creds found" "SS_spray_001.png"
+
+# Hash de evidência
+sha1sum evidence_file.txt >> "$LOG_FILE"
+```
+
+---
+
+### Escopo Técnico: Questões Comuns
+
+#### In-Scope vs Out-of-Scope — Decisões Difíceis
+
+**Cloud Assets:**
+```
+Situação: Alvo usa AWS. S3 buckets são in-scope?
+Resposta necessária no ROE:
+- "AWS account ID: 123456789012 — todos recursos nessa conta são in-scope"
+- OU "apenas EC2 instances listadas abaixo"
+- OU "cloud infrastructure explicitamente out-of-scope"
+
+Risco: bucket misconfiguration pode expor dados de outros clientes da empresa
+        → Sempre requerer clareza antes de testar cloud
+```
+
+**Subsidiárias:**
+```
+Situação: ACME Corp comprou a StartupXYZ há 6 meses.
+Startups frequentemente compartilham infra de AD trust ou SSO com parent.
+
+Se ROE cobre apenas ACME Corp:
+- startupxyz.com é OUT OF SCOPE
+- mas acmecorp.com/startupxyz (subdomínio) pode ser in-scope
+- trust entre domínios: path existe mas explorar pode violar ROE
+→ Documentar discovery e perguntar antes de explorar
+```
+
+**Sistemas Críticos:**
+```
+Antes do engagement, verificar e documentar:
+- Há sistemas de controle industrial (SCADA/ICS)?
+- Sistemas médicos? (pacemakers, monitores hospitalares)
+- Sistemas financeiros em tempo real? (trading, ATMs)
+- Sistemas de segurança física? (câmeras, controle de acesso)
+
+Recomendação: out-of-scope por padrão, requer aprovação adicional
+```
+
+---
+
+## Na Prática
+
+### Relatório Executivo
+
+**Audiência**: CISO, CFO, Board, CEO — pessoas que tomam decisões de orçamento e risco.
+
+**O que NÃO colocar**: detalhes técnicos de exploração, comandos utilizados, código.
+
+**O que colocar**:
+- Impacto de negócio (em linguagem de risco financeiro/reputacional)
+- Comparação com regulações (LGPD, PCI-DSS, ISO 27001)
+- Número e severidade de findings (sem detalhe técnico)
+- Recomendações estratégicas de investimento em segurança
+- Linha do tempo do ataque em linguagem narrativa
+
+**Exemplo de parágrafo de Executive Summary:**
+
+> "Durante o exercício de simulação de adversário realizado entre 1 e 28 de março de 2025, a equipe de Red Team obteve acesso privilegiado completo ao ambiente Active Directory da ACME Corp em aproximadamente 72 horas. O caminho de ataque simulou um adversário externo que utilizou credenciais obtidas via phishing para acessar o sistema de e-mail corporativo e, a partir daí, moveu-se lateralmente até comprometer o controlador de domínio principal. Este nível de acesso equivaleria ao comprometimento total de todos os sistemas internos da organização, incluindo dados de clientes, propriedade intelectual e sistemas financeiros. O impacto potencial é estimado em [R$ X] em exposição regulatória (LGPD) e danos reputacionais."
+
+### Relatório Técnico
+
+**Audiência**: equipe de segurança, sysadmins, pentesters internos.
+
+**O que incluir**: tudo. Cada passo, cada comando, cada evidência. A equipe defensiva precisa reproduzir o ataque para validar remediações.
+
+---
+
+## Exemplos de Código / Comandos
+
+### Estrutura Completa de Relatório
+
+```
+RELATÓRIO DE RED TEAM ENGAGEMENT
+ACME Corp | Março 2025
+Classificação: CONFIDENCIAL — RESTRITO
+────────────────────────────────────────────────────────
+
+1. EXECUTIVE SUMMARY
+   1.1 Visão Geral
+   1.2 Principais Riscos Identificados
+   1.3 Recomendações Estratégicas
+
+2. RISK RATINGS TABLE
+   ┌─────────────────────────────┬──────────┬────────┬──────────┐
+   │ Finding                     │ CVSS     │ Risk   │ Priority │
+   ├─────────────────────────────┼──────────┼────────┼──────────┤
+   │ Password Spray OWA          │ 9.1      │ CRÍTICO│ P1       │
+   │ ADCS ESC1 Misconfiguration  │ 9.8      │ CRÍTICO│ P1       │
+   │ Kerberoastable Service Accs │ 7.5      │ ALTO   │ P2       │
+   │ LAPS Not Deployed           │ 7.2      │ ALTO   │ P2       │
+   │ SMB Signing Disabled        │ 6.5      │ MÉDIO  │ P3       │
+   │ Weak Password Policy        │ 6.1      │ MÉDIO  │ P3       │
+   └─────────────────────────────┴──────────┴────────┴──────────┘
+
+3. ATTACK NARRATIVE
+   [Ver seção 3]
+
+4. TECHNICAL FINDINGS
+   [Uma seção por finding — ver template]
+
+5. APPENDIX
+   A. Tools Used
+   B. Methodology
+   C. Scope Definition
+   D. Operator Log (resumido)
+```
+
+### Template de Finding Individual
+
+```
+────────────────────────────────────────────────────────
+FINDING #001: Active Directory Certificate Services — ESC1
+────────────────────────────────────────────────────────
+
+CVSS 3.1 Score: 9.8 (Critical)
+CVSS Vector: AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H
+
+MITRE ATT&CK: T1649 — Steal or Forge Authentication Certificates
+
+DESCRIÇÃO:
+O serviço Active Directory Certificate Services (ADCS) está configurado
+com templates de certificados que permitem que usuários autenticados
+solicitem certificados com Subject Alternative Names (SAN) arbitrários,
+incluindo nomes de contas de alto privilégio (Domain Admins).
+
+EVIDÊNCIA:
+  Screenshot: SS_ADCS_001.png
+  Comando executado:
+    Certify.exe find /vulnerable
+  Output relevante:
+    [!] Vulnerable Certificates Templates:
+    Template Name: UserAuthentication
+    Enrollee Supplies Subject: True
+    Certificate Authorities: ACMECORP-CA
+    Enabled: True
+    Client Authentication: True
+    Enrollable By: Domain Users
+
+PASSOS DE REPRODUÇÃO:
+  1. Com qualquer conta de Domain User autenticada:
+     Certify.exe request /ca:DC01\ACMECORP-CA /template:UserAuthentication
+                         /altname:Administrator
+  2. Converter certificado para PFX:
+     openssl pkcs12 -in cert.pem -keyex -CSP "..." -export -out cert.pfx
+  3. Usar certificado para obter hash NTLM do Administrator:
+     Rubeus.exe asktgt /user:Administrator /certificate:cert.pfx /getcredentials
+  4. Pass-the-hash ou PTT para acesso como Administrator
+
+IMPACTO:
+  Qualquer usuário de domínio (incluindo usuários de baixo privilégio
+  obtidos via phishing) pode escalar para Domain Administrator em minutos,
+  sem necessidade de explorar vulnerabilidades de software.
+
+REMEDIAÇÃO:
+  Imediata:
+  1. Desabilitar o template UserAuthentication até a correção:
+     Manage AD CS → Certificate Templates → UserAuthentication → Disable
+  2. Remover flag "Enrollee Supplies Subject" (CT_FLAG_ENROLLEE_SUPPLIES_SUBJECT)
+     de todos os templates que não necessitam de SAN arbitrário.
+  Curto prazo:
+  3. Habilitar "Manager Approval" em templates sensíveis.
+  4. Revisar todos os templates: Certify.exe find /vulnerable
+  5. Implementar monitoramento de Event ID 4886 e 4887 (Certificate Request/Issue)
+  
+REFERÊNCIA:
+  SpecterOps — "Certified Pre-Owned" (Whitepaper)
+  https://posts.specterops.io/certified-pre-owned-d95910965cd2
+
+────────────────────────────────────────────────────────
+```
+
+### Narrativa de Ataque — Template com Diagrama ASCII
+
+```
+3. NARRATIVA DE ATAQUE
+══════════════════════
+
+3.1 Visão Geral do Caminho de Ataque
+
+  [INTERNET]
+      │
+      ▼
+  ┌─────────────────────────────────────────────┐
+  │ FASE 1: ACESSO INICIAL (Dia 1)              │
+  │                                             │
+  │ Password Spray → OWA                        │
+  │ Credential: jsmith / Winter2025!            │
+  │ → Acesso ao e-mail de jsmith               │
+  └────────────────────┬────────────────────────┘
+                       │
+                       ▼
+  ┌─────────────────────────────────────────────┐
+  │ FASE 2: RECONHECIMENTO INTERNO (Dia 1-2)   │
+  │                                             │
+  │ BloodHound collection via jsmith            │
+  │ → Mapeamento do AD                         │
+  │ → Identificação de path para DA            │
+  │                                             │
+  │ MailSniper: dump da GAL                    │
+  │ → 847 endereços de e-mail                  │
+  │ → Contexto para engenharia social           │
+  └────────────────────┬────────────────────────┘
+                       │
+                       ▼
+  ┌─────────────────────────────────────────────┐
+  │ FASE 3: MOVIMENTO LATERAL (Dia 2)          │
+  │                                             │
+  │ Kerberoasting: 3 SPN accounts              │
+  │ Hashcat: svc_backup / Backup2024!           │
+  │                                             │
+  │ svc_backup → LOCAL ADMIN em FS01            │
+  │ (senha reutilizada)                         │
+  └────────────────────┬────────────────────────┘
+                       │
+                       ▼
+  ┌─────────────────────────────────────────────┐
+  │ FASE 4: ESCALADA DE PRIVILÉGIO (Dia 3)    │
+  │                                             │
+  │ ADCS ESC1: svc_backup solicita cert        │
+  │ para Administrator                          │
+  │                                             │
+  │ Rubeus ASKTGT → TGT como Administrator     │
+  └────────────────────┬────────────────────────┘
+                       │
+                       ▼
+  ┌─────────────────────────────────────────────┐
+  │ FASE 5: OBJETIVO (Dia 3)                   │
+  │                                             │
+  │ DCSync → krbtgt NTLM hash                  │
+  │ → Golden Ticket capability                  │
+  │ → Acesso a todos os sistemas do domínio    │
+  └─────────────────────────────────────────────┘
+
+
+3.2 Linha do Tempo Detalhada
+
+Dia 1 — 05/03/2025:
+  14:15 — Identificação de OWA em mail.acmecorp.com
+  14:32 — Enumeração de 847 usuários válidos via timing attack
+  15:01 — Password spray com "Winter2025!" — 3 credenciais válidas
+  15:15 — Início de coleta BloodHound como jsmith
+  15:45 — Download da Global Address List (847 emails)
+
+Dia 2 — 06/03/2025:
+  09:00 — Análise de BloodHound: path identificado
+  10:30 — Kerberoasting: 3 tickets obtidos
+  11:15 — Hashcat crack: svc_backup:Backup2024! obtida
+  14:00 — Movimento lateral para FS01 via SMB (svc_backup = local admin)
+  15:30 — Dump de credenciais em memória de FS01
+
+Dia 3 — 07/03/2025:
+  09:00 — ADCS ESC1: certificado solicitado como Administrator
+  09:15 — TGT obtido como Administrator via Rubeus
+  09:30 — DCSync executado: krbtgt hash obtido
+  09:35 — PAUSA: CISO notificado conforme protocolo de engagement
+```
+
+### Risk Quantification Matrix
+
+```
+MATRIZ DE RISCO — PROBABILIDADE × IMPACTO
+
+                    IMPACTO
+              Baixo  Médio   Alto  Crítico
+            ┌──────┬───────┬─────┬────────┐
+Alta        │  M   │   A   │  C  │   C    │
+PROB.  Média│  B   │   M   │  A  │   C    │
+       Baixa│  B   │   B   │  M  │   A    │
+       Mínima│  B   │   B   │  B  │   M   │
+            └──────┴───────┴─────┴────────┘
+
+B = Baixo | M = Médio | A = Alto | C = Crítico
+
+Aplicação aos Findings:
+┌───────────────────────────────┬──────────────┬────────────┬────────┐
+│ Finding                       │ Probabilidade│ Impacto    │ Rating │
+├───────────────────────────────┼──────────────┼────────────┼────────┤
+│ Password Spray OWA            │ Alta         │ Crítico    │ C      │
+│ ADCS ESC1                     │ Alta         │ Crítico    │ C      │
+│ Kerberoastable Accounts       │ Alta         │ Alto       │ C      │
+│ LAPS Not Deployed             │ Média        │ Alto       │ A      │
+│ SMB Signing Disabled          │ Média        │ Médio      │ M      │
+└───────────────────────────────┴──────────────┴────────────┴────────┘
+
+CVSS Aplicado a Red Team Findings:
+
+CVSS Score   | Classificação | Prazo de Remediação
+9.0 - 10.0   | CRÍTICO       | 24-72 horas
+7.0 - 8.9    | ALTO          | 7 dias
+4.0 - 6.9    | MÉDIO         | 30 dias
+0.1 - 3.9    | BAIXO         | 90 dias
+```
+
+### Template de Relatório Executivo Completo (Esqueleto)
+
+```markdown
+# Relatório de Red Team Engagement
+**Cliente**: ACME Corp
+**Período**: 01-28/03/2025
+**Classificação**: CONFIDENCIAL
+**Preparado por**: [Red Team Company]
+**Versão**: 1.0
+
+---
+
+## 1. Resumo Executivo
+
+### O Que Testamos
+[2-3 frases sobre o objetivo do engagement, em linguagem de negócio]
+
+### O Que Encontramos
+[Bullet points de alto nível — sem detalhes técnicos]
+- Acesso total ao ambiente foi obtido em 72 horas
+- X% dos sistemas críticos estavam acessíveis
+- Dados de [categoria] poderiam ter sido exfiltrados
+
+### Impacto Potencial
+[Tradução em risco financeiro/reputacional/regulatório]
+
+### Principais Recomendações
+1. [Recomendação estratégica 1]
+2. [Recomendação estratégica 2]
+3. [Recomendação estratégica 3]
+
+---
+
+## 2. Findings por Risco
+
+[Tabela com CRÍTICO → ALTO → MÉDIO → BAIXO]
+
+---
+
+## 3. Narrativa do Ataque
+
+[Diagrama ASCII + linha do tempo — ver seção 3]
+
+---
+
+## 4. Findings Técnicos Detalhados
+
+[Um finding por seção — ver template de finding]
+
+---
+
+## 5. Apêndice
+
+### A. Ferramentas Utilizadas
+- Cobalt Strike 4.x — C2 Framework
+- BloodHound CE — AD Attack Path Analysis
+- Certify.exe — ADCS Enumeration
+- Rubeus — Kerberos Toolset
+- MailSniper — Exchange Enumeration
+- Hashcat — Password Cracking
+
+### B. Metodologia
+CRTO Methodology + MITRE ATT&CK Framework
+
+### C. Escopo
+[Copiar escopo do ROE]
+
+### D. Operadores
+[Lista de operadores envolvidos — pode ser anonimizado]
+```
+
+---
+
+## Detecção e OPSEC
+
+### O Que Gerar Alertas Durante o Engagement
+
+| Ação | Event ID / Log | Detecção |
+|---|---|---|
+| Password Spray | 4625 (múltiplos, mesmo IP) | Threshold em SIEM |
+| Kerberoasting | 4769 (Encryption Type 0x17) | Detecção por tipo de cifra |
+| BloodHound coleta | 4662 (LDAP queries em massa) | Volume anômalo de LDAP |
+| ADCS cert request | 4886 + 4887 | Request com SAN diferente do usuário |
+| DCSync | 4662 (replication permissions) | Conta não-DC fazendo replication |
+| Pass-the-Hash | 4624 (Logon Type 3, NTLMv2) | Autenticação NTLM de workstation |
+
+### Documentando Detecções Durante o Engagement
+
+Para o relatório técnico, documentar **cada vez que o Blue Team detectou uma ação**:
+
+```
+DETECÇÃO #001:
+Ação: Password spray em 15:01 UTC
+Detectado: Sim / Não / Parcial
+Prazo de detecção: N/A (não detectado)
+Alerta gerado: N/A
+Ação tomada pelo Blue Team: N/A
+
+DETECÇÃO #002:
+Ação: Kerberoasting em 10:30 UTC
+Detectado: Sim
+Prazo de detecção: 47 minutos
+Alerta gerado: "Suspicious Kerberos TGS Request" — SIEM
+Ação tomada pelo Blue Team: Ticket criado, nenhuma ação de contenção
+Comentário: Detecção sem resposta ativa — tempo de dwell não diminuiu
+```
+
+Isso fornece ao cliente tanto os achados de segurança quanto a efetividade do SOC.
+
+### OPSEC Durante o Engagement
+
+1. Nunca operar sem o ROE fisicamente acessível (digital ou impresso)
+2. Manter operator log em tempo real — não tentar reconstruir depois
+3. Screenshots com timestamp no filename: `SS_YYYYMMDD_HHMMSS.png`
+4. Evidências em hash imutável antes de transmitir ao cliente
+5. Canal de comunicação seguro com cliente (sinal, telefone criptografado) para emergências
+6. Separação: notes de engagement em sistema offline ou VeraCrypt vault
+7. Ao terminar: remoção de todos os artefatos do engagement (backdoors, contas criadas, ferramentas), documentada no operator log
+
+---
+
+## Módulos Relacionados
+
+`01_red_teaming_conceitos.md` mostra a diferença de escopo e mentalidade entre pentest e red team que justifica ROE distinto. `04_malware_essentials.md` cobre os artefatos que aparecem como evidência no relatório. `02_c2_infraestrutura/04_infraestrutura_resiliente_redirectors.md` documenta a infra usada que entra na seção de Reconstrução do Ataque. `03_acesso_inicial/04_password_spraying_owa.md` é exemplo de técnica que vai aparecer em findings técnicos.
+
+---
+
+## Leitura Complementar
+
+- Joe Vest & James Tubberville, *Red Team Development and Operations*
+- Peter Kim, *The Hacker Playbook 3* (seção de relatórios)
+- PTES Technical Guidelines — http://www.pentest-standard.org/
+- MITRE ATT&CK — https://attack.mitre.org/
+- NVD CVSS Calculator — https://nvd.nist.gov/vuln-metrics/cvss
+- CRTO I — Reporting Module
+- OSEP (PEN-300) — Report Writing Section

@@ -6,6 +6,7 @@ layout: default
     {% include writeups-sidebar.html %}
   </aside>
   <main class="wu-main">
+    {% unless page.url == '/writeups/' %}
     <nav class="wu-breadcrumb" aria-label="breadcrumb">
       <a href="{{ '/' | relative_url }}">mt</a>
       <span class="sep">/</span>
@@ -19,6 +20,7 @@ layout: default
         <span class="os-badge">{{ page.os }}</span>
       {% endif %}
     </nav>
+    {% endunless %}
     <article class="wu-content">
       {{ content }}
     </article>

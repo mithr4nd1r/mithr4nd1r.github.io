@@ -1,112 +1,139 @@
-- section: evasion
+- section: fundamentos
   pages:
-    - { slug: av-evasion-intro,              title: "AV Evasion — Introduction" }
-    - { slug: av-evasion-advanced,           title: "AV Evasion — Advanced" }
-    - { slug: amsi-bypass,                   title: "AMSI Bypass" }
-    - { slug: applocker-bypass,              title: "AppLocker Bypass" }
-    - { slug: wdac-bypass,                   title: "WDAC Bypass" }
-    - { slug: edr-telemetry-hooking,         title: "EDR Telemetry & Hooking" }
-    - { slug: load-time-evasion,             title: "Load-Time Evasion" }
-    - { slug: runtime-evasion-sleepmask,     title: "Runtime Evasion & Sleepmask" }
-    - { slug: windows-evasion-htb,           title: "Windows Evasion (HTB)" }
-    - { slug: payload-placement,             title: "Payload Placement" }
-    - { slug: payload-encryption,            title: "Payload Encryption" }
-    - { slug: payload-obfuscation,           title: "Payload Obfuscation & Encoding" }
-    - { slug: process-spoofing,              title: "Process Spoofing" }
-    - { slug: drm-malware,                   title: "DRM-Equipped Malware" }
-    - { slug: dll-sideloading,               title: "DLL Sideloading" }
-    - { slug: pe-packer,                     title: "PE Packer" }
-    - { slug: byovd,                         title: "BYOVD — Vulnerable Drivers" }
-    - { slug: kernel-callbacks-etw,          title: "Kernel Callbacks & ETW" }
-    - { slug: credential-guard-bypass,       title: "Credential Guard Bypass" }
+    - { slug: "red-teaming-conceitos",          title: "Red Teaming: Conceitos Fundamentais" }
+    - { slug: "kill-chain-e-mitre-attack",       title: "Kill Chain e MITRE ATT&CK" }
+    - { slug: "opsec-e-tradecraft",              title: "OPSEC e Tradecraft" }
+    - { slug: "malware-essentials",              title: "Malware Essentials para Red Team" }
+    - { slug: "engajamento-roe-e-relatorios",    title: "Engajamento, ROE e Relatórios" }
+    - { slug: "exploits-e-ferramentas",          title: "Exploits Públicos: Localizar, Validar e Adaptar" }
+    - { slug: "metasploit-fundamentos",          title: "Metasploit Framework — Fundamentos" }
 
-- section: exploit-dev
+- section: c2
   pages:
-    - { slug: red-teaming-concepts,          title: "Red Teaming Concepts" }
-    - { slug: kill-chain-mitre,              title: "Kill Chain & MITRE ATT&CK" }
-    - { slug: opsec-tradecraft,              title: "OPSEC & Tradecraft" }
-    - { slug: malware-essentials,            title: "Malware Essentials" }
-    - { slug: engagement-roe,               title: "Engagement ROE & Reports" }
-    - { slug: exploits-tools,               title: "Exploits & Tools" }
-    - { slug: metasploit-basics,            title: "Metasploit Fundamentals" }
-    - { slug: process-injection-basics,     title: "Process Injection — Fundamentals" }
-    - { slug: process-injection-advanced,   title: "Process Injection — Advanced" }
-    - { slug: post-exploitation-bof,        title: "Post-Exploitation Evasion & BOF" }
-    - { slug: pe-format,                    title: "PE Format & Parsing" }
+    - { slug: "cobalt-strike-fundamentos",            title: "Cobalt Strike Fundamentos" }
+    - { slug: "listeners-e-payloads",                 title: "Listeners e Payloads no Cobalt Strike" }
+    - { slug: "malleable-c2-profiles",                title: "Malleable C2 Profiles" }
+    - { slug: "infraestrutura-resiliente-redirectors", title: "Infraestrutura Resiliente e Redirectors" }
+    - { slug: "c2-protocol-design",                   title: "Design de Protocolo C2 Customizado" }
+    - { slug: "sliver-c2",                            title: "Sliver C2 — Framework de Comando e Controle" }
+    - { slug: "beacon-object-files",                  title: "Beacon Object Files (BOFs)" }
 
-- section: methodology
+- section: acesso-inicial
   pages:
-    - { slug: phishing-social-eng,          title: "Phishing & Social Engineering" }
-    - { slug: office-vba-macros,            title: "Office VBA Macros" }
-    - { slug: windows-script-host,          title: "Windows Script Host" }
-    - { slug: password-spraying-owa,        title: "Password Spraying & OWA" }
-    - { slug: calendar-phishing,            title: "Calendar Phishing (ICS)" }
-    - { slug: passive-recon,                title: "Passive Reconnaissance" }
-    - { slug: active-enumeration,           title: "Active Enumeration" }
-    - { slug: byoph-byofe,                  title: "BYOPH & BYOFE" }
-    - { slug: win-situational-awareness,    title: "Windows Situational Awareness" }
-    - { slug: win-privesc,                  title: "Windows Privilege Escalation" }
-    - { slug: win-credentials,              title: "Windows Credentials" }
-    - { slug: token-impersonation,          title: "Token Impersonation" }
-    - { slug: persistence,                  title: "Persistence" }
-    - { slug: network-recon,               title: "Network Recon & Discovery" }
-    - { slug: in-memory-capture,           title: "In-Memory Capture" }
-    - { slug: keylogging,                  title: "Keylogging" }
-    - { slug: browser-credentials,         title: "Browser Credentials" }
-    - { slug: linux-post-exploitation,     title: "Linux Post-Exploitation" }
-    - { slug: linux-credentials,           title: "Linux Credentials" }
-    - { slug: kiosk-breakouts,             title: "Kiosk Breakouts" }
-    - { slug: linux-enumeration,           title: "Linux Enumeration" }
-    - { slug: lateral-movement-windows,    title: "Lateral Movement — Windows" }
-    - { slug: lateral-movement-linux,      title: "Lateral Movement — Linux/SSH" }
-    - { slug: pivoting-tunneling,          title: "Pivoting & Tunneling" }
-    - { slug: network-filters-bypass,      title: "Network Filters Bypass" }
-    - { slug: ntlm-relay,                  title: "NTLM Relay Attacks" }
-    - { slug: kerberos-fundamentals,       title: "Kerberos Fundamentals" }
-    - { slug: kerberoasting-asrep,         title: "Kerberoasting & AS-REP" }
-    - { slug: golden-silver-tickets,       title: "Golden & Silver Tickets" }
-    - { slug: dcsync-dominance,            title: "DCSync & Domain Dominance" }
-    - { slug: delegation-unconstrained,    title: "Unconstrained Delegation" }
-    - { slug: delegation-constrained-rbcd, title: "Constrained Delegation & RBCD" }
-    - { slug: forest-domain-trusts,        title: "Forest & Domain Trusts" }
-    - { slug: bloodhound-enumeration,      title: "BloodHound & AD Enumeration" }
-    - { slug: dacl-attacks,               title: "DACL Attacks" }
-    - { slug: adcs-attacks,               title: "ADCS Attacks" }
-    - { slug: jea-jit,                    title: "JEA & JIT Exploitation" }
-    - { slug: azure-fundamentals,         title: "Azure Fundamentals & Enumeration" }
-    - { slug: azure-initial-access,       title: "Azure Initial Access" }
-    - { slug: azure-enum-privesc,         title: "Azure Enumeration & PrivEsc" }
-    - { slug: azure-lateral-movement,     title: "Azure Lateral Movement" }
-    - { slug: azure-bypass-defenses,      title: "Azure Bypass Defenses" }
-    - { slug: azure-cicd-abuse,           title: "Azure CI/CD Abuse" }
-    - { slug: azure-cheatsheet,           title: "Azure Cheatsheet" }
-    - { slug: mssql-fundamentals,         title: "MSSQL Fundamentals & Enumeration" }
-    - { slug: mssql-lateral-movement,     title: "MSSQL Lateral Movement & RCE" }
-    - { slug: exchange-sccm-attacks,      title: "Exchange & SCCM Attacks" }
-    - { slug: phishing-intro,             title: "Phishing Operations — Intro" }
-    - { slug: phishing-infrastructure,    title: "Phishing Infrastructure" }
-    - { slug: phishing-pages,             title: "Phishing Page Creation" }
-    - { slug: phishing-server-protection, title: "Server Protection" }
-    - { slug: phishing-anti-analysis,     title: "Anti-Analysis & Obfuscation" }
-    - { slug: phishing-reputation,        title: "Reputation & Fingerprinting" }
-    - { slug: phishing-advanced,          title: "Advanced Phishing Techniques" }
-    - { slug: html-smuggling-clickfix,    title: "HTML Smuggling & ClickFix" }
-    - { slug: phishing-bypass-mfa,        title: "MFA Bypass & Advanced Attacks" }
+    - { slug: "phishing-e-engenharia-social",    title: "Phishing e Engenharia Social" }
+    - { slug: "office-vba-macros",               title: "Office VBA Macros" }
+    - { slug: "windows-script-host",             title: "Windows Script Host (WSH) para Red Team" }
+    - { slug: "password-spraying-owa",           title: "Password Spraying em OWA e Exchange" }
+    - { slug: "calendar-phishing-ics",           title: "Phishing via Convite de Calendário (ICS)" }
+    - { slug: "reconhecimento-passivo",          title: "Reconhecimento Passivo" }
+    - { slug: "enumeracao-ativa",                title: "Enumeração Ativa" }
+    - { slug: "byoph-byofe",                     title: "BYOPH / BYOFE" }
 
-- section: toolkit
+- section: evasao
   pages:
-    - { slug: cobalt-strike-fundamentals, title: "Cobalt Strike Fundamentals" }
-    - { slug: listeners-payloads,         title: "Listeners & Payloads" }
-    - { slug: malleable-c2,               title: "Malleable C2 Profiles" }
-    - { slug: resilient-infrastructure,   title: "Resilient Infrastructure & Redirectors" }
-    - { slug: c2-protocol-design,         title: "C2 Protocol Design" }
-    - { slug: sliver-c2,                  title: "Sliver C2" }
-    - { slug: beacon-object-files,        title: "Beacon Object Files (BOF)" }
-    - { slug: cobalt-strike-cheatsheet,   title: "Cobalt Strike Cheatsheet" }
-    - { slug: credentials-cheatsheet,     title: "Credentials Cheatsheet" }
-    - { slug: essential-tools,            title: "Essential Tools" }
-    - { slug: kerberos-attacks-cheatsheet,title: "Kerberos Attacks Cheatsheet" }
-    - { slug: pivoting-cheatsheet,        title: "Pivoting Cheatsheet" }
+    - { slug: "av-evasao-introducao",              title: "Evasão de Antivírus — Introdução e Fundamentos" }
+    - { slug: "av-evasao-avancada",                title: "Evasão de Antivírus — Técnicas Avançadas" }
+    - { slug: "amsi-bypass",                       title: "AMSI Bypass — Antimalware Scan Interface" }
+    - { slug: "applocker-bypass",                  title: "AppLocker Bypass" }
+    - { slug: "wdac-bypass",                       title: "WDAC Bypass — Windows Defender Application Control" }
+    - { slug: "edr-telemetria-e-hooking",          title: "EDR — Telemetria, Hooking e Evasão" }
+    - { slug: "load-time-evasion",                 title: "Evasão em Load Time — UDRL, PE Stomping, Module Stomping" }
+    - { slug: "runtime-evasion-sleepmask",         title: "Runtime Evasion e Sleep Mask" }
+    - { slug: "windows-evasion-htb",               title: "Técnicas de Evasão Windows (HTB)" }
+    - { slug: "payload-placement",                 title: "Payload Placement em Seções do PE" }
+    - { slug: "payload-encryption",                title: "Payload Encryption (XOR / RC4 / AES)" }
+    - { slug: "payload-obfuscation-data-encoding", title: "Payload Obfuscation — Data Encoding (IPv4 / MAC / UUID)" }
+    - { slug: "process-spoofing",                  title: "Process Spoofing — PPID e Argumento" }
+    - { slug: "drm-equipped-malware",              title: "DRM-Equipped Malware" }
+    - { slug: "dll-sideloading",                   title: "DLL Sideloading" }
+    - { slug: "pe-packer",                         title: "Construindo um PE Packer" }
+
+- section: injecao-processo
+  pages:
+    - { slug: "process-injection-fundamentos",    title: "Injeção de Processo: Fundamentos" }
+    - { slug: "tecnicas-classicas-e-avancadas",   title: "Técnicas Clássicas e Avançadas de Injeção de Processo" }
+    - { slug: "post-exploitation-evasion-bof",    title: "Post-Exploitation Evasion via BOF" }
+    - { slug: "pe-format-e-parsing",              title: "PE Format e Parsing Manual" }
+
+- section: pos-expl-windows
+  pages:
+    - { slug: "enumeracao-e-situational-awareness", title: "Enumeração e Situational Awareness no Windows" }
+    - { slug: "escalada-de-privilegio",             title: "Escalada de Privilégio no Windows" }
+    - { slug: "credenciais-windows",                title: "Credenciais Windows: Extração e Técnicas" }
+    - { slug: "token-impersonation",                title: "Token Impersonation no Windows" }
+    - { slug: "persistencia",                       title: "Persistência no Windows" }
+    - { slug: "network-recon-e-discovery",          title: "Reconhecimento de Rede e Discovery" }
+    - { slug: "in-memory-capture",                  title: "In-Memory Capture (Screenshots, Clipboard)" }
+    - { slug: "keylogging",                         title: "Keylogging" }
+    - { slug: "browser-credentials",                title: "Browser Credentials — Firefox + Chrome" }
+
+- section: pos-expl-linux
+  pages:
+    - { slug: "linux-post-exploitation",      title: "Post-Exploitation Linux" }
+    - { slug: "credenciais-linux",            title: "Extração e Abuso de Credenciais em Linux" }
+    - { slug: "kiosk-breakouts",              title: "Kiosk Breakouts" }
+    - { slug: "enumeracao-linux-completo",    title: "Enumeração Linux Completa — Pós-Exploração" }
+
+- section: lateral
+  pages:
+    - { slug: "lateral-movement-windows",   title: "Movimento Lateral em Windows — Técnicas e Ferramentas" }
+    - { slug: "lateral-movement-linux-ssh", title: "Movimento Lateral em Linux via SSH" }
+    - { slug: "pivoting-e-tunelamento",     title: "Pivoting e Tunelamento" }
+    - { slug: "network-filters-bypass",     title: "Bypass de Filtros de Rede (Egress Filtering)" }
+    - { slug: "ntlm-relay-attacks",         title: "Ataques NTLM Relay" }
+
+- section: active-directory
+  pages:
+    - { slug: "kerberos-fundamentos",              title: "Kerberos: Fundamentos e Arquitetura" }
+    - { slug: "kerberoasting-e-asrep",             title: "Kerberoasting e AS-REP Roasting" }
+    - { slug: "golden-e-silver-tickets",           title: "Golden Ticket, Silver Ticket e Diamond Ticket" }
+    - { slug: "dcsync-e-dominancia",               title: "DCSync e Dominância de Domínio" }
+    - { slug: "delegacao-unconstrained",           title: "Delegação Irrestrita (Unconstrained Delegation)" }
+    - { slug: "delegacao-constrained-e-rbcd",      title: "Constrained Delegation e RBCD" }
+    - { slug: "forest-e-domain-trusts",            title: "Forest e Domain Trusts" }
+    - { slug: "bloodhound-e-enumeracao",           title: "BloodHound e Enumeração de Active Directory" }
+    - { slug: "dacl-attacks",                      title: "DACL Attacks" }
+    - { slug: "adcs-attacks",                      title: "ADCS Attacks — Active Directory Certificate Services" }
+    - { slug: "jea-e-jit-exploitation",            title: "JEA e JIT — Exploração de Administração Delegada" }
+    - { slug: "azure-fundamentos-e-enumeracao",    title: "Azure/Entra ID — Fundamentos para Atacantes e Enumeração" }
+    - { slug: "azure-acesso-inicial",              title: "Acesso Inicial no Azure" }
+    - { slug: "azure-enum-privesc",                title: "Enumeração e Escalada de Privilégios no Azure" }
+    - { slug: "azure-lateral-movement",            title: "Movimentação Lateral e Persistência no Azure" }
+    - { slug: "azure-bypass-defesas",              title: "Bypass de Defesas Azure" }
+    - { slug: "azure-cicd-abuse",                  title: "GitHub Actions e Abuso de CI/CD no Azure" }
+    - { slug: "azure-cheatsheet",                  title: "Azure Red Team Cheatsheet" }
+
+- section: sql-server
+  pages:
+    - { slug: "mssql-fundamentos-e-enumeracao",  title: "MSSQL — Fundamentos e Enumeração" }
+    - { slug: "mssql-lateral-movement-e-rce",    title: "MSSQL: Movimento Lateral e RCE" }
+    - { slug: "exchange-e-sccm-attacks",         title: "Exchange e SCCM Attacks" }
+
+- section: evasao-kernel
+  pages:
+    - { slug: "byovd-drivers-vulneraveis",   title: "BYOVD: Bring Your Own Vulnerable Driver" }
+    - { slug: "kernel-callbacks-e-etw",      title: "Kernel Callbacks e ETW: Como EDRs Monitoram o Sistema" }
+    - { slug: "credential-guard-bypass",     title: "Credential Guard: Entendendo e Contornando" }
+
+- section: cheatsheets
+  pages:
+    - { slug: "cobalt-strike-cheatsheet",    title: "Cobalt Strike — Cheatsheet Completo" }
+    - { slug: "credenciais-cheatsheet",      title: "Credenciais — Cheatsheet Completo" }
+    - { slug: "ferramentas-essenciais",      title: "Ferramentas Essenciais de Red Team" }
+    - { slug: "kerberos-ataques-cheatsheet", title: "Kerberos Ataques — Cheatsheet" }
+    - { slug: "pivoting-cheatsheet",         title: "Pivoting — Cheatsheet Completo" }
+
+- section: phishing
+  pages:
+    - { slug: "introducao-e-fundamentos",        title: "Introdução e Fundamentos de Phishing" }
+    - { slug: "infraestrutura-e-hospedagem",     title: "Infraestrutura e Hospedagem para Phishing" }
+    - { slug: "criacao-de-paginas-phishing",     title: "Criação de Páginas de Phishing" }
+    - { slug: "protecao-do-servidor",            title: "Proteção e Hardening do Servidor de Phishing" }
+    - { slug: "anti-analise-e-ofuscacao",        title: "Anti-Análise e Ofuscação em Phishing" }
+    - { slug: "reputacao-e-fingerprinting",      title: "Reputação de Domínio e TLS Fingerprinting" }
+    - { slug: "tecnicas-avancadas",              title: "Técnicas Avançadas de Phishing" }
+    - { slug: "html-smuggling-e-clickfix",       title: "HTML Smuggling, ClickFix e Automação com Ansible" }
+    - { slug: "bypass-mfa-e-ataques-avancados",  title: "Bypass de MFA e Ataques Avançados" }
 
 - section: web
   pages:

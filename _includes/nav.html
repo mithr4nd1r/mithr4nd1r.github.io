@@ -2,12 +2,20 @@
   <a href="{{ '/' | relative_url }}" class="nav-logo" aria-label="Osvaldo Tenorio — home">mt</a>
   <button class="nav-mobile-btn" id="nav-toggle" aria-controls="nav-links" aria-expanded="false">menu</button>
   <div class="nav-links" id="nav-links">
-    {%- assign sections = "bio,/|evasion,/evasion/|exploit-dev,/exploit-dev/|methodology,/methodology/|toolkit,/toolkit/|web,/web/|writeups,/writeups/" | split: "|" -%}
-    {%- for entry in sections -%}
-      {%- assign parts = entry | split: "," -%}
-      {%- assign label = parts[0] -%}
-      {%- assign url = parts[1] -%}
-      <a href="{{ url | relative_url }}" {% if page.url == url or page.url == url | append: 'index.html' %}aria-current="page"{% endif %}>{{ label }}</a>
-    {%- endfor -%}
+    <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}>bio</a>
+    <a href="{{ '/fundamentos/' | relative_url }}" {% if page.section == 'fundamentos' %}aria-current="page"{% endif %}>fund</a>
+    <a href="{{ '/c2/' | relative_url }}" {% if page.section == 'c2' %}aria-current="page"{% endif %}>c2</a>
+    <a href="{{ '/acesso-inicial/' | relative_url }}" {% if page.section == 'acesso-inicial' %}aria-current="page"{% endif %}>acesso</a>
+    <a href="{{ '/evasao/' | relative_url }}" {% if page.section == 'evasao' %}aria-current="page"{% endif %}>evasão</a>
+    <a href="{{ '/injecao-processo/' | relative_url }}" {% if page.section == 'injecao-processo' %}aria-current="page"{% endif %}>inj.proc</a>
+    <a href="{{ '/pos-expl-windows/' | relative_url }}" {% if page.section == 'pos-expl-windows' %}aria-current="page"{% endif %}>pós·win</a>
+    <a href="{{ '/pos-expl-linux/' | relative_url }}" {% if page.section == 'pos-expl-linux' %}aria-current="page"{% endif %}>pós·lin</a>
+    <a href="{{ '/lateral/' | relative_url }}" {% if page.section == 'lateral' %}aria-current="page"{% endif %}>lateral</a>
+    <a href="{{ '/active-directory/' | relative_url }}" {% if page.section == 'active-directory' %}aria-current="page"{% endif %}>ad</a>
+    <a href="{{ '/sql-server/' | relative_url }}" {% if page.section == 'sql-server' %}aria-current="page"{% endif %}>sql</a>
+    <a href="{{ '/evasao-kernel/' | relative_url }}" {% if page.section == 'evasao-kernel' %}aria-current="page"{% endif %}>kernel</a>
+    <a href="{{ '/cheatsheets/' | relative_url }}" {% if page.section == 'cheatsheets' %}aria-current="page"{% endif %}>cheat</a>
+    <a href="{{ '/phishing/' | relative_url }}" {% if page.section == 'phishing' %}aria-current="page"{% endif %}>phishing</a>
+    <a href="{{ '/writeups/' | relative_url }}" {% if page.url == '/writeups/' %}aria-current="page"{% endif %}>writeups</a>
   </div>
 </nav>

@@ -67,6 +67,85 @@ defaults:
       layout: writeup
 
   - scope:
+      path: "fundamentos"
+      type: pages
+    values:
+      layout: cyber
+      section: fundamentos
+  - scope:
+      path: "c2"
+      type: pages
+    values:
+      layout: cyber
+      section: c2
+  - scope:
+      path: "acesso-inicial"
+      type: pages
+    values:
+      layout: cyber
+      section: acesso-inicial
+  - scope:
+      path: "evasao"
+      type: pages
+    values:
+      layout: cyber
+      section: evasao
+  - scope:
+      path: "injecao-processo"
+      type: pages
+    values:
+      layout: cyber
+      section: injecao-processo
+  - scope:
+      path: "pos-expl-windows"
+      type: pages
+    values:
+      layout: cyber
+      section: pos-expl-windows
+  - scope:
+      path: "pos-expl-linux"
+      type: pages
+    values:
+      layout: cyber
+      section: pos-expl-linux
+  - scope:
+      path: "lateral"
+      type: pages
+    values:
+      layout: cyber
+      section: lateral
+  - scope:
+      path: "active-directory"
+      type: pages
+    values:
+      layout: cyber
+      section: active-directory
+  - scope:
+      path: "sql-server"
+      type: pages
+    values:
+      layout: cyber
+      section: sql-server
+  - scope:
+      path: "evasao-kernel"
+      type: pages
+    values:
+      layout: cyber
+      section: evasao-kernel
+  - scope:
+      path: "cheatsheets"
+      type: pages
+    values:
+      layout: cyber
+      section: cheatsheets
+  - scope:
+      path: "phishing"
+      type: pages
+    values:
+      layout: cyber
+      section: phishing
+
+  - scope:
       path: "evasion/index.md"
     values:
       layout: page
@@ -88,5 +167,58 @@ defaults:
       layout: page
   - scope:
       path: "writeups/index.md"
+    values:
+      layout: writeup
+
+  - scope:
+      path: "fundamentos/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "c2/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "acesso-inicial/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "evasao/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "injecao-processo/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "pos-expl-windows/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "pos-expl-linux/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "lateral/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "active-directory/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "sql-server/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "evasao-kernel/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "cheatsheets/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "phishing/index.md"
     values:
       layout: page
