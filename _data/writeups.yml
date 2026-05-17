@@ -2,75 +2,26 @@
   machines:
     # HTB
     - { slug: shoppy,          name: Shoppy,          os: linux,   platform: htb }
-    - { slug: stocker,         name: Stocker,          os: linux,   platform: htb }
     - { slug: editorial,       name: Editorial,        os: linux,   platform: htb }
+    - { slug: stocker,         name: Stocker,          os: linux,   platform: htb }
     - { slug: underpass,       name: Underpass,        os: linux,   platform: htb }
-    - { slug: photobomb,       name: Photobomb,        os: linux,   platform: htb }
-    - { slug: metatwo,         name: MetaTwo,          os: linux,   platform: htb }
-    - { slug: precious,        name: Precious,         os: linux,   platform: htb }
-    - { slug: busqueda,        name: Busqueda,         os: linux,   platform: htb }
-    - { slug: monitorstwo,     name: MonitorsTwo,      os: linux,   platform: htb }
-    - { slug: soccer,          name: Soccer,           os: linux,   platform: htb }
-    - { slug: boardlight,      name: BoardLight,       os: linux,   platform: htb }
-    - { slug: permx,           name: PermX,            os: linux,   platform: htb }
     # THM
-    - { slug: steel-mountain,  name: Steel Mountain,   os: windows, platform: thm }
-    - { slug: alfred,          name: Alfred,           os: windows, platform: thm }
-    - { slug: source,          name: Source,           os: linux,   platform: thm }
-    - { slug: tokyo-ghoul,     name: Tokyo Ghoul,      os: linux,   platform: thm }
     - { slug: cat-picture,     name: Cat Picture,      os: linux,   platform: thm }
-    - { slug: agent-sudo,      name: Agent Sudo,       os: linux,   platform: thm }
-    - { slug: tomghost,        name: TomGhost,         os: linux,   platform: thm }
-    - { slug: blueprint,       name: Blueprint,        os: windows, platform: thm }
-    - { slug: blue,            name: Blue,             os: windows, platform: thm }
-    - { slug: kenobi,          name: Kenobi,           os: linux,   platform: thm }
-    - { slug: hackpark,        name: HackPark,         os: windows, platform: thm }
-    - { slug: game-zone,       name: Game Zone,        os: linux,   platform: thm }
-    - { slug: skynet,          name: Skynet,           os: linux,   platform: thm }
-    - { slug: gallery,         name: Gallery,          os: linux,   platform: thm }
-    - { slug: simplectf,       name: SimpleCTF,        os: linux,   platform: thm }
-    - { slug: ignite,          name: Ignite,           os: linux,   platform: thm }
-    - { slug: nonamectf,       name: NoNameCTF,        os: linux,   platform: thm }
+    - { slug: alfred,          name: Alfred,           os: windows, platform: thm }
+    - { slug: steel-mountain,  name: Steel Mountain,   os: windows, platform: thm }
+    - { slug: source,          name: Source,           os: linux,   platform: thm }
     # PG
-    - { slug: twiggy,          name: Twiggy,           os: linux,   platform: pg  }
     - { slug: xposedapi,       name: XposedAPI,        os: linux,   platform: pg  }
-    - { slug: flimsy,          name: Flimsy,           os: linux,   platform: pg  }
-    - { slug: internal,        name: Internal,         os: linux,   platform: pg  }
-    - { slug: squid,           name: Squid,            os: windows, platform: pg  }
-    - { slug: bratarina,       name: Bratarina,        os: linux,   platform: pg  }
+    - { slug: twiggy,          name: Twiggy,           os: linux,   platform: pg  }
 
 - difficulty: intermediate
   machines:
-    # HTB
-    - { slug: socket,          name: Socket,           os: linux,   platform: htb }
-    - { slug: escape,          name: Escape,           os: windows, platform: htb }
-    - { slug: sandworm,        name: Sandworm,         os: linux,   platform: htb }
-    - { slug: agile,           name: Agile,            os: linux,   platform: htb }
-    - { slug: vessel,          name: Vessel,           os: linux,   platform: htb }
-    # THM
-    - { slug: relevant,        name: Relevant,         os: windows, platform: thm }
-    - { slug: wonderland,      name: Wonderland,       os: linux,   platform: thm }
-    - { slug: dogcat,          name: DogCat,           os: linux,   platform: thm }
-    - { slug: anonymous,       name: Anonymous,        os: linux,   platform: thm }
-    - { slug: blog,            name: Blog,             os: linux,   platform: thm }
-    - { slug: the-marketplace, name: The Marketplace,  os: linux,   platform: thm }
     # PG
     - { slug: resourced,       name: Resourced,        os: windows, platform: pg  }
     - { slug: sorcerer,        name: Sorcerer,         os: linux,   platform: pg  }
-    - { slug: craft,           name: Craft,            os: windows, platform: pg  }
 
 - difficulty: ctf
   machines:
-    - { slug: alquymia-ctf-2023,        name: Alquymia CTF 2023,           os: linux, platform: ctf }
-    - { slug: ctf-menina-cybersec-2023, name: Menina de Cyber Sec 2023,    os: linux, platform: ctf }
-    - { slug: ctf-menina-cybersec-2024, name: Menina de Cyber Sec 2024,    os: linux, platform: ctf }
-
-- difficulty: hard
-  machines:
-    # HTB
-    - { slug: mailroom,        name: Mailroom,         os: linux,   platform: htb }
-    # THM
-    - { slug: enterprise,         name: Enterprise,         os: linux,   platform: thm }
-    - { slug: year-of-the-dog,    name: Year of the Dog,    os: linux,   platform: thm }
-    - { slug: year-of-the-pig,    name: Year of the Pig,    os: linux,   platform: thm }
-    - { slug: year-of-the-owl,    name: Year of the Owl,    os: windows, platform: thm }
+    - { slug: alquymia-ctf-2023,        name: Alquymia CTF 2023,        os: linux, platform: ctf }
+    - { slug: ctf-menina-cybersec-2023, name: Menina de Cyber Sec 2023, os: linux, platform: ctf }
+    - { slug: ctf-menina-cybersec-2024, name: Menina de Cyber Sec 2024, os: linux, platform: ctf }
