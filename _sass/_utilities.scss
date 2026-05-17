@@ -118,7 +118,7 @@
   position: fixed;
   top: $topbar-height;
   right: 0;
-  width: min(400px, 100%);
+  width: #{min(400px, 100%)};
   height: calc(100vh - #{$topbar-height});
   background: $bg-1;
   border-left: 1px solid $border;
