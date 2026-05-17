@@ -1,82 +1,164 @@
 - section: evasion
   pages:
-    - { slug: av-evasion-basics,        title: "AV Evasion Basics" }
-    - { slug: crypters,                 title: "Crypters" }
-    - { slug: obfuscators,              title: "Obfuscators" }
-    - { slug: process-injection,        title: "Process Injection" }
-    - { slug: process-hollowing,        title: "Process Hollowing" }
-    - { slug: reflective-dll-injection, title: "Reflective DLL Injection" }
-    - { slug: unhooking,                title: "Unhooking" }
-    - { slug: direct-syscalls,          title: "Direct Syscalls" }
-    - { slug: etw-bypass,               title: "ETW Bypass" }
-    - { slug: amsi-internals,           title: "AMSI Internals" }
-    - { slug: amsi-bypass,              title: "AMSI Bypass" }
-    - { slug: amsi-drx-bypass,          title: "AMSI Bypass via DR" }
-    - { slug: kernel-callbacks,         title: "Kernel Callbacks" }
-    - { slug: byovd,                    title: "BYOVD" }
-    - { slug: ppl-bypass,               title: "PPL Bypass" }
-    - { slug: full-chain,               title: "Full EDR Chain" }
+    - { slug: av-evasion-intro,              title: "AV Evasion — Introduction" }
+    - { slug: av-evasion-advanced,           title: "AV Evasion — Advanced" }
+    - { slug: amsi-bypass,                   title: "AMSI Bypass" }
+    - { slug: applocker-bypass,              title: "AppLocker Bypass" }
+    - { slug: wdac-bypass,                   title: "WDAC Bypass" }
+    - { slug: edr-telemetry-hooking,         title: "EDR Telemetry & Hooking" }
+    - { slug: load-time-evasion,             title: "Load-Time Evasion" }
+    - { slug: runtime-evasion-sleepmask,     title: "Runtime Evasion & Sleepmask" }
+    - { slug: windows-evasion-htb,           title: "Windows Evasion (HTB)" }
+    - { slug: payload-placement,             title: "Payload Placement" }
+    - { slug: payload-encryption,            title: "Payload Encryption" }
+    - { slug: payload-obfuscation,           title: "Payload Obfuscation & Encoding" }
+    - { slug: process-spoofing,              title: "Process Spoofing" }
+    - { slug: drm-malware,                   title: "DRM-Equipped Malware" }
+    - { slug: dll-sideloading,               title: "DLL Sideloading" }
+    - { slug: pe-packer,                     title: "PE Packer" }
+    - { slug: byovd,                         title: "BYOVD — Vulnerable Drivers" }
+    - { slug: kernel-callbacks-etw,          title: "Kernel Callbacks & ETW" }
+    - { slug: credential-guard-bypass,       title: "Credential Guard Bypass" }
 
 - section: exploit-dev
   pages:
-    - { slug: windbg-crash-course,       title: "WinDbg Crash Course" }
-    - { slug: x86-assembly-essentials,   title: "x86 Assembly Essentials" }
-    - { slug: shellcode-basics,          title: "Shellcode Basics" }
-    - { slug: eip-control,               title: "EIP Control" }
-    - { slug: bad-characters,            title: "Bad Characters" }
-    - { slug: seh-overflows,             title: "SEH Overflows" }
-    - { slug: egghunters,                title: "Egghunters" }
-    - { slug: dep-rop-bypass,            title: "DEP + ROP Bypass" }
-    - { slug: aslr-bypass,               title: "ASLR Bypass" }
-    - { slug: format-string-exploits,    title: "Format String" }
-    - { slug: heap-overflows,            title: "Heap Overflows" }
-    - { slug: use-after-free,            title: "Use-After-Free" }
-    - { slug: custom-shellcode,          title: "Custom Shellcode" }
+    - { slug: red-teaming-concepts,          title: "Red Teaming Concepts" }
+    - { slug: kill-chain-mitre,              title: "Kill Chain & MITRE ATT&CK" }
+    - { slug: opsec-tradecraft,              title: "OPSEC & Tradecraft" }
+    - { slug: malware-essentials,            title: "Malware Essentials" }
+    - { slug: engagement-roe,               title: "Engagement ROE & Reports" }
+    - { slug: exploits-tools,               title: "Exploits & Tools" }
+    - { slug: metasploit-basics,            title: "Metasploit Fundamentals" }
+    - { slug: process-injection-basics,     title: "Process Injection — Fundamentals" }
+    - { slug: process-injection-advanced,   title: "Process Injection — Advanced" }
+    - { slug: post-exploitation-bof,        title: "Post-Exploitation Evasion & BOF" }
+    - { slug: pe-format,                    title: "PE Format & Parsing" }
 
 - section: methodology
   pages:
-    - { slug: reconnaissance,            title: "Reconnaissance" }
-    - { slug: vulnerability-scanning,    title: "Vulnerability Scanning" }
-    - { slug: web-attacks,               title: "Web Attacks" }
-    - { slug: client-side-attacks,       title: "Client-Side Attacks" }
-    - { slug: public-exploits,           title: "Public Exploits" }
-    - { slug: password-attacks,          title: "Password Attacks" }
-    - { slug: windows-privesc,           title: "Windows PrivEsc" }
-    - { slug: linux-privesc,             title: "Linux PrivEsc" }
-    - { slug: windows-credentials,       title: "Windows Credentials" }
-    - { slug: mssql-attacks,             title: "MSSQL Attacks" }
-    - { slug: tunneling,                 title: "Tunneling" }
-    - { slug: windows-lateral-movement,  title: "Win Lateral Movement" }
-    - { slug: linux-lateral-movement,    title: "Linux Lateral Movement" }
-    - { slug: ad-enumeration,            title: "AD Enumeration" }
-    - { slug: ad-authentication,         title: "AD Authentication" }
-    - { slug: ad-lateral-movement,       title: "AD Lateral Movement" }
-    - { slug: ad-object-permissions,     title: "AD Object Permissions" }
-    - { slug: kerberos-delegation,       title: "Kerberos Delegation" }
-    - { slug: ad-forest-trust,           title: "AD Forest & Trust" }
+    - { slug: phishing-social-eng,          title: "Phishing & Social Engineering" }
+    - { slug: office-vba-macros,            title: "Office VBA Macros" }
+    - { slug: windows-script-host,          title: "Windows Script Host" }
+    - { slug: password-spraying-owa,        title: "Password Spraying & OWA" }
+    - { slug: calendar-phishing,            title: "Calendar Phishing (ICS)" }
+    - { slug: passive-recon,                title: "Passive Reconnaissance" }
+    - { slug: active-enumeration,           title: "Active Enumeration" }
+    - { slug: byoph-byofe,                  title: "BYOPH & BYOFE" }
+    - { slug: win-situational-awareness,    title: "Windows Situational Awareness" }
+    - { slug: win-privesc,                  title: "Windows Privilege Escalation" }
+    - { slug: win-credentials,              title: "Windows Credentials" }
+    - { slug: token-impersonation,          title: "Token Impersonation" }
+    - { slug: persistence,                  title: "Persistence" }
+    - { slug: network-recon,               title: "Network Recon & Discovery" }
+    - { slug: in-memory-capture,           title: "In-Memory Capture" }
+    - { slug: keylogging,                  title: "Keylogging" }
+    - { slug: browser-credentials,         title: "Browser Credentials" }
+    - { slug: linux-post-exploitation,     title: "Linux Post-Exploitation" }
+    - { slug: linux-credentials,           title: "Linux Credentials" }
+    - { slug: kiosk-breakouts,             title: "Kiosk Breakouts" }
+    - { slug: linux-enumeration,           title: "Linux Enumeration" }
+    - { slug: lateral-movement-windows,    title: "Lateral Movement — Windows" }
+    - { slug: lateral-movement-linux,      title: "Lateral Movement — Linux/SSH" }
+    - { slug: pivoting-tunneling,          title: "Pivoting & Tunneling" }
+    - { slug: network-filters-bypass,      title: "Network Filters Bypass" }
+    - { slug: ntlm-relay,                  title: "NTLM Relay Attacks" }
+    - { slug: kerberos-fundamentals,       title: "Kerberos Fundamentals" }
+    - { slug: kerberoasting-asrep,         title: "Kerberoasting & AS-REP" }
+    - { slug: golden-silver-tickets,       title: "Golden & Silver Tickets" }
+    - { slug: dcsync-dominance,            title: "DCSync & Domain Dominance" }
+    - { slug: delegation-unconstrained,    title: "Unconstrained Delegation" }
+    - { slug: delegation-constrained-rbcd, title: "Constrained Delegation & RBCD" }
+    - { slug: forest-domain-trusts,        title: "Forest & Domain Trusts" }
+    - { slug: bloodhound-enumeration,      title: "BloodHound & AD Enumeration" }
+    - { slug: dacl-attacks,               title: "DACL Attacks" }
+    - { slug: adcs-attacks,               title: "ADCS Attacks" }
+    - { slug: jea-jit,                    title: "JEA & JIT Exploitation" }
+    - { slug: azure-fundamentals,         title: "Azure Fundamentals & Enumeration" }
+    - { slug: azure-initial-access,       title: "Azure Initial Access" }
+    - { slug: azure-enum-privesc,         title: "Azure Enumeration & PrivEsc" }
+    - { slug: azure-lateral-movement,     title: "Azure Lateral Movement" }
+    - { slug: azure-bypass-defenses,      title: "Azure Bypass Defenses" }
+    - { slug: azure-cicd-abuse,           title: "Azure CI/CD Abuse" }
+    - { slug: azure-cheatsheet,           title: "Azure Cheatsheet" }
+    - { slug: mssql-fundamentals,         title: "MSSQL Fundamentals & Enumeration" }
+    - { slug: mssql-lateral-movement,     title: "MSSQL Lateral Movement & RCE" }
+    - { slug: exchange-sccm-attacks,      title: "Exchange & SCCM Attacks" }
+    - { slug: phishing-intro,             title: "Phishing Operations — Intro" }
+    - { slug: phishing-infrastructure,    title: "Phishing Infrastructure" }
+    - { slug: phishing-pages,             title: "Phishing Page Creation" }
+    - { slug: phishing-server-protection, title: "Server Protection" }
+    - { slug: phishing-anti-analysis,     title: "Anti-Analysis & Obfuscation" }
+    - { slug: phishing-reputation,        title: "Reputation & Fingerprinting" }
+    - { slug: phishing-advanced,          title: "Advanced Phishing Techniques" }
+    - { slug: html-smuggling-clickfix,    title: "HTML Smuggling & ClickFix" }
+    - { slug: phishing-bypass-mfa,        title: "MFA Bypass & Advanced Attacks" }
 
 - section: toolkit
   pages:
-    - { slug: rev-bash,       title: "Reverse Shell (bash)" }
-    - { slug: rev-mkfifo,     title: "Reverse Shell (mkfifo)" }
-    - { slug: rev-php,        title: "Reverse Shell (PHP)" }
-    - { slug: powercat,       title: "Powercat + NTLM Relay" }
-    - { slug: nishang,        title: "Nishang" }
-    - { slug: tty-upgrade,    title: "TTY Upgrade" }
-    - { slug: ligolo-tunnel,  title: "Ligolo Tunnel" }
-    - { slug: sshuttle,       title: "sshuttle" }
-    - { slug: enum-network,   title: "Network Enumeration" }
-    - { slug: enum-windows,   title: "Windows File Enum" }
-    - { slug: add-rdp,        title: "Add RDP" }
-    - { slug: uac-bypass,     title: "UAC Bypass" }
-    - { slug: wmi-exec,       title: "WMI Exec" }
-    - { slug: word-macro,     title: "Word Macro" }
-    - { slug: pshellb64,      title: "pshellb64.py" }
-    - { slug: persistence,    title: "Persistence" }
-    - { slug: mimikatz,       title: "Mimikatz" }
-    - { slug: ticketer,       title: "Ticketer" }
-    - { slug: freeze,         title: "Freeze" }
-    - { slug: amsi-bypass,    title: "AMSI Bypass" }
-    - { slug: mssql-shell,    title: "MSSQL to Shell" }
-    - { slug: upload-server,  title: "Upload Server" }
-    - { slug: history,        title: "History Cleanup" }
+    - { slug: cobalt-strike-fundamentals, title: "Cobalt Strike Fundamentals" }
+    - { slug: listeners-payloads,         title: "Listeners & Payloads" }
+    - { slug: malleable-c2,               title: "Malleable C2 Profiles" }
+    - { slug: resilient-infrastructure,   title: "Resilient Infrastructure & Redirectors" }
+    - { slug: c2-protocol-design,         title: "C2 Protocol Design" }
+    - { slug: sliver-c2,                  title: "Sliver C2" }
+    - { slug: beacon-object-files,        title: "Beacon Object Files (BOF)" }
+    - { slug: cobalt-strike-cheatsheet,   title: "Cobalt Strike Cheatsheet" }
+    - { slug: credentials-cheatsheet,     title: "Credentials Cheatsheet" }
+    - { slug: essential-tools,            title: "Essential Tools" }
+    - { slug: kerberos-attacks-cheatsheet,title: "Kerberos Attacks Cheatsheet" }
+    - { slug: pivoting-cheatsheet,        title: "Pivoting Cheatsheet" }
+
+- section: web
+  pages:
+    - { slug: http-protocol,             title: "HTTP Protocol" }
+    - { slug: web-app-fundamentals,      title: "Web App Fundamentals" }
+    - { slug: web-proxies,               title: "Web Proxies" }
+    - { slug: information-gathering,     title: "Information Gathering" }
+    - { slug: content-discovery,         title: "Content Discovery" }
+    - { slug: javascript-analysis,       title: "JavaScript Analysis" }
+    - { slug: sqli-fundamentals,         title: "SQLi Fundamentals" }
+    - { slug: sqli-blind-advanced,       title: "Blind & Advanced SQLi" }
+    - { slug: sqlmap,                    title: "sqlmap" }
+    - { slug: nosql-injection,           title: "NoSQL Injection" }
+    - { slug: sqli-waf-bypass,           title: "SQLi WAF Bypass" }
+    - { slug: postgresql-rce,            title: "PostgreSQL RCE" }
+    - { slug: xss-fundamentals,          title: "XSS Fundamentals" }
+    - { slug: xss-advanced,              title: "Advanced XSS & Filter Bypass" }
+    - { slug: csrf,                      title: "CSRF" }
+    - { slug: prototype-pollution,       title: "Prototype Pollution" }
+    - { slug: command-injection,         title: "Command Injection" }
+    - { slug: ssti,                      title: "SSTI" }
+    - { slug: ssrf,                      title: "SSRF" }
+    - { slug: xxe,                       title: "XXE" }
+    - { slug: nodejs-injection,          title: "Node.js Injection" }
+    - { slug: file-inclusion,            title: "File Inclusion" }
+    - { slug: file-upload,               title: "File Upload" }
+    - { slug: brute-force-auth,          title: "Brute Force & Broken Auth" }
+    - { slug: jwt-attacks,               title: "JWT Attacks" }
+    - { slug: oauth2-sso,                title: "OAuth2 & SSO" }
+    - { slug: session-security,          title: "Session Security" }
+    - { slug: idor,                      title: "IDOR" }
+    - { slug: broken-access-control,     title: "Broken Access Control" }
+    - { slug: deserialization-intro,     title: "Deserialization — Intro" }
+    - { slug: deserialization-advanced,  title: "Deserialization — Advanced" }
+    - { slug: request-smuggling,         title: "Request Smuggling" }
+    - { slug: http-misconfigs,           title: "HTTP Misconfigurations" }
+    - { slug: tls-attacks,               title: "TLS/HTTPS Attacks" }
+    - { slug: rest-api-attacks,          title: "REST API Attacks" }
+    - { slug: graphql-attacks,           title: "GraphQL Attacks" }
+    - { slug: web-service-attacks,       title: "Web Service Attacks" }
+    - { slug: whitebox-intro,            title: "Whitebox Pentesting — Intro" }
+    - { slug: whitebox-advanced,         title: "Whitebox Pentesting — Advanced" }
+    - { slug: bug-bounty-methodology,    title: "Bug Bounty Methodology" }
+    - { slug: recon-workflow,            title: "Recon Workflow" }
+    - { slug: automation-tooling,        title: "Automation & Tooling" }
+    - { slug: reports-impact,            title: "Reports & Impact" }
+    - { slug: burp-cheatsheet,           title: "Burp Cheatsheet" }
+    - { slug: web-tools,                 title: "Web Tools" }
+    - { slug: sqli-cheatsheet,           title: "SQLi Cheatsheet" }
+    - { slug: xss-payloads,              title: "XSS Payloads" }
+    - { slug: ssdlc-frameworks,          title: "SSDLC & Frameworks" }
+    - { slug: threat-modeling,           title: "Threat Modeling" }
+    - { slug: api-security-top10,        title: "API Security Top 10" }
+    - { slug: security-code-review,      title: "Security Code Review" }
+    - { slug: visibility-monitoring,     title: "Visibility & Monitoring" }

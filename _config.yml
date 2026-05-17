@@ -55,6 +55,12 @@ defaults:
       layout: cyber
       section: toolkit
   - scope:
+      path: "web"
+      type: pages
+    values:
+      layout: cyber
+      section: web
+  - scope:
       path: "writeups"
       type: pages
     values:
@@ -74,6 +80,10 @@ defaults:
       layout: page
   - scope:
       path: "toolkit/index.md"
+    values:
+      layout: page
+  - scope:
+      path: "web/index.md"
     values:
       layout: page
   - scope:

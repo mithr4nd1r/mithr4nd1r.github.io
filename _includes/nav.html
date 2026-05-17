@@ -2,7 +2,7 @@
   <a href="{{ '/' | relative_url }}" class="nav-logo" aria-label="Osvaldo Tenorio — home">mt</a>
   <button class="nav-mobile-btn" id="nav-toggle" aria-controls="nav-links" aria-expanded="false">menu</button>
   <div class="nav-links" id="nav-links">
-    {%- assign sections = "bio,/|evasion,/evasion/|exploit-dev,/exploit-dev/|methodology,/methodology/|toolkit,/toolkit/|writeups,/writeups/" | split: "|" -%}
+    {%- assign sections = "bio,/|evasion,/evasion/|exploit-dev,/exploit-dev/|methodology,/methodology/|toolkit,/toolkit/|web,/web/|writeups,/writeups/" | split: "|" -%}
     {%- for entry in sections -%}
       {%- assign parts = entry | split: "," -%}
       {%- assign label = parts[0] -%}
