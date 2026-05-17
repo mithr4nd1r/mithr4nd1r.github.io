@@ -178,8 +178,10 @@ body::before {
 }
 
 .wu-main {
-  max-width: 880px;
+  width: 100%;
+  max-width: 100%;
   padding: 56px 60px 96px;
+  box-sizing: border-box;
 }
 
 .page-layout {
