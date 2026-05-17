@@ -2,27 +2,27 @@
 
 @keyframes glitch-top {
   0%, 88%, 100% {
-    clip-path: inset(100% 0 0 0);
+    clip-path: inset(100% 0% 0% 0%);
     transform: translate(0);
     opacity: 0;
   }
   90% {
-    clip-path: inset(0 0 85% 0);
+    clip-path: inset(0% 0% 85% 0%);
     transform: translate(-3px, 2px);
     opacity: 1;
   }
   92% {
-    clip-path: inset(15% 0 55% 0);
+    clip-path: inset(15% 0% 55% 0%);
     transform: translate(3px, -2px);
     opacity: 1;
   }
   94% {
-    clip-path: inset(55% 0 15% 0);
+    clip-path: inset(55% 0% 15% 0%);
     transform: translate(-2px, 1px);
     opacity: 1;
   }
   96% {
-    clip-path: inset(80% 0 0 0);
+    clip-path: inset(80% 0% 0% 0%);
     transform: translate(2px, -1px);
     opacity: 1;
   }
@@ -30,27 +30,27 @@
 
 @keyframes glitch-bottom {
   0%, 86%, 100% {
-    clip-path: inset(100% 0 0 0);
+    clip-path: inset(100% 0% 0% 0%);
     transform: translate(0);
     opacity: 0;
   }
   88% {
-    clip-path: inset(70% 0 0 0);
+    clip-path: inset(70% 0% 0% 0%);
     transform: translate(3px, -3px);
     opacity: 1;
   }
   90% {
-    clip-path: inset(40% 0 35% 0);
+    clip-path: inset(40% 0% 35% 0%);
     transform: translate(-3px, 2px);
     opacity: 1;
   }
   92% {
-    clip-path: inset(10% 0 65% 0);
+    clip-path: inset(10% 0% 65% 0%);
     transform: translate(2px, -1px);
     opacity: 1;
   }
   94% {
-    clip-path: inset(65% 0 10% 0);
+    clip-path: inset(65% 0% 10% 0%);
     transform: translate(-1px, 3px);
     opacity: 1;
   }
@@ -137,13 +137,6 @@
 
 .fade-in {
   animation: fade-in-up 0.4s ease forwards;
-}
-
-// ─── Neon border glow (border animation) ─────────────────────────────────────
-
-@keyframes border-glow {
-  0%, 100% { box-shadow: 0 0 6px rgba($cyan, 0.3); border-color: $border-1; }
-  50% { box-shadow: 0 0 18px rgba($cyan, 0.5); border-color: rgba($cyan, 0.5); }
 }
 
 // ─── Loading spinner ──────────────────────────────────────────────────────────
