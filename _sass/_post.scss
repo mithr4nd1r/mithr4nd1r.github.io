@@ -1,0 +1,233 @@
+// ─── Post Metadata ─────────────────────────────────────────────────────────────
+
+.post-meta-full {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid $border;
+  border-top: 1px solid $border;
+  font-family: $font-mono;
+  font-size: $fs-xs;
+  color: $text-1;
+  letter-spacing: 0.04em;
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+
+    i { color: $cyan; }
+    a { color: $text-1; transition: color $transition-fast; &:hover { color: $cyan; } }
+  }
+
+  .meta-sep { color: $border-1; }
+}
+
+// ─── Post Content ──────────────────────────────────────────────────────────────
+
+.post-content {
+  font-size: $fs-base;
+  line-height: 1.8;
+
+  // Inline code
+  code:not([class]) {
+    font-family: $font-code;
+    font-size: 0.85em;
+    background: $bg-2;
+    color: $green;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    border: 1px solid $border;
+  }
+
+  // Images
+  img {
+    border-radius: 4px;
+    border: 1px solid $border;
+    margin: 1.5rem auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  figcaption {
+    text-align: center;
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    color: $text-2;
+    margin-top: 0.5rem;
+  }
+}
+
+// ─── Post Tail ────────────────────────────────────────────────────────────────
+
+.post-tail-wrapper {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border;
+  font-family: $font-mono;
+  font-size: $fs-xs;
+  color: $text-2;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.post-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.6rem;
+  background: rgba($purple, 0.08);
+  border: 1px solid rgba($purple, 0.25);
+  border-radius: 3px;
+  font-family: $font-mono;
+  font-size: $fs-xs;
+  color: $purple;
+  letter-spacing: 0.04em;
+  transition: all $transition-fast;
+
+  &::before { content: '#'; opacity: 0.6; }
+
+  &:hover {
+    background: rgba($purple, 0.15);
+    border-color: $purple;
+    box-shadow: 0 0 8px rgba($purple, 0.3);
+    color: $purple;
+  }
+}
+
+// ─── TOC Panel ────────────────────────────────────────────────────────────────
+
+#toc-wrapper {
+  position: sticky;
+  top: calc(#{$topbar-height} + 1.5rem);
+
+  .toc-title {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $text-2;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before { content: '#'; color: $cyan; }
+  }
+
+  nav {
+    border-left: 2px solid $border;
+    padding-left: 0.75rem;
+
+    a {
+      display: block;
+      font-family: $font-mono;
+      font-size: $fs-xs;
+      color: $text-2;
+      padding: 0.2rem 0;
+      letter-spacing: 0.03em;
+      transition: color $transition-fast, padding-left $transition-fast;
+
+      &:hover, &.active {
+        color: $cyan;
+        padding-left: 0.35rem;
+      }
+    }
+  }
+}
+
+// ─── Related Posts ────────────────────────────────────────────────────────────
+
+#related-posts {
+  h4 {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $text-2;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before { content: '~~'; color: $magenta; opacity: 0.6; }
+  }
+
+  .related-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    a {
+      display: block;
+      font-size: $fs-sm;
+      color: $text-1;
+      padding: 0.4rem 0.6rem;
+      border-left: 2px solid $border;
+      transition: all $transition-fast;
+
+      &:hover {
+        color: $cyan;
+        border-color: $cyan;
+        padding-left: 0.85rem;
+      }
+    }
+  }
+}
+
+// ─── Post Navigation ──────────────────────────────────────────────────────────
+
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border;
+
+  a {
+    padding: 0.75rem 1rem;
+    background: $bg-1;
+    border: 1px solid $border;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    transition: all $transition-fast;
+
+    &:hover {
+      border-color: $cyan;
+      box-shadow: $glow-cyan;
+    }
+
+    .nav-label {
+      font-family: $font-mono;
+      font-size: $fs-xs;
+      color: $text-2;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-title {
+      font-size: $fs-sm;
+      color: $text-0;
+    }
+
+    &.next { text-align: right; }
+  }
+}
+
+// ─── Comments ─────────────────────────────────────────────────────────────────
+
+#disqus_thread {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border;
+}

@@ -1,0 +1,148 @@
+// ─── Code Blocks ──────────────────────────────────────────────────────────────
+
+.highlight,
+figure.highlight {
+  margin: 1.5rem 0;
+  border-radius: 4px;
+  border: 1px solid $border;
+  overflow: hidden;
+  background: $bg-1;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.highlight {
+  position: relative;
+
+  // Language label
+  &[data-lang]::before {
+    content: attr(data-lang);
+    position: absolute;
+    top: 0.5rem;
+    right: 0.75rem;
+    font-family: $font-mono;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $text-2;
+    z-index: 1;
+  }
+}
+
+pre {
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  font-family: $font-code;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  background: transparent;
+  color: $text-0;
+
+  // Line numbers
+  &.lineno {
+    padding-right: 0.5rem;
+    color: $text-2;
+    user-select: none;
+    border-right: 1px solid $border;
+    text-align: right;
+    min-width: 2.5rem;
+  }
+}
+
+code {
+  font-family: $font-code;
+}
+
+// ─── Rouge Token Colors ────────────────────────────────────────────────────────
+
+.highlight {
+  .hll { background: rgba($cyan, 0.08); }
+  .c   { color: #505c72; font-style: italic; }   // Comment
+  .err { color: #ff5555; }                         // Error
+  .k   { color: $magenta; font-weight: bold; }     // Keyword
+  .l   { color: #ff79c6; }                         // Literal
+  .n   { color: $text-0; }                         // Name
+  .o   { color: $cyan; }                           // Operator
+  .p   { color: $text-0; }                         // Punctuation
+  .cm  { color: #505c72; font-style: italic; }     // Comment.Multiline
+  .cp  { color: #ff79c6; }                         // Comment.Preproc
+  .c1  { color: #505c72; font-style: italic; }     // Comment.Single
+  .cs  { color: #505c72; font-style: italic; }     // Comment.Special
+  .gd  { color: #ff5555; }                         // Generic.Deleted
+  .ge  { font-style: italic; }                      // Generic.Emph
+  .gh  { color: $cyan; font-weight: bold; }        // Generic.Heading
+  .gi  { color: $green; }                          // Generic.Inserted
+  .gp  { color: $text-2; }                         // Generic.Prompt
+  .gs  { font-weight: bold; }                       // Generic.Strong
+  .gu  { color: $purple; }                         // Generic.Subheading
+  .kc  { color: $magenta; font-weight: bold; }     // Keyword.Constant
+  .kd  { color: $magenta; font-weight: bold; }     // Keyword.Declaration
+  .kn  { color: $cyan; font-weight: bold; }        // Keyword.Namespace
+  .kp  { color: $magenta; }                        // Keyword.Pseudo
+  .kr  { color: $magenta; font-weight: bold; }     // Keyword.Reserved
+  .kt  { color: $purple; }                         // Keyword.Type
+  .ld  { color: #f1fa8c; }                         // Literal.Date
+  .m   { color: #bd93f9; }                         // Literal.Number
+  .s   { color: #f1fa8c; }                         // Literal.String
+  .na  { color: $cyan; }                           // Name.Attribute
+  .nb  { color: $green; }                          // Name.Builtin
+  .nc  { color: $purple; font-weight: bold; }      // Name.Class
+  .no  { color: $cyan; }                           // Name.Constant
+  .nd  { color: $green; }                          // Name.Decorator
+  .ni  { color: $text-0; font-weight: bold; }      // Name.Entity
+  .ne  { color: #ff5555; font-weight: bold; }      // Name.Exception
+  .nf  { color: $green; }                          // Name.Function
+  .nl  { color: $cyan; }                           // Name.Label
+  .nn  { color: $purple; }                         // Name.Namespace
+  .nx  { color: $green; }                          // Name.Other (functions)
+  .py  { color: $text-0; }                         // Name.Property
+  .nt  { color: $magenta; }                        // Name.Tag
+  .nv  { color: $cyan; }                           // Name.Variable
+  .ow  { color: $cyan; font-weight: bold; }        // Operator.Word
+  .w   { color: $text-2; }                         // Text.Whitespace
+  .mf  { color: #bd93f9; }                         // Literal.Number.Float
+  .mh  { color: #bd93f9; }                         // Literal.Number.Hex
+  .mi  { color: #bd93f9; }                         // Literal.Number.Integer
+  .mo  { color: #bd93f9; }                         // Literal.Number.Oct
+  .sb  { color: #f1fa8c; }                         // Literal.String.Backtick
+  .sc  { color: #f1fa8c; }                         // Literal.String.Char
+  .sd  { color: #f1fa8c; }                         // Literal.String.Doc
+  .s2  { color: #f1fa8c; }                         // Literal.String.Double
+  .se  { color: $magenta; }                        // Literal.String.Escape
+  .sh  { color: #f1fa8c; }                         // Literal.String.Heredoc
+  .si  { color: $cyan; }                           // Literal.String.Interpol
+  .sx  { color: #f1fa8c; }                         // Literal.String.Other
+  .sr  { color: $green; }                          // Literal.String.Regex
+  .s1  { color: #f1fa8c; }                         // Literal.String.Single
+  .ss  { color: $magenta; }                        // Literal.String.Symbol
+  .bp  { color: $green; }                          // Name.Builtin.Pseudo
+  .vc  { color: $cyan; }                           // Name.Variable.Class
+  .vg  { color: $cyan; }                           // Name.Variable.Global
+  .vi  { color: $cyan; }                           // Name.Variable.Instance
+  .il  { color: #bd93f9; }                         // Literal.Number.Integer.Long
+
+  // Shell/bash prompt
+  .gp { color: $green; user-select: none; }
+}
+
+// Copy button (Chirpy injects this)
+.code-header {
+  display: flex;
+  justify-content: flex-end;
+  background: $bg-2;
+  border-bottom: 1px solid $border;
+  padding: 0.3rem 0.6rem;
+
+  .copy {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    color: $text-2;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: color $transition-fast;
+
+    &:hover { color: $cyan; }
+  }
+}

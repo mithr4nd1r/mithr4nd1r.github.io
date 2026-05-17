@@ -1,0 +1,112 @@
+// ─── Page Grid ────────────────────────────────────────────────────────────────
+
+body {
+  display: grid;
+  grid-template-columns: $sidebar-width 1fr;
+  grid-template-rows: $topbar-height 1fr auto;
+  min-height: 100vh;
+}
+
+#sidebar {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+#topbar-wrapper {
+  grid-column: 2;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+#main-wrapper {
+  grid-column: 2;
+  grid-row: 2;
+  padding: 2rem 2.5rem;
+  min-width: 0;
+}
+
+footer {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+// ─── Content Layout ────────────────────────────────────────────────────────────
+
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr $panel-width;
+  gap: 2rem;
+  max-width: $content-max-width + $panel-width;
+
+  @media (max-width: $bp-lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+#core-wrapper {
+  min-width: 0;
+  max-width: $content-max-width;
+}
+
+#panel-wrapper {
+  min-width: 0;
+
+  @media (max-width: $bp-lg) {
+    display: none;
+  }
+}
+
+// ─── Mobile Sidebar Overlay ────────────────────────────────────────────────────
+
+#sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba($bg-0, 0.8);
+  z-index: 99;
+
+  &.active { display: block; }
+}
+
+@media (max-width: $bp-md) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-rows: $topbar-height 1fr auto;
+  }
+
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform $transition-base;
+    z-index: 200;
+
+    &.open,
+    body[sidebar-display] & { transform: translateX(0); }
+  }
+
+  #topbar-wrapper {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  #main-wrapper {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 1.5rem 1rem;
+  }
+
+  footer {
+    grid-column: 1;
+    grid-row: 3;
+  }
+}

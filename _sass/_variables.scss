@@ -1,0 +1,54 @@
+// ─── Colors ───────────────────────────────────────────────────────────────────
+$bg-0:     #050510;
+$bg-1:     #0a0a1a;
+$bg-2:     #0f0f22;
+$bg-3:     #14142e;
+
+$cyan:     #00f5ff;
+$magenta:  #ff00a8;
+$purple:   #a855f7;
+$green:    #39ff14;
+
+$text-0:   #e0e6f0;
+$text-1:   #8892a4;
+$text-2:   #4a5568;
+
+$border:   #1a1a35;
+$border-1: #242450;
+
+// ─── Typography ───────────────────────────────────────────────────────────────
+$font-display: 'Orbitron', sans-serif;
+$font-mono:    'Share Tech Mono', 'JetBrains Mono', monospace;
+$font-code:    'JetBrains Mono', 'Courier New', monospace;
+$font-body:    'Inter', system-ui, sans-serif;
+
+$fs-xs:   0.75rem;
+$fs-sm:   0.875rem;
+$fs-base: 1rem;
+$fs-lg:   1.125rem;
+$fs-xl:   1.25rem;
+$fs-2xl:  1.5rem;
+$fs-3xl:  1.875rem;
+$fs-4xl:  2.25rem;
+
+// ─── Spacing ──────────────────────────────────────────────────────────────────
+$sidebar-width:      260px;
+$topbar-height:      48px;
+$content-max-width:  760px;
+$panel-width:        240px;
+
+// ─── Glow helpers ─────────────────────────────────────────────────────────────
+$glow-cyan:    0 0 8px rgba($cyan, 0.7), 0 0 20px rgba($cyan, 0.3);
+$glow-magenta: 0 0 8px rgba($magenta, 0.7), 0 0 20px rgba($magenta, 0.3);
+$glow-green:   0 0 8px rgba($green, 0.7), 0 0 20px rgba($green, 0.3);
+
+// ─── Transitions ──────────────────────────────────────────────────────────────
+$transition-fast:   0.15s ease;
+$transition-base:   0.25s ease;
+$transition-slow:   0.4s ease;
+
+// ─── Breakpoints ──────────────────────────────────────────────────────────────
+$bp-sm:  576px;
+$bp-md:  768px;
+$bp-lg:  1024px;
+$bp-xl:  1280px;
