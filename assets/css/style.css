@@ -871,6 +871,35 @@ code {
 .diff-section.intermediate .section-group-label::before { color: var(--inter); }
 .diff-section.hard .section-group-label::before { color: var(--hard); }
 
+/* writeups index: platform grouping */
+.platform-section {
+  margin-bottom: 56px;
+}
+
+.platform-heading {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  margin: 0 0 24px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.platform-heading::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
 /* ── FOOTER ── */
 .site-footer {
   padding: 32px 60px 28px;
