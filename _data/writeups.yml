@@ -59,6 +59,12 @@
     - { slug: sorcerer,        name: Sorcerer,         os: linux,   platform: pg  }
     - { slug: craft,           name: Craft,            os: windows, platform: pg  }
 
+- difficulty: ctf
+  machines:
+    - { slug: alquymia-ctf-2023,        name: Alquymia CTF 2023,           os: linux, platform: ctf }
+    - { slug: ctf-menina-cybersec-2023, name: Menina de Cyber Sec 2023,    os: linux, platform: ctf }
+    - { slug: ctf-menina-cybersec-2024, name: Menina de Cyber Sec 2024,    os: linux, platform: ctf }
+
 - difficulty: hard
   machines:
     # HTB
