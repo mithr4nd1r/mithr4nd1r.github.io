@@ -31,30 +31,6 @@ defaults:
       layout: page
 
   - scope:
-      path: "evasion"
-      type: pages
-    values:
-      layout: cyber
-      section: evasion
-  - scope:
-      path: "exploit-dev"
-      type: pages
-    values:
-      layout: cyber
-      section: exploit-dev
-  - scope:
-      path: "methodology"
-      type: pages
-    values:
-      layout: cyber
-      section: methodology
-  - scope:
-      path: "toolkit"
-      type: pages
-    values:
-      layout: cyber
-      section: toolkit
-  - scope:
       path: "web"
       type: pages
     values:
@@ -145,22 +121,6 @@ defaults:
       layout: cyber
       section: phishing
 
-  - scope:
-      path: "evasion/index.md"
-    values:
-      layout: page
-  - scope:
-      path: "exploit-dev/index.md"
-    values:
-      layout: page
-  - scope:
-      path: "methodology/index.md"
-    values:
-      layout: page
-  - scope:
-      path: "toolkit/index.md"
-    values:
-      layout: page
   - scope:
       path: "web/index.md"
     values:
